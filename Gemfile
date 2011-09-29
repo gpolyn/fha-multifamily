@@ -1,0 +1,48 @@
+source 'http://rubygems.org'
+
+gem 'rails', '3.1.0'
+
+# Bundle edge Rails instead:
+# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+
+gem 'activerecord-jdbcsqlite3-adapter'
+
+gem 'jruby-openssl'
+gem 'json'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
+
+gem 'haml'
+gem 'coffee-filter'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug'
+
+group :development, :test do
+  gem 'awesome_print', :require => 'ap'
+  gem 'rspec-rails', '~> 2.0'
+  # gem 'jasmine'
+  # gem 'rb-fsevent'
+  # gem 'growl_notify'
+  # gem 'guard'
+  # gem 'guard-coffeescript'
+  # gem 'guard-livereload'
+  # gem 'jasminerice'
+  gem 'jasmine', '1.2.0.rc1' #, :git=>'https://github.com/pivotal/jasmine-gem.git', :ref=>'5a7524ae9eaea4fe106a7aaa90ccfb1bc137abe7'
+  gem 'rails-backbone'
+end
+

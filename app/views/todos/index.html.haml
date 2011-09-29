@@ -1,0 +1,20 @@
+#todoapp
+  .title
+    %h1 Todos
+  .content
+    #create-todo
+      %input#new-todo{:placeholder => "What needs to be done?", :type => "text"}/
+      %span.ui-tooltip-top{:style => "display:none;"} Press Enter to save this task
+    #todos
+      %ul#todo-list
+    #todo-stats
+%ul#instructions
+  %li Double-click to edit a todo.
+
+:coffeescript
+  $ ->
+    TodoApp.appView = new TodoApp.AppView collection: new TodoApp.TodoList
+
+= render :partial =>"templates/item_template"
+= render :partial =>"templates/stats_template"
+

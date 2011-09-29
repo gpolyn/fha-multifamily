@@ -1,0 +1,19 @@
+<script id="stats-template" type="text/html">
+  {{#if total}}
+  <span class='todo-count'>
+    <span class='number'>{{remaining}}</span>
+    <span class='word'>{{pluralize remaining "item"}}</span>
+    left.
+  </span>
+  {{/if}}
+  {{#if done}}
+  <span class='todo-clear'>
+    <a href='#'>
+      Clear
+      <span class='number-done'>{{done}}</span>
+      completed
+      <span class='word-done'>{{pluralize done "item"}}</span>
+    </a>
+  </span>
+  {{/if}}
+</script>

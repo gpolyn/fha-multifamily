@@ -1,0 +1,10 @@
+table#apartment-income th, 
+table#apartment-income td
+{
+	border: 1px solid black;
+}
+
+span.required
+{
+	color: red;
+}

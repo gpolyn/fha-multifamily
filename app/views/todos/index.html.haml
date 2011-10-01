@@ -1,20 +1,46 @@
 #todoapp
-  .title
-    %h1 Todos
-  .content
-    #create-todo
-      %input#new-todo{:placeholder => "What needs to be done?", :type => "text"}/
-      %span.ui-tooltip-top{:style => "display:none;"} Press Enter to save this task
-    #todos
-      %ul#todo-list
-    #todo-stats
+	.title
+		%h1 Todos
+	.content
+		#income
+			%table#apartment-income
+				%thead
+					%tr
+						%th
+							bedrooms<span class="required">*</span>
+						%th
+							units<span class="required">*</span>
+						%th
+							square feet
+						%th
+							monthly rent<span class="required">*</span>
+						%th
+				%tbody
+					%tr#new-apartment-income
+						%td
+							%select.apartment-bedroom-count
+								- (0..4).each do |i|
+									%option{:value=>"#{i}"}=i
+						%td
+							%input.apartment-unit-count
+						%td
+							%input.apartment-square-feet
+						%td
+							%input.apartment-monthly-rent
+						%td
+							<a class="add-apartment-income">add</a>
+		#create-todo
+			%input#new-todo{:placeholder => "What needs to be done?", :type => "text"}/
+			%span.ui-tooltip-top{:style => "display:none;"} Press Enter to save this task
+		#todos
+			%ul#todo-list
+		#todo-stats
 %ul#instructions
-  %li Double-click to edit a todo.
+	%li Double-click to edit a todo.
 
 :coffeescript
-  $ ->
-    TodoApp.appView = new TodoApp.AppView collection: new TodoApp.TodoList
+	$ ->
+		TodoApp.appView = new TodoApp.AppView collection: new TodoApp.TodoList
 
-= render :partial =>"templates/item_template"
-= render :partial =>"templates/stats_template"
-
+= render :partial => "templates/item_template"
+= render :partial => "templates/stats_template"

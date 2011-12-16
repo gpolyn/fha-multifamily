@@ -1,0 +1,80 @@
+"no waiver","","","",100
+"maximum waiver","","","",315
+"standard waiver","","","",270
+"Hartford","CT","Boston","MA",270, 25540
+"Bangor","ME","Boston","MA",255,12620
+"Manchester","NH","Boston","MA",260,31700
+"Providence","RI","Boston","MA",270,39300
+"Burlington","VT","Boston","MA",256,15540
+"Boston","MA","Boston","MA",270,14460
+"Buffalo","NY","Buffalo","NY",270,15380
+"Albany","NY","Buffalo","NY",270,10580
+"New York","NY","New York","NY",270,35620
+"Philadelphia","PA","Philadelphia","PA",270,37980
+"Charleston","WV","Philadelphia","PA",263,16620
+"Camden","NJ","Philadelphia","PA",270,37980
+"Newark","NJ","Philadelphia","PA",270,35620
+"Pittsburgh","PA","Philadelphia","PA",265,38300
+"Wilmington","DE","Philadelphia","PA",270,37980
+"Baltimore","MD","Baltimore","MD",252,12580
+"Washington","DC","Baltimore","MD",260,47900
+"Richmond","VA","Baltimore","MD",232,40060
+"Greensboro","NC","Greensboro","NC",220,24660
+"Columbia","SC","Greensboro","NC",211,17900
+"Atlanta","GA","Atlanta","GA",227,12060
+"Louisville","KY","Atlanta","GA",216,31140
+"Knoxville","TN","Atlanta","GA",203,28940
+"Memphis","TN","Atlanta","GA",197,32820
+"Nashville","TN","Atlanta","GA",208,34980
+"San Juan","PR","Atlanta","GA",270,41980
+"US Virgin Islands","US Virgin Islands","Atlanta","GA",405,-1
+"Jacksonville","FL","Jacksonville","FL",225,27260
+"Birmingham","AL","Jacksonville","FL",200,13820
+"Jackson","MS","Jacksonville","FL",188,27140
+"Miami","FL","Jacksonville","FL",225,33100
+"Tampa","FL","Jacksonville","FL",238,45300
+"Chicago","IL","Chicago","IL",270,16980
+"Springfield","IL","Chicago","IL",254,44100
+"Indianapolis","IN","Chicago","IL",228,26900
+"Columbus","OH","Columbus","OH",225,18140
+"Cleveland","OH","Columbus","OH",245,17460
+"Cincinnati","OH","Columbus","OH",220,17140
+"Detroit","MI","Detroit","MI",270,19820
+"Grand Rapids","MI","Detroit","MI",228,24340
+"Minneapolis","MN","Minneapolis","MN",270,33460
+"Milwaukee","WI","Minneapolis","MN",254,33340
+"Fort Worth","TX","Fort Worth","TX",192,19100
+"Little Rock","AR","Fort Worth","TX",194,30780
+"New Orleans","LA","Fort Worth","TX",198,35380
+"Shreveport","LA","Fort Worth","TX",197,43340
+"Albuquerque","NM","Fort Worth","TX",224,10740
+"Dallas","TX","Fort Worth","TX",192,19100
+"Houston","TX","Fort Worth","TX",191,26420
+"Lubbock","TX","Fort Worth","TX",194,31180
+"San Antonio","TX","Fort Worth","TX",178,41700
+"Kansas City","KS","Kansas City","KS",255,28140
+"Des Moines","IA","Kansas City","KS",229,19780
+"Topeka","KS","Kansas City","KS",206,45820
+"St. Louis","MO","Kansas City","KS",261,41180
+"Omaha","NE","Kansas City","KS",216,36540
+"Oklahoma City","OK","Kansas City","KS",204,36420
+"Tulsa","OK","Kansas City","KS",202,46140
+"Denver","CO","Denver","CO",240,19740
+"Helena","MT","Denver","CO",223,25740
+"Fargo","ND","Denver","CO",220,22020
+"Sioux Falls","SD","Denver","CO",216,43620
+"Salt Lake City","UT","Denver","CO",229,41620
+"Casper","WY","Denver","CO",232,16220
+"Los Angeles","CA","Los Angeles","CA",270,31100
+"Santa Ana","CA","Los Angeles","CA",270,31100
+"San Diego","CA","Los Angeles","CA",270,41740
+"San Francisco","CA","San Francisco","CA",270,41860
+"Phoenix","AZ","San Francisco","CA",231,38060
+"Sacramento","CA","San Francisco","CA",270,40900
+"Honolulu","HI","San Francisco","CA",405,26180
+"Las Vegas","NV","San Francisco","CA",270,29820
+"Seattle","WA","Seattle","WA",270,42660
+"Anchorage","AK","Seattle","WA",405,11260
+"Boise","ID","Seattle","WA",242,14260
+"Portland","OR","Seattle","WA",270,38900
+"Spokane","WA","Seattle","WA",253,44060

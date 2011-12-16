@@ -1,0 +1,17 @@
+<script id="operating-income-template" type="text/x-handlebars-template">
+	<div id="gross-incomes">
+		gross commercial: <span id="gross-commercial-income">{{grossCommercialIncome}}</span>
+		gross residential: <span id="gross-residential-income">{{grossResidentialIncome}}</span>
+	</div>
+	<div id="occupancy-percentages">
+		<label for="commercial-occupancy-percent">commercial occupancy</label>
+		<input id="commercial-occupancy-percent" value="{{commercialOccupancyPercent}}">
+		<br/>
+		<label for="residential-occupancy-percent">residential occupancy</label>
+		<input id="residential-occupancy-percent" value="{{residentialOccupancyPercent}}">
+	</div>
+	<div id="effective-gross-incomes">
+		effective commercial: <span id="effective-gross-commercial-income">{{effectiveGrossCommercialIncome}}</span>
+		effective residential: <span id="effective-gross-residential-income">{{effectiveGrossResidentialIncome}}</span>
+	</div>
+</script>

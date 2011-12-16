@@ -1,0 +1,2 @@
+class Sec223fMultifamilyAcquisitionParametersInitializationSet < ActiveRecord::Base
+end

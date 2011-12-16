@@ -1,0 +1,3 @@
+class Sec223fMultifamilyNonElevatorStatLimitSet < ActiveRecord::Base
+  include Sec223fMultifamilyStatLimitSetValidations
+end

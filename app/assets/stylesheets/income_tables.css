@@ -1,5 +1,7 @@
-table#apartment-income th, 
-table#apartment-income td
+/*table#apartment-income th, 
+table#apartment-income td*/
+table th, 
+table td
 {
 	border: 1px solid black;
 }
@@ -7,4 +9,76 @@ table#apartment-income td
 span.required
 {
 	color: red;
+}
+
+/*table#apartment-income .editing {*/
+table .editing {
+	padding: 0;
+	border-bottom: 0;
+}
+
+/*table#apartment-income tr input*/
+table tr input
+{
+	width: 90px;
+}
+
+/*table#apartment-income .editing .display,*/
+/*table#apartment-income .edit {*/
+table .editing .display,
+table .edit {
+  display: none;
+}
+
+/*table#apartment-income .editing .edit {*/
+table .editing .edit {
+  display: block;
+}
+
+/*table#apartment-income .editing input {*/
+table .editing input {
+/*  width: 444px;
+  font-size: 24px;
+  font-family: inherit;
+  margin: 0;
+  line-height: 1.6em;
+  border: 0;
+  outline: none;
+  padding: 10px 7px 0px 27px;
+  border: 1px solid #999999;*/
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+}
+
+table#apartment-income .apartment-income-destroy {
+  position: absolute;
+  right: 5px;
+  top: 14px;
+  display: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: url(/assets/destroy.png) no-repeat 0 0;
+}
+
+table#apartment-income tr:hover .apartment-income-destroy {
+  display: block;
+}
+
+table#apartment-income .apartment-income-destroy{
+  background-position: 0 -20px;
+}
+
+#acquisition-costs input{
+	width: 100px;
+}
+
+input#mortgage-interest-rate {
+	width: 50px;
+}
+
+#acquisition-costs input[type=checkbox] {
+	width: 7.5px;
 }

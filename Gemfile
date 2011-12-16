@@ -9,6 +9,8 @@ gem 'activerecord-jdbcsqlite3-adapter'
 
 gem 'jruby-openssl'
 gem 'json'
+gem 'sec223f_acquisition'
+gem 'sec_223f_refinance'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -19,7 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+gem "activerecord-jdbcpostgresql-adapter"
 gem 'haml'
 gem 'coffee-filter'
 
@@ -31,10 +33,24 @@ gem 'coffee-filter'
 
 # To use debugger
 # gem 'ruby-debug'
+gem 'ruby-debug'
+
+gem 'recaptcha'
+
+group :test do
+	gem 'factory_girl_rails'
+	# gem 'capybara' # this fucks up rspec, at least -- may need to prefer webrat
+	# gem 'webrat'
+	gem 'cucumber-rails'
+    gem 'database_cleaner'
+	gem 'rspec', '2.6.0'
+	gem 'rack-test', '0.6.1'
+end
 
 group :development, :test do
   gem 'awesome_print', :require => 'ap'
   gem 'rspec-rails', '~> 2.0'
+  gem 'mocha'
   # gem 'jasmine'
   # gem 'rb-fsevent'
   # gem 'growl_notify'

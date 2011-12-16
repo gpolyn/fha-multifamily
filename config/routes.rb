@@ -1,6 +1,16 @@
 Fha2::Application.routes.draw do
   root :to => "todos#index"
   resources :todos
+  match 'sec_223f_refinance' => 'sec223f_refinance#loan', :via => :get
+  
+  namespace :api do
+    namespace :beta1 do
+      match 'sec223f_acquisition' => 'sec223f_acquisition#loan', :via => :post
+      # match 'api_keys/new' => 'api_key#new', :via => :get
+      resources :api_keys, :only=>[:new, :show, :create]
+    end
+  end
+    
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

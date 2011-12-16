@@ -4,6 +4,14 @@
 	.content
 		#income
 			%table#apartment-income
+				%caption.income-table
+					apartment income
+				%colgroup
+					%col#apartment-bedroom-count
+					%col#apartment-unit-count
+					%col#apartment-square-feet
+					%col#apartment-monthly-rent
+					%col#destroy
 				%thead
 					%tr
 						%th
@@ -29,6 +37,129 @@
 							%input.apartment-monthly-rent
 						%td
 							<a class="add-apartment-income">add</a>
+			%table#other-residential-income
+				%caption.income-table
+					other residential income
+				%colgroup
+					%col#other-residential-use
+					%col#other-residential-square-feet
+					%col#other-residential-monthly-rent
+					%col#destroy
+				%thead
+					%tr
+						%th
+							usage
+						%th
+							square feet
+						%th
+							monthly rent<span class="required">*</span>
+						%th
+				%tbody
+					%tr#new-other-income
+						%td
+							%input.other-residential-use
+						%td
+							%input.other-residential-square-feet
+						%td
+							%input.other-residential-monthly-rent
+						%td
+							<a class="add-other-income">add</a>
+			%table#commercial-income
+				%caption.income-table
+					commercial income
+				%colgroup
+					%col#commercial-use
+					%col#commercial-square-feet
+					%col#commercial-monthly-rent
+					%col#destroy
+				%thead
+					%tr
+						%th
+							usage
+						%th
+							square feet
+						%th
+							monthly rent<span class="required">*</span>
+						%th
+				%tbody
+					%tr#new-commercial-income
+						%td
+							%input.commercial-use
+						%td
+							%input.commercial-square-feet
+						%td
+							%input.commercial-monthly-rent
+						%td
+							<a class="add-commercial-income">add</a>
+			%table#residential-parking-income
+				%caption.income-table
+					residential parking income
+				%colgroup
+					%col#residential-parking-spaces
+					%col#residential-parking-indoor-or-outdoor
+					%col#residential-parking-total-square-feet
+					%col#residential-parking-monthly-fee
+					%col#destroy
+				%thead
+					%tr
+						%th
+							spaces<span class="required">*</span>
+						%th
+						
+						%th
+							total square feet
+						%th
+							monthly fee<span class="required">*</span>
+						%th
+				%tbody
+					%tr#new-residential-parking-income
+						%td
+							%input.residential-parking-spaces
+						%td
+							%select.residential-parking-type
+								- ['indoor', 'outdoor'].each do |i|
+									%option{:value=>"#{i}"}=i
+						%td
+							%input.residential-parking-square-feet
+						%td
+							%input.residential-parking-monthly-fee
+						%td
+							<a class="add-residential-parking-income">add</a>
+			%table#commercial-parking-income
+				%caption.income-table
+					commercial parking income
+				%colgroup
+					%col#commercial-parking-spaces
+					%col#commercial-parking-indoor-or-outdoor
+					%col#commercial-parking-total-square-feet
+					%col#commercial-parking-monthly-fee
+					%col#destroy
+				%thead
+					%tr
+						%th
+							spaces<span class="required">*</span>
+						%th
+						
+						%th
+							total square feet
+						%th
+							monthly fee<span class="required">*</span>
+						%th
+				%tbody
+					%tr#new-commercial-parking-income
+						%td
+							%input.commercial-parking-spaces
+						%td
+							%select.commercial-parking-type
+								- ['indoor', 'outdoor'].each do |i|
+									%option{:value=>"#{i}"}=i
+						%td
+							%input.commercial-parking-square-feet
+						%td
+							%input.commercial-parking-monthly-fee
+						%td
+							<a class="add-commercial-parking-income">add</a>
+		#loan-results
 		#create-todo
 			%input#new-todo{:placeholder => "What needs to be done?", :type => "text"}/
 			%span.ui-tooltip-top{:style => "display:none;"} Press Enter to save this task
@@ -41,6 +172,64 @@
 :coffeescript
 	$ ->
 		TodoApp.appView = new TodoApp.AppView collection: new TodoApp.TodoList
-
+		TodoApp.Collections.apartmentIncomes = new TodoApp.ApartmentIncomes
+		TodoApp.Views.aptIncomeView = new TodoApp.ApartmentIncomesView collection: TodoApp.Collections.apartmentIncomes
+		TodoApp.Collections.commercialParkingIncomes = new TodoApp.CommercialParkingIncomes
+		TodoApp.Views.commPking = new TodoApp.CommercialParkingIncomesView collection: TodoApp.Collections.commercialParkingIncomes
+		TodoApp.Collections.residentialParkingIncomes = new TodoApp.ResidentialParkingIncomes
+		TodoApp.residentialParking = new TodoApp.ResidentialParkingIncomesView collection: TodoApp.Collections.residentialParkingIncomes
+		TodoApp.Collections.otherResidentialIncomes = new TodoApp.OtherResidentialIncomes
+		TodoApp.otherResidentialIncomes = new TodoApp.OtherResidentialIncomesView collection: TodoApp.Collections.otherResidentialIncomes
+		TodoApp.Collections.commercialIncomes = new TodoApp.CommercialIncomes
+		TodoApp.commercialIncomes = new TodoApp.CommercialIncomesView collection: TodoApp.Collections.commercialIncomes
+		opex = new Store("operatingExpense").findAll()[0]
+		opexAttrs =
+			id:									  opex.id
+			total:                                opex.total
+			totalIsPercentOfEffectiveGrossIncome: opex.totalIsPercentOfEffectiveGrossIncome
+		TodoApp.opex = new TodoApp.OperatingExpense opexAttrs
+		TodoApp.operatingExpense = new TodoApp.OperatingExpenseView model: TodoApp.opex
+		attrs = _.clone(TodoApp.Collections)
+		if (item = new Store("operatingIncome").findAll()[0])
+			attrs.id = item.id
+			attrs.commercialOccupancyPercent = item.commercialOccupancyPercent
+			attrs.residentialOccupancyPercent = item.residentialOccupancyPercent
+		TodoApp.operatingIncome = new TodoApp.OperatingIncome attrs
+		TodoApp.operatingIncomeView = new TodoApp.OperatingIncomeView model: TodoApp.operatingIncome
+		opAttrs = {operatingIncome: TodoApp.operatingIncome, operatingExpense: TodoApp.opex}
+		TodoApp.Models.operating = new TodoApp.Operating opAttrs
+		TodoApp.Views.operating = new TodoApp.OperatingView model: TodoApp.Models.operating
+		TodoApp.Models.affordability = TodoApp.Affordability.getInstance()
+		TodoApp.Views.affordability = new TodoApp.AffordabilityView model: TodoApp.Models.affordability
+		TodoApp.Models.metropolitanArea = TodoApp.MetropolitanArea.getInstance()
+		TodoApp.Views.metropolitanArea = new TodoApp.MetropolitanAreaView model: TodoApp.Models.metropolitanArea
+		TodoApp.Models.loanCosts = TodoApp.Sec223fAcquisitionCosts.getInstance()
+		TodoApp.Views.loanCostView = new TodoApp.Sec223fCostsView model: TodoApp.Models.loanCosts
+		TodoApp.Collections.criteria = new TodoApp.LoanCriteria
+		attrs =
+			operating:        TodoApp.Models.operating
+			affordability:    TodoApp.Models.affordability
+			metropolitanArea: TodoApp.Models.metropolitanArea
+			criteria:         TodoApp.Collections.criteria
+			loanCosts:        TodoApp.Models.loanCosts
+		TodoApp.Models.loanService = new TodoApp.LoanService attrs
+	
+/ TodoApp.Views.criteria = new TodoApp.CriteriaView collection: TodoApp.Collections.criteria
+		
+		
+/ attrs = {model: new TodoApp.LoanCriterion({loanAmount: 200}), templateId: "#loan-criterion", id: "criterion-1"}
+/ TodoApp.Models.loanCosts.set {purchasePrice: 405, mortgageInterestRate: 5.56}, {silent: true}
+/ TodoApp.operatingIncomeView = new TodoApp.OperatingIncomeView model: TodoApp.operatingIncome		
+				
 = render :partial => "templates/item_template"
 = render :partial => "templates/stats_template"
+= render :partial => "templates/apartment_income_source_template"
+= render :partial => "templates/parking_income_source_template"
+= render :partial => "templates/simple_income_source_template"
+= render :partial => "templates/operating_expense_template"
+= render :partial => "templates/operating_income_template"
+= render :partial => "templates/sec223f_acquisition_costs_template"
+= render :partial => "templates/affordability"
+= render :partial => "templates/metropolitan_area"
+= render :partial => "templates/loan_criterion"
+= render :partial => "templates/criteria"

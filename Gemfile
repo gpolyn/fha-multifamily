@@ -5,9 +5,10 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'activerecord-jdbcsqlite3-adapter'
+# gem 'activerecord-jdbcsqlite3-adapter'
+gem 'pg'
 
-gem 'jruby-openssl'
+# gem 'jruby-openssl'
 gem 'json'
 gem 'sec223f_acquisition'
 gem 'sec_223f_refinance'
@@ -21,7 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem "activerecord-jdbcpostgresql-adapter"
+# gem "activerecord-jdbcpostgresql-adapter"
 gem 'haml'
 gem 'coffee-filter'
 
@@ -33,7 +34,7 @@ gem 'coffee-filter'
 
 # To use debugger
 # gem 'ruby-debug'
-gem 'ruby-debug'
+gem 'ruby-debug19'
 
 gem 'recaptcha'
 
@@ -48,7 +49,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'awesome_print', :require => 'ap'
+  # gem 'awesome_print', :require => 'ap'
   gem 'rspec-rails', '~> 2.0'
   gem 'mocha'
   # gem 'jasmine'
@@ -58,7 +59,7 @@ group :development, :test do
   # gem 'guard-coffeescript'
   # gem 'guard-livereload'
   # gem 'jasminerice'
-  gem 'jasmine', '1.2.0.rc1' #, :git=>'https://github.com/pivotal/jasmine-gem.git', :ref=>'5a7524ae9eaea4fe106a7aaa90ccfb1bc137abe7'
+  # gem 'jasmine', '1.2.0.rc1' #, :git=>'https://github.com/pivotal/jasmine-gem.git', :ref=>'5a7524ae9eaea4fe106a7aaa90ccfb1bc137abe7'
   gem 'rails-backbone'
 end
 

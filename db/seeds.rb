@@ -27,9 +27,7 @@ Sec207223fMortgageInsurancePremium.create!(:without_lihtc_annual=>0.45, :with_li
 
 require 'csv'
 
-base_city_hcps = File.expand_path(File.join(Rails.root, 'db/base_city_hcps.csv'))
-
- CSV.open(base_city_hcps, "r") do |row| 
+ CSV.foreach(File.join(Rails.root, 'db/base_city_hcps.csv')) do |row| 
      HighCostPercentage.create!(:city => row[0], 
                                 :state_abbreviation => row[1],
                                 :value => row[4],

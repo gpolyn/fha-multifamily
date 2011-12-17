@@ -15,7 +15,7 @@ Sec223fMultifamilyElevatorStatLimitSet.create!(:zero_bedroom=>53171,:one_bedroom
                                                :three_bedroom=>91546, :four_bedroom=>103410)
 Sec223fMultifamilyNonElevatorStatLimitSet.create!(:zero_bedroom=>46079,:one_bedroom=>51043,:two_bedroom=>60969,
                                                   :three_bedroom =>75149, :four_bedroom=>85077)
-FhaLeverageRatioSet.create!(:subsidized=> 87, :affordable => 85, :market=>83.33, :cash_out_refinance=>80)
+FhaLeverageRatioSet.create!(:subsidized=> 87, :affordable => 85, :market=>83.3, :cash_out_refinance=>80)
 attrs = {:minimum_residential_occupancy_percent=>85, :maximum_commercial_occupancy_percent=>80,
          :maximum_market_rate_residential_occupancy_percent=>93, 
          :maximum_affordable_residential_occupancy_percent=>95}

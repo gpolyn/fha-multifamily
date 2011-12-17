@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'spec/lib/helpers'
+require File.dirname(__FILE__) + '/helpers'
 
 RSpec.configure do |c|
   c.include Helpers
@@ -335,7 +335,7 @@ describe "Sec 223f purchase" do
   end
   
   let(:minimum_params) {minimum_acquisition_params}
-  let(:min_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(minimum_acquisition_params)).to_json)}
+  let(:min_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(minimum_acquisition_params)).to_json)['loan']}
   
   it_behaves_like "a generic sec 223f"
   
@@ -396,7 +396,7 @@ describe "Sec 223f purchase" do
     
     context "maximum parameters supplied" do
       let(:maximum_params) {maximum_acquisition_params}
-      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_acquisition_params)).to_json)}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_acquisition_params)).to_json)['loan']}
       
       it "should set criterion 7" do
         params = maximum_params['loanParameters']
@@ -443,7 +443,7 @@ describe "Sec 223f refinance" do
   end
   
   let(:minimum_params) {minimum_refinance_params}
-  let(:min_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(minimum_refinance_params)).to_json)}
+  let(:min_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(minimum_refinance_params)).to_json)['loan']}
   
   it_behaves_like "a generic sec 223f"
   

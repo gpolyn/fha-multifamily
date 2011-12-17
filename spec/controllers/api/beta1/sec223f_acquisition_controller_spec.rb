@@ -21,7 +21,9 @@ describe Api::Beta1::Sec223fAcquisitionController, "#loan" do
   end
   
   describe "success" do
+    
     it "should be a success" do
+      stub_out_api_key_before_and_after_filtering
       raw_post :loan, {}, minimum_params.to_json
       response.should be_success
     end
@@ -34,6 +36,7 @@ describe Api::Beta1::Sec223fAcquisitionController, "#loan" do
       params[:affordability] = true
       params[:metropolitan_area_waiver] = "US Moonbase, The Moon"
       params[:mortgage_interest_rate] = "invalid value, data type"
+      stub_out_api_key_before_and_after_filtering
       raw_post :loan, {}, params.to_json
     end
     
@@ -50,6 +53,7 @@ describe Api::Beta1::Sec223fAcquisitionController, "#loan" do
     
     before(:each) do
       Sec223fAcquisitionApiWrapper.should_receive(:new).and_raise(ActiveRecord::ActiveRecordError)
+      stub_out_api_key_before_and_after_filtering
       raw_post :loan, {}, minimum_params.to_json
     end
     
@@ -70,6 +74,11 @@ describe Api::Beta1::Sec223fAcquisitionController, "#loan" do
     response
   end
   
+  def stub_out_api_key_before_and_after_filtering
+    @controller.stub(:check_for_valid_key)
+    @controller.stub(:handle_api_key_times_used_and_update_response_header)
+  end
+  
   private
   
   def minimum_params
@@ -80,6 +89,7 @@ describe Api::Beta1::Sec223fAcquisitionController, "#loan" do
     params['purchase_price_of_project'] = 9_750_000
     params['loan_request'] = 8_750_000
     params['metropolitan_area_waiver'] = 'New York, NY'
+    params['annual_replacement_reserve_per_unit'] = 250
     
     mix = {}
     params['spaceUtilization'] = {'apartment' => {'unitMix'=> mix}}

@@ -1,0 +1,229 @@
+.column
+	#docupage
+		%h1 
+			API: Sec.223(f) Acquisition
+		%h2 
+			URI/Method
+			%table
+				%tbody
+					%tr
+						%th
+							Resource/URI
+						%th
+							GET
+						%th
+							POST
+						%th
+							PUT
+						%th
+							DELETE
+					%tr
+						%th
+							<code>/api/beta1/sec223f_acquisition</code>
+						%th
+							&#151
+						%th
+							Provide parameters to receive loan
+						%th
+							&#151
+						%th
+							&#151
+		%h2 
+			Attributes
+		%h3
+			Required
+		%ul
+			%li
+				<code>loan_request</code> desired loan amount &#8805; 0
+			%li
+				<code>affordability</code> one of the following:
+				%ul
+					%li
+						"subsidized" 90% or greater rental assistance
+					%li
+						"affordable" (from <a href="http://www.hud.gov/offices/adm/hudclips/letters/
+						mortgagee/files/10-21ml.pdf#page=2" target="_blank">HUD Mortgage Letter 2010-21</a>) 
+						"...projects that have a recorded regulatory agreement in effect for at least 15 years
+						after final endorsement, (b) projects that meet at least the minimum Low Income Housing Tax Credit
+						(LIHTC) restrictions of 20% of units at 50% of the Area Median Income (AMI), or
+						40% of units at 60% of AMI, with economic rents (i.e. the portion paid by the
+						tenants) on those units no greater than Low Income Housing Tax Credit rents, and (c)
+						mixed income projects if the minimum low income unit rent and occupancy
+						restrictions and regulatory agreement meet the above criteria."
+					%li
+						"market" neither affordable or subsidized
+			%li
+				<code>purchase_price_of_project</code> amount &#8805; 0
+			%li
+				<code>metropolitan_area_waiver</code> HUD loan proceeds on a per-unit
+				basis vary depending on a project's <a href="http://www.hud.gov/offices/adm/hudclips/letters/mortgagee/files/10-31ml.pdf" target="_blank">metropolitan area</a>. 
+				Where no metropolitan area applies or 
+				when higher proceeds are sought by special request to HUD, other waiver settings may be appropriate.
+				%ul
+					%li
+						"maximum waiver" obtains the maximum standard percentage available (&#8805; percentage under 
+						"standard waiver",but may not be greater than the percentage available in the 
+						applicable metropolitan area)
+					%li
+						"standard waiver" may not be greater than the percentage amount available in the applicable
+						metropolitan area (&#8805; 100%)
+					%li
+						"no waiver" applicable when no metropolitan area applies (100%)
+				%table
+					%tbody
+						%tr
+							%th
+								- @hcps[0..18].each do |hcp|
+									<li>"#{hcp}"</li>
+							%th
+								- @hcps[19..37].each do |hcp|
+									<li>"#{hcp}"</li>
+							%th
+								- @hcps[38..56].each do |hcp|
+									<li>"#{hcp}"</li>
+							%th
+								- @hcps[57..76].each do |hcp|
+									<li>"#{hcp}"</li>
+				%ul
+					At least total five units from any combination of the following unit categories are required.
+					- ["number_of_no_bedroom_units", "number_of_one_bedroom_units", "number_of_two_bedroom_units", "number_of_three_bedroom_units", "number_of_four_or_more_bedroom_units"].each do |br_type|
+						<li><code>#{br_type}</code> integer &#8805; 0</li>
+			%li
+				<code>mortgage_interest_rate</code> expressed in percentage terms, including the
+				current standard HUD GNMA annual servicing fee of 0.25 (&#8805; 0)
+			%li
+				<code>term_in_months</code> expressed as a positive integer less than 420 -- any
+				greater values will result in an error
+			%li
+				<code>annual_replacement_reserve_per_unit</code> the 
+				<a href="http://www.hud.gov/offices/adm/hudclips/letters/mortgagee/files/10-21ml.pdf#page=7" target="_blank">
+				current HUD minimum</a> is $250 -- any lesser value will result in an error.
+			%li
+				<code>gross_residential_income</code> annual income before vacancy from all non-commercial
+				sources: apartment, parking and other income (&#8805; 0)
+			%li
+				<code>residential_occupancy_percent</code> HUD minimum for the program is 85.00 -- any lesser
+				value less will result in an error. The maximum percent allowed depends on project affordability: for
+				market projects it is 93.00, while for subsidized and affordable projects it is 95.00. In case
+				the given percent exceeds the applicable maximum, only the maximum will be applied to
+				<code>gross_residential_income</code> in the determination of effective gross income.
+			%li
+				<code>operating_expenses</code> a non-negative value expressed in absolute dollar terms <i>or</i> as 
+				a percent of effective gross income (see <code>operating_expenses_is_percent_of_effective_gross_income</code>
+				below.) If properly expressed as a percent of effective gross income, the maximum is 100.00.
+		%h3
+			Optional
+			%ul
+				%li
+					%code="is_elevator_project"
+					<code>true</code> or <code>false</code> (<code>false</code> when omitted)
+				%li
+					%code="operating_expenses_is_percent_of_effective_gross_income"
+					when <code>true</code>, <code>operating_expenses</code> are taken as a percentage of effective gross
+					income. Otherwise, if <code>false</code>, or omitted, <code>operating_expenses</code> are taken in 
+					absolute dollar terms.
+				%li
+					%code="value_in_fee_simple"
+					When omitted, set to the <code>purchase_price_of_project</code> value given. (&#8805; 0)
+				%li
+					%code="gross_commercial_income"
+					annual income before vacancy from all non-residential sources: commercial and parking
+					(&#8805; 0)
+				%li
+					%code="residential_occupancy_percent"
+					HUD maximum for the program is 80.00. In case the given percent exceeds the maximum, 
+					only the maximum will be applied to <code>gross_commercial_income</code> in the determination 
+					of effective gross income (&#8805; 0).
+				%li
+					%code="repairs_and_improvements"
+					(&#8805; 0)
+				%li
+					%code="initial_deposit_to_replacement_reserve"
+					Amount HUD will require for initial deposit to replacement reserve fund.
+					(&#8805; 0)
+				%li
+					%code="replacement_reserves_on_deposit"
+					Replacement reserves currently on deposit with the project.
+					(&#8805; 0)
+				%li
+					%code="major_movable_equipment"
+					Value estimated for such items at the project.
+					(&#8805; 0)
+				%li
+					%code="cost_containment_mortgage_deduction"
+					(&#8805; 0)
+				%li
+					%code="annual_special_assessment"
+					(&#8805; 0)
+				%li
+					%code="excess_unusual_land_improvement"
+					(&#8805; 0)
+				%li
+					%code="unpaid_balance_of_special_assessments"
+					(&#8805; 0)
+				%li
+					%code="warranted_price_of_land"
+					(&#8805; 0)
+				%li
+					%code="gross_apartment_square_feet"
+					(&#8805; 0)
+				%li
+					%code="gross_other_square_feet"
+					(&#8805; 0)
+				%li
+					%code="gross_commercial_square_feet"
+					(&#8805; 0)
+				%li
+					%code="indoor_residential_parking_square_feet"
+					(&#8805; 0)
+				%li
+					%code="indoor_commercial_parking_square_feet"
+					(&#8805; 0)
+				%li
+					%code="outdoor_parking_discount_percent"
+					The percent by which the value of developed outdoor parking square footage may
+					be of lesser value than all other developed project square footage 
+					(&#8805; 0, 100 &#8805;)
+				%li
+					%code="outdoor_residential_parking_square_feet"
+					(&#8805; 0)
+				%li
+					%code="outdoor_commercial_parking_square_feet"
+					(&#8805; 0)
+				%li
+					%code="financing_fee"
+					a non-negative value expressed in absolute dollar terms <i>or</i> as 
+					a percent of the loan (see <code>financing_fee_is_percent_of_loan</code>
+					below.) If properly expressed as a percent of the loan, the maximum is 100.00.
+					(&#8805; 0)
+				%li
+					%code="financing_fee_is_percent_of_loan"
+					when <code>true</code>, <code>financing_fee</code> is taken as a percentage of the loan. Otherwise, 
+					if <code>false</code>, or omitted, <code>financing_fee</code> is taken in absolute dollar terms.
+				%li
+					%code="title_and_recording"
+					a non-negative value expressed in absolute dollar terms <i>or</i> as 
+					a percent of the loan (see <code>title_and_recording_is_percent_of_loan</code>
+					below.) If properly expressed as a percent of the loan, the maximum is 100.00.
+					(&#8805; 0)
+				%li
+					%code="title_and_recording_is_percent_of_loan"
+					when <code>true</code>, <code>financing_fee</code> is taken as a percentage of the loan. Otherwise, 
+					if <code>false</code>, or omitted, <code>financing_fee</code> is taken in absolute dollar terms.
+				%li
+					%code="legal_and_organizational"
+					Part of loan transaction costs.
+					(&#8805; 0)
+				%li
+					%code="third_party_reports"
+					Part of loan transaction costs.
+					(&#8805; 0)
+				%li
+					%code="survey"
+					Part of loan transaction costs.
+					(&#8805; 0)
+				%li
+					%code="other"
+					Part of loan transaction costs.
+					(&#8805; 0)
+				

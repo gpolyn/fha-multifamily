@@ -5,6 +5,7 @@ module Refinance
     flatter_hash = input.convert_to_first_level
     
     leverage = nil
+    lrs = nil
     
     if flatter_hash[:affordability]
       lrs = FhaLeverageRatioSet.last
@@ -31,12 +32,15 @@ module Refinance
 
     criterion_3 = {:value_in_fee_simple => project_value, :percent_multiplier => leverage}
     
+    [:excess_unusual_land_improvement, :cost_containment_mortgage_deduction,
+     :unpaid_balance_of_special_assessments].each {|val| criterion_3[val] = flatter_hash[val] }
+    
     criterion_4 = {}
     
     begin
       if flatter_hash[:metropolitan_area_waiver]
         hcp = HighCostPercentage.get_value flatter_hash[:metropolitan_area_waiver]
-
+        
         criterion_4[:high_cost_percentage] = unless hcp
           self.metropolitan_area_is_in_error = true
           nil
@@ -53,7 +57,8 @@ module Refinance
     [:number_of_no_bedroom_units, :number_of_one_bedroom_units, :number_of_two_bedroom_units, 
      :number_of_three_bedroom_units, :number_of_four_or_more_bedroom_units, :project_value,
      :warranted_price_of_land, :is_elevator_project, :outdoor_residential_parking_square_feet,
-     :indoor_residential_parking_square_feet, :outdoor_commercial_parking_square_feet,
+     :indoor_residential_parking_square_feet, :outdoor_commercial_parking_square_feet, 
+     :unpaid_balance_of_special_assessments,
      :indoor_commercial_parking_square_feet, :outdoor_parking_discount_percent,
      :gross_apartment_square_feet, :gross_other_square_feet, :percent_multiplier,
      :gross_commercial_square_feet].each {|val| criterion_4[val] = flatter_hash[val] }
@@ -76,9 +81,10 @@ module Refinance
      :residential_occupancy_percent].each {|val| criterion_5[val] = flatter_hash[val]}
 
 		# criterion 10
-    criterion_10 = {}
+		cash_out_pct = lrs ? lrs.cash_out_refinance : nil
+    criterion_10 = {:percent_multiplier=>cash_out_pct}
     
-    [:percent_multiplier, :existing_indebtedness, :repairs, :survey, :other, :financing_fee,
+    [:existing_indebtedness, :repairs, :survey, :other, :financing_fee, :value_in_fee_simple,
      :title_and_recording_is_percent_of_loan, :title_and_recording, :financing_fee_is_percent_of_loan,
      :legal_and_organizational, :initial_deposit_to_replacement_reserve, :third_party_reports,
      :major_movable_equipment, :replacement_reserves_on_deposit].each {|val| criterion_10[val] = flatter_hash[val]}

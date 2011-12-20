@@ -1,3 +1,185 @@
 // Place all the styles related to the api/Application controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+* {
+	font-size:100.01%
+}
+html {
+	font-size:62.5%;
+}
+body {
+	margin:0;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	background:#222;
+	min-width:980px;
+}
+form, fieldset {
+	margin:0;
+	padding:0;
+	border:0;
+}
+a {
+	color: #6b9029;
+	outline: none;
+	text-decoration: none;
+	border-bottom: 1px dotted #91b145;
+}
+a:hover {
+	text-decoration: none;
+	border-bottom-style: none;
+}
+#wrapper {
+	width:100%;
+	margin:0 auto;
+	overflow:hidden;
+}
+#header {
+	width:100%;
+	font-family:Helvetica, Arial, sans-serif;
+	padding: 0;
+	border-bottom: 7px solid #7da730;
+	background: black url(http://chargify.com/images/interface/sitesprite2.png) repeat-x 0 -10px;
+}
+#header .logo {
+	display:block;
+	width: 126px;
+	height: 47px;
+	overflow:hidden;
+	text-indent:-9999px;
+	# background-image: url(http://chargify.com/images/interface/sitesprite1.png);
+	background-position: -10px -10px;
+	background-repeat:no-repeat;
+	position: relative;
+	top: 13px;
+	margin-right: 0;
+	margin-left: 0;
+	margin-bottom: 0;
+}
+#header .logo a {
+	height:100%;
+	display:block;
+}
+.inner {
+	padding-bottom: 0px;
+	width: 940px;
+	margin:0 auto;
+	overflow:hidden;
+}
+.clearfix:after {                                 /* add .clearfix class to clear floats after an element */
+	clear: both;                                    /* (IE version is in ie6-fixes.css) */
+	content: ".";
+	display: block;
+	font-size: 0;
+	height: 0;
+	visibility: hidden;
+}
+#content {
+	width:100%;
+}
+.container {
+	display:inline-block;
+	padding-left: 0;
+	padding-bottom: 25px;
+	padding-right: 0;
+	padding-top: 27px;
+	width:100%;
+	background:#fff url(http://chargify.com/images/interface/bg-content2.gif) repeat-x;
+}
+#content h1 {
+	letter-spacing: -1px;
+	font:bold 4.0em Helvetica, Arial, sans-serif;
+	margin:0 0 8px;
+	text-align:center;
+}
+#content h2 {
+	font:bold 2.6em Helvetica, Arial, sans-serif;
+	margin:0 0 24px;
+	color:#7ea730;
+	text-align:center;
+}
+#content h3, .about-left-column h3 {
+	font:bold 1.6em Helvetica, Arial, sans-serif;
+	margin:0 0 7px;
+}
+#content h3 a {
+	color: #91b145;
+	border-bottom-style: none;
+}
+#content h3 a:hover {
+	color: black;
+}
+.container p, .about-left-column p {
+	font-size:1.4em;
+	line-height: 20px;
+	margin: 10px 0;
+}
+.sidebar {
+	float:left;
+	width:238px;
+	# background: url(http://chargify.com/images/interface/bg-sidebar.gif) repeat-y;
+}
+.sidebar .top {
+	# background: url(http://chargify.com/images/interface/bg-sidebar-top.gif) no-repeat;
+}
+.sidebar .bottom {
+	# background: url(http://chargify.com/images/interface/bg-sidebar-bt2.gif) no-repeat 0 100%;
+	height:1%;
+	overflow:hidden;
+	padding: 21px 0 69px;
+}
+.column {
+	float:right;
+	width:692px;
+}
+#content .column .text h3 {
+	font-size:1.4em;
+}
+
+#table_of_contents                    {font-family: Helvetica, Arial, sans-serif; font-size: 14px; width: 220px;}
+#table_of_contents ul                 {list-style: none; margin: 0; padding: 0;}
+#table_of_contents li                 {margin: 0 0 21px 0; }
+#table_of_contents li strong          {font-size: 16px; color: #333333; line-height: 21px; }
+#table_of_contents ul ul              {margin: 0 0 0 21px;}
+#table_of_contents li li              {font-size: 14px; font-weight: normal; color: #333333; margin: 0; padding: 0; line-height: 21px; text-indent: -14px;}
+#table_of_contents li li a            {color: #6B9029; text-decoration: none; border: none;}
+#table_of_contents li li a.current    {color: #4c4c4c; font-weight: bold;}
+#table_of_contents li li a:hover      {color: #6B9029; text-decoration: underline;}
+#docupage                             {font-family: Helvetica, Arial, sans-serif; font-size: 14px; padding: 21px 0 0 12px;}
+#docupage h1                          {font-size: 28px; line-height: 42px; text-align: left; margin: 0 0 21px 0; text-shadow: #ccc 1px 1px 0;}
+#docupage h2                          {font-size: 18px; line-height: 21px; text-align: left; margin: 0 0 21px 0; text-shadow: #ccc 1px 1px 0;}
+#docupage h3                          {font-size: 16px; line-height: 21px; text-align: left; margin: 21px 0;}
+#docupage h5                          {font-size: 0.9em;}
+
+#docupage h1.title                    {line-height: 1; padding-bottom: 14px;}
+#docupage h2.section                  {float: right; margin: -1px 0 0 0; line-height: 1; text-align: right; font-weight: normal;}
+#docupage h2.section span             {display: block; font-size: 10px; line-height: 1; font-weight: normal; text-align: right; color: #aaa; text-shadow: none;}
+
+#docupage p, #docupage li,
+#docupage td, #docupage th,
+#docupage dd                          {font-size: 1em; color: #333333; line-height: 1.5em;}
+
+#docupage p,
+#docupage ul,
+#docupage ol,
+#docupage table                       { margin: 0 0 1.5em 0;}
+
+#docupage p img                       {display: block; margin: 0 auto;}
+
+#docupage table                       {width:100%;border-collapse: collapse; border-spacing: 0;}
+#docupage td, #docupage th            {text-align: left; padding: 11px 10px 9px 10px; border: 1px solid #ccc;}
+#docupage th                          {vertical-align: bottom; padding-top: 10px; background: #ccc; border-bottom: 1px solid #aaa;}
+#docupage td                          {vertical-align: top;}
+
+#docupage ol li ol                    {margin: 0;}
+#docupage ol li                       {list-style:decimal;}
+#docupage ol ol li                    {list-style:lower-alpha;}
+#docupage ol ol ol li                 {list-style:lower-roman;}
+
+#docupage pre, #docupage code         {background-color: #333; font-family: 'Bitstream Vera Sans Mono', "Monaco", Courier, monospace; color: #fff; font-size: 12px;}
+#docupage .gist pre,
+#docupage .gist code                  {color: #333;}
+#docupage pre                         {padding: 20px; margin: 1.5em 0; overflow:auto;}
+#docupage code                        {padding: 0 2px;}
+
+#docupage #breadcrumbs p              { margin: 0 0 35px 0; font-size: 16px; line-height: 28px;}

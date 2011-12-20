@@ -1,5 +1,7 @@
 class Api::ApplicationController < ApplicationController
   
+  # layout "api"
+  
   before_filter :check_for_valid_key
   after_filter :handle_api_key_times_used_and_update_response_header
   

@@ -3,15 +3,21 @@ class Api::Beta1::DocumentationController < ApplicationController
   respond_to :html
   
   def sec223f_refinance
-    # TODO
+    @hcps = metropolitan_areas
   end
   
   def sec223f_acquisition
-    # TODO
+    @hcps = metropolitan_areas
   end
   
   def sec223f
-    @hcps = ["Albany, NY",
+    @hcps = metropolitan_areas
+  end
+  
+  private
+  
+  def metropolitan_areas
+    ["Albany, NY",
     "Albuquerque, NM",
     "Anchorage, AK",
     "Atlanta, GA",

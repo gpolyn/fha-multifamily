@@ -2,6 +2,10 @@ module Refinance
   
   def initialize(input={})
     input.recursive_symbolize_keys!
+    
+    lease = input[:lease].dup if input[:lease]
+    abatement = input[:tax_abatement].dup if input[:tax_abatement]
+    
     flatter_hash = input.convert_to_first_level
     
     leverage = nil
@@ -91,13 +95,33 @@ module Refinance
     
     criterion_10[:first_year_mortgage_insurance_premium_rate] = mip.without_lihtc_initial
     criterion_10[:exam_fee_rate] = Sec223fMultifamilyAcquisitionParametersInitializationSet.last.exam_fee_rate
-
+    
+    criterion_11 = if params_include_those_requiring_criterion_11?(flatter_hash)
+      [:gifts, :grants, :private_loans, :public_loans, :tax_credits].inject({}) do |result, ele|
+        result[ele] = flatter_hash[ele] if flatter_hash[ele]
+        result
+      end
+    end
+    
     set_apartment_stat_limits flatter_hash[:is_elevator_project]
 
     attrs = {:criterion_3 => criterion_3, :criterion_4 => criterion_4, :criterion_5 => criterion_5,
              :loan_request => loan_request, :criterion_10=>criterion_10,
              :minimum_annual_replacement_reserve_per_unit => 250, # maybe add to initialization domain, later
              :annual_replacement_reserve_per_unit => flatter_hash[:annual_replacement_reserve_per_unit]}
+    
+    attrs[:lease] = lease if lease
+    attrs[:tax_abatement] = abatement if abatement
+
+    if criterion_11
+      criterion_11[:unpaid_balance_of_special_assessment] = flatter_hash[:unpaid_balance_of_special_assessments]
+      criterion_11[:cost_containment_mortgage_deduction] = flatter_hash[:cost_containment_mortgage_deduction]
+      criterion_11[:excess_unusual_land_improvement] = flatter_hash[:excess_unusual_land_improvement]
+      criterion_11.merge!(criterion_10)
+      criterion_11[:value_in_fee_simple] = criterion_3[:value_in_fee_simple]
+      attrs[:criterion_11] = criterion_11
+    end
+    
     self.sec223f_refinance = Sec223fRefinance::Sec223fRefinance.new attrs
   end
   
@@ -107,7 +131,10 @@ module Refinance
   
   def valid?
     return false unless sec223f_refinance
-    sec223f_refinance.valid? && !affordability_is_in_error && !metropolitan_area_is_in_error
+    lease_valid = (sec223f_refinance.lease && !sec223f_refinance.lease.valid?) ? false : true
+    tax_abatement_valid = (sec223f_refinance.tax_abatement && !sec223f_refinance.tax_abatement.valid?) ? false : true
+    sec223f_refinance.valid? && lease_valid && tax_abatement_valid && 
+    !affordability_is_in_error && !metropolitan_area_is_in_error
   end
   
   def errors_to_json
@@ -161,6 +188,11 @@ module Refinance
   end
   
   private
+  
+  def params_include_those_requiring_criterion_11?(params)
+    params[:gifts] || params[:grants] || params[:private_loans] ||
+    params[:public_loans] || params[:tax_credits]
+  end
   
   def true_false_or_nil?(val)
     val == true || val == false || val == nil

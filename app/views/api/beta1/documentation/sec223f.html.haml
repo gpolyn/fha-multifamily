@@ -28,20 +28,21 @@
 						&#151
 					%th
 						&#151
-		%h2 
-			Attributes
-		%h3
-			Required
+		%h2 Attributes
+		%h3 Required
 		%ul
 			%li
-				<code>loan_request</code> desired loan amount &#8805; 0
+				%code loan_request
+				(&#8805; 0)
 			%li
-				<code>affordability</code> one of the following:
+				%code affordability
 				%ul
 					%li
-						"subsidized" 90% or greater rental assistance
+						%code.parameter "subsidized" 
+						90% or greater rental assistance
 					%li
-						"affordable" (from <a href="http://www.hud.gov/offices/adm/hudclips/letters/
+						%code.parameter "affordable" 
+						(from <a href="http://www.hud.gov/offices/adm/hudclips/letters/
 						mortgagee/files/10-21ml.pdf#page=2" target="_blank">HUD Mortgage Letter 2010-21</a>) 
 						"...projects that have a recorded regulatory agreement in effect for at least 15 years
 						after final endorsement, (b) projects that meet at least the minimum Low Income Housing Tax Credit
@@ -51,179 +52,610 @@
 						mixed income projects if the minimum low income unit rent and occupancy
 						restrictions and regulatory agreement meet the above criteria."
 					%li
-						"market" neither affordable or subsidized
+						%code.parameter "market" 
+						neither affordable or subsidized
 			%li
-				<code>purchase_price_of_project</code> amount &#8805; 0
+				%code purchase_price_of_project
+				(&#8805; 0)
 			%li
-				<code>metropolitan_area_waiver</code> HUD loan proceeds on a per-unit
+				%code metropolitan_area_waiver
+				HUD loan proceeds on a per-unit
 				basis vary depending on a project's <a href="http://www.hud.gov/offices/adm/hudclips/letters/mortgagee/files/10-31ml.pdf" target="_blank">metropolitan area</a>. 
 				Where no metropolitan area applies or 
 				when higher proceeds are sought by special request to HUD, other waiver settings may be appropriate.
 				%ul
 					%li
-						"maximum waiver" obtains the maximum standard percentage available (&#8805; percentage under 
-						"standard waiver",but may not be greater than the percentage available in the 
-						applicable metropolitan area)
+						%code.parameter "maximum waiver" 
+						obtains the maximum standard percentage available (greater than the percentage under 
+						<code class="parameter">"standard waiver"</code>, though not necessarily greater than the 
+						percentage available in the applicable metropolitan area)
 					%li
-						"standard waiver" may not be greater than the percentage amount available in the applicable
-						metropolitan area (&#8805; 100%)
+						%code.parameter "standard waiver" 
+						may not be greater than the percentage amount available in the applicable
+						metropolitan area (greater than 100%)
 					%li
-						"no waiver" applicable when no metropolitan area applies (100%)
-				%table
-					%tbody
-						%tr
-							%th
-								- @hcps[0..18].each do |hcp|
-									<li>"#{hcp}"</li>
-							%th
-								- @hcps[19..37].each do |hcp|
-									<li>"#{hcp}"</li>
-							%th
-								- @hcps[38..56].each do |hcp|
-									<li>"#{hcp}"</li>
-							%th
-								- @hcps[57..76].each do |hcp|
-									<li>"#{hcp}"</li>
-				%ul
-					At least total five units from any combination of the following unit categories are required.
-					- ["number_of_no_bedroom_units", "number_of_one_bedroom_units", "number_of_two_bedroom_units", "number_of_three_bedroom_units", "number_of_four_or_more_bedroom_units"].each do |br_type|
-						<li><code>#{br_type}</code> integer &#8805; 0</li>
-			%li
-				<code>mortgage_interest_rate</code> expressed in percentage terms, including the
-				current standard HUD GNMA annual servicing fee of 0.25 (&#8805; 0)
-			%li
-				<code>term_in_months</code> expressed as a positive integer less than 420 -- any
-				greater values will result in an error
-			%li
-				<code>annual_replacement_reserve_per_unit</code> the 
-				<a href="http://www.hud.gov/offices/adm/hudclips/letters/mortgagee/files/10-21ml.pdf#page=7" target="_blank">
-				current HUD minimum</a> is $250 -- any lesser value will result in an error.
-			%li
-				<code>gross_residential_income</code> annual income before vacancy from all non-commercial
-				sources: apartment, parking and other income (&#8805; 0)
-			%li
-				<code>residential_occupancy_percent</code> HUD minimum for the program is 85.00 -- any lesser
-				value less will result in an error. The maximum percent allowed depends on project affordability: for
-				market projects it is 93.00, while for subsidized and affordable projects it is 95.00. In case
-				the given percent exceeds the applicable maximum, only the maximum will be applied to
-				<code>gross_residential_income</code> in the determination of effective gross income.
-			%li
-				<code>operating_expenses</code> a non-negative value expressed in absolute dollar terms <i>or</i> as 
-				a percent of effective gross income (see <code>operating_expenses_is_percent_of_effective_gross_income</code>
-				below.) If properly expressed as a percent of effective gross income, the maximum is 100.00.
-		%h3
-			Optional
+						%code.parameter "no waiver" 
+						applicable when no metropolitan area applies (100%)
+					%li
+						The following metropolitan areas...
+						%table#other-metropolitan-areas
+							%tr#some-row
+								%td
+									- @hcps[0..25].each do |hcp|
+										<li><code class="parameter">"#{hcp}"</code></li>
+								%td
+									- @hcps[26..51].each do |hcp|
+										<li><code class="parameter">"#{hcp}"</code></li>
+								%td
+									- @hcps[52..76].each do |hcp|
+										<li><code class="parameter">"#{hcp}"</code></li>
+			A minimum total of 5 units from any combination of the following apartment types 
+			(integers &#8805; 0) &#151 yields an error otherwise.
 			%ul
 				%li
-					%code="is_elevator_project"
-					<code>true</code> or <code>false</code> (<code>false</code> when omitted)
-				%li
-					%code="operating_expenses_is_percent_of_effective_gross_income"
-					when <code>true</code>, <code>operating_expenses</code> are taken as a percentage of effective gross
-					income. Otherwise, if <code>false</code>, or omitted, <code>operating_expenses</code> are taken in 
-					absolute dollar terms.
-				%li
-					%code="value_in_fee_simple"
-					When omitted, set to the <code>purchase_price_of_project</code> value given. (&#8805; 0)
-				%li
-					%code="gross_commercial_income"
-					annual income before vacancy from all non-residential sources: commercial and parking
-					(&#8805; 0)
-				%li
-					%code="residential_occupancy_percent"
-					HUD maximum for the program is 80.00. In case the given percent exceeds the maximum, 
-					only the maximum will be applied to <code>gross_commercial_income</code> in the determination 
-					of effective gross income (&#8805; 0).
-				%li
-					%code="repairs_and_improvements"
-					(&#8805; 0)
-				%li
-					%code="initial_deposit_to_replacement_reserve"
-					Amount HUD will require for initial deposit to replacement reserve fund.
-					(&#8805; 0)
-				%li
-					%code="replacement_reserves_on_deposit"
-					Replacement reserves currently on deposit with the project.
-					(&#8805; 0)
-				%li
-					%code="major_movable_equipment"
-					Value estimated for such items at the project.
-					(&#8805; 0)
-				%li
-					%code="cost_containment_mortgage_deduction"
-					(&#8805; 0)
-				%li
-					%code="annual_special_assessment"
-					(&#8805; 0)
-				%li
-					%code="excess_unusual_land_improvement"
-					(&#8805; 0)
-				%li
-					%code="unpaid_balance_of_special_assessments"
-					(&#8805; 0)
-				%li
-					%code="warranted_price_of_land"
-					(&#8805; 0)
-				%li
-					%code="gross_apartment_square_feet"
-					(&#8805; 0)
-				%li
-					%code="gross_other_square_feet"
-					(&#8805; 0)
-				%li
-					%code="gross_commercial_square_feet"
-					(&#8805; 0)
-				%li
-					%code="indoor_residential_parking_square_feet"
-					(&#8805; 0)
-				%li
-					%code="indoor_commercial_parking_square_feet"
-					(&#8805; 0)
-				%li
-					%code="outdoor_parking_discount_percent"
-					The percent by which the value of developed outdoor parking square footage may
-					be of lesser value than all other developed project square footage 
-					(&#8805; 0, 100 &#8805;)
-				%li
-					%code="outdoor_residential_parking_square_feet"
-					(&#8805; 0)
-				%li
-					%code="outdoor_commercial_parking_square_feet"
-					(&#8805; 0)
-				%li
-					%code="financing_fee"
-					a non-negative value expressed in absolute dollar terms <i>or</i> as 
-					a percent of the loan (see <code>financing_fee_is_percent_of_loan</code>
-					below.) If properly expressed as a percent of the loan, the maximum is 100.00.
-					(&#8805; 0)
-				%li
-					%code="financing_fee_is_percent_of_loan"
-					when <code>true</code>, <code>financing_fee</code> is taken as a percentage of the loan. Otherwise, 
-					if <code>false</code>, or omitted, <code>financing_fee</code> is taken in absolute dollar terms.
-				%li
-					%code="title_and_recording"
-					a non-negative value expressed in absolute dollar terms <i>or</i> as 
-					a percent of the loan (see <code>title_and_recording_is_percent_of_loan</code>
-					below.) If properly expressed as a percent of the loan, the maximum is 100.00.
-					(&#8805; 0)
-				%li
-					%code="title_and_recording_is_percent_of_loan"
-					when <code>true</code>, <code>financing_fee</code> is taken as a percentage of the loan. Otherwise, 
-					if <code>false</code>, or omitted, <code>financing_fee</code> is taken in absolute dollar terms.
-				%li
-					%code="legal_and_organizational"
-					Part of loan transaction costs.
-					(&#8805; 0)
-				%li
-					%code="third_party_reports"
-					Part of loan transaction costs.
-					(&#8805; 0)
-				%li
-					%code="survey"
-					Part of loan transaction costs.
-					(&#8805; 0)
-				%li
-					%code="other"
-					Part of loan transaction costs.
-					(&#8805; 0)
+					%code number_of_no_bedroom_units
+					(studio units)
+				- ["number_of_one_bedroom_units", "number_of_two_bedroom_units", "number_of_three_bedroom_units", "number_of_four_or_more_bedroom_units"].each do |br_type|
+					<li><code>#{br_type}</code></li>
+			%li
+				%code mortgage_interest_rate
+				(&#8805; 0) 
+				expressed in percentage terms and <i><u>including</u></i> the current standard HUD GNMA annual servicing 
+				fee of 0.25
+			%li
+				%code term_in_months
+				(&#8805; 0) expressed as a positive integer less or equal to 420 &#151 any
+				greater value will yield an error
+			%li
+				%code annual_replacement_reserve_per_unit
+				(&#8805; 250) this minimum is 
+				<a href="http://www.hud.gov/offices/adm/hudclips/letters/mortgagee/files/10-21ml.pdf#page=7" target="_blank">
+				currently required by HUD</a>.
+			%li
+				%code gross_residential_income
+				(&#8805; 0) annual income before vacancy from all non-commercial
+				sources: apartment, parking and other income 
+			%li
+				%code residential_occupancy_percent
+				(&#8805; 85.00) The maximum percent allowed depends on project affordability: for
+				market projects it is 93.00, for subsidized and affordable projects, 95.00. In case
+				the given percent exceeds the applicable maximum, only the maximum will be applied to the given value for
+				<code>gross_residential_income</code> as part of the determination of effective gross income.
+			%li
+				%code operating_expenses
+				(&#8805; 0)
+				can be expressed in absolute dollar terms <i>or</i> as 
+				a percent of effective gross income (see <code>operating_expenses_is_percent_of_effective_gross_income</code>,
+				below.) If properly expressed as a percent of effective gross income, the maximum is 100.00.
+		%h3 Optional
+		%ul
+			%li#is-elevator-project-attribute-documentation
+				%code="is_elevator_project"
+				<code class="parameter">true</code> or <code class="parameter">false</code> 
+				(evaluated as <code class="parameter">false</code> when omitted)
+			%li#operating-expenses-is-percent-of-effective-gross-income-attribute-documentation
+				%code="operating_expenses_is_percent_of_effective_gross_income"
+				when <code class="parameter">true</code>, the value given for <code>operating_expenses</code> is 
+				taken as a percentage of effective gross income. Otherwise, if <code class="parameter">false</code> 
+				or omitted, the value given for <code>operating_expenses</code> is taken in absolute dollar terms.
+			%li
+				%code="value_in_fee_simple"
+				(&#8805; 0)
+				if omitted, it is set to the value given for <code>purchase_price_of_project</code>.
+			%li
+				%code="gross_commercial_income"
+				(&#8805; 0)
+				annual income before vacancy from any commercial and non-residential parking sources
+			%li
+				%code="residential_occupancy_percent"
+				(&#8805; 0)
+				the HUD maximum for the program is 80.00. In case the given percent exceeds the maximum, 
+				only the maximum will be applied to the value given for <code>gross_commercial_income</code> 
+				in determining effective gross income
+			%li
+				%code="repairs_and_improvements"
+				(&#8805; 0)
+			%li
+				%code="initial_deposit_to_replacement_reserve"
+				(&#8805; 0)
+				amount HUD will require as an initial deposit to replacement reserve fund
+			%li
+				%code="replacement_reserves_on_deposit"
+				(&#8805; 0)
+				replacement reserves currently on deposit with the project
+			%li
+				%code="major_movable_equipment"
+				(&#8805; 0) value estimated for such items at the project
 				
+			%li
+				%code="cost_containment_mortgage_deduction"
+				(&#8805; 0)
+			%li
+				%code="annual_special_assessment"
+				(&#8805; 0)
+			%li
+				%code="excess_unusual_land_improvement"
+				(&#8805; 0)
+			%li
+				%code="unpaid_balance_of_special_assessments"
+				(&#8805; 0)
+			%li
+				%code="warranted_price_of_land"
+				(&#8805; 0)
+			%li
+				%code="gross_apartment_square_feet"
+				(&#8805; 0)
+			%li
+				%code="gross_other_square_feet"
+				(&#8805; 0)
+			%li
+				%code="gross_commercial_square_feet"
+				(&#8805; 0)
+			%li
+				%code="indoor_residential_parking_square_feet"
+				(&#8805; 0)
+			%li
+				%code="indoor_commercial_parking_square_feet"
+				(&#8805; 0)
+			%li
+				%code="outdoor_parking_discount_percent"
+				(&#8805; 0.00 & 100.00 &#8805;) the percent by which the value of developed outdoor parking 
+				square footage may be of lesser value than all other developed project square footage
+			%li
+				%code="outdoor_residential_parking_square_feet"
+				(&#8805; 0)
+			%li
+				%code="outdoor_commercial_parking_square_feet"
+				(&#8805; 0)
+			%li
+				%code="financing_fee"
+				(&#8805; 0) can be expressed in absolute dollar terms <i>or</i> as 
+				a percent of the loan (see <code>financing_fee_is_percent_of_loan</code>,
+				below.) If properly expressed as a percent of the loan, the maximum is 100.00.
+			%li
+				%code="financing_fee_is_percent_of_loan"
+				when <code class="parameter">true</code>, the value given for <code>financing_fee</code> is 
+				taken as a percentage of the loan. Otherwise, if <code class="parameter">false</code> or omitted, 
+				the value given for <code>financing_fee</code> is taken in absolute dollar terms.
+			%li
+				%code="title_and_recording"
+				(&#8805; 0) can be expressed in absolute dollar terms <i>or</i> as 
+				a percent of the loan (see <code>financing_fee_is_percent_of_loan</code>,
+				below.) If properly expressed as a percent of the loan, the maximum is 100.00.
+			%li
+				%code="title_and_recording_is_percent_of_loan"
+				when <code class="parameter">true</code>, the value given for <code>title_and_recording</code> is 
+				taken as a percentage of the loan. Otherwise, if <code class="parameter">false</code> or omitted, 
+				the value given for <code>title_and_recording</code> is taken in absolute dollar terms.
+			%li
+				%code="legal_and_organizational"
+				(&#8805; 0) part of loan transaction costs
+			%li
+				%code="third_party_reports"
+				(&#8805; 0) part of loan transaction costs
+			%li
+				%code="survey"
+				(&#8805; 0) part of loan transaction costs
+			%li
+				%code="other"
+				(&#8805; 0) part of loan transaction costs
+		%h2 Methods
+		Only 'json' format is currently supported.
+		%h3="Obtain a Loan Estimate"
+		URL: <code>http://www.sizemyfhamultifamilyloan.com/api/beta1/sec223f_acquisition</code><br/>
+		Required Parameters: (see above)<br/>
+		Method: <code>POST</code><br/>
+		Response: A Sec.223(f) acquisition loan estimate<br/>
+		%p
+		%h2="Usage Examples"
+		Sec.223(f) acquisition loan amounts are constrained by one of five possible limiting
+		criteria, as illustrated below.
+		%p
+		The examples are not intended to characterize actual multifamily acquisition scenarios. 
+		Rather, the attributions were contrived to result in particular loan criteria in order to illustrate the API.
+		%p
+		In the examples, some variables have been chosen to vary, for example, <code>affordability</code>, in order to
+		illustrate the API. The variations may have been chosen independent of the limiting criterion result.
+		%h3#minimum-required-inputs="Criterion 1 (loan request) (and minimum required parameters)"
+		The input set includes the minimum parameters logically required (however implausible in practice) 
+		to yield an error-free result from the API, subject to the following considerations:
+		%ul
+			%li
+				%code is_elevator_project
+				could have been omitted, in which case it would have been evaluated as 
+				<code class="parameter">false</code> 
+				(see in <a href="#is-elevator-project-attribute-documentation">Attributes:Optional</a>, above)
+			%li
+				%code operating_expenses_is_percent_of_effective_gross_income
+				could have been omitted, in which case it would have been evaluated as 
+				<code class="parameter">false</code> 
+				(see in <a href="#operating-expenses-is-percent-of-effective-gross-income-attribute-documentation">
+				Attributes:Optional</a>, above)
+			%li
+				the particular combination of apartments by bedroom unit type is arbitrary &#151 any combination
+				resulting in the minimum required total of 5 units would be valid
+		%pre
+			:preserve
+				Feature: Sec223f acquisition
+				  In order to obtain the results for a Sec 223f acquisition loan
+				  As an API user
+				  I want to obtain a loan result
+
+				Background: I create an api key
+					Given I create a valid api key
+
+				@criterion_1 @minimum_parameters
+				Scenario: Loan limited by Criterion 1 (loan request)
+				  Given I have this json sec223f_acquisition data
+				    """
+				    {"affordability": "affordable", "purchase_price_of_project": 1113300,
+				     "loan_request": 750000, "metropolitan_area_waiver": "maximum waiver",
+				     "number_of_one_bedroom_units": 1, "number_of_three_bedroom_units": 1,
+				     "number_of_no_bedroom_units": 3, "is_elevator_project": true,
+				     "mortgage_interest_rate": 4.5, "gross_residential_income": 102000,
+				     "residential_occupancy_percent": 93, "operating_expenses": 40,
+				     "operating_expenses_is_percent_of_effective_gross_income": true,
+				     "annual_replacement_reserve_per_unit": 250,
+				     "term_in_months": 420
+					}
+					"""
+				  When I send a POST request with the json data to http://sizemyfhamultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key=[@api_key]
+				  Then the response should be JSON:
+				    """
+					  {"loan":{"criterion_1":{"loan_request":750000},
+				               "criterion_3":{"line_a":{"value_in_fee_simple":1113300,"percent_multiplier":85.0,"net_value":946305.0},
+				                              "line_b_1":{"value_of_leased_fee":null},
+				                              "line_b_3":{"excess_unusual_land_improvement":null},
+				                              "line_b_4":{"cost_containment_mortgage_deduction":null},
+				                              "line_b_5":{"total_lines_1_to_4":null},
+				                              "line_c":{"unpaid_balance_of_special_assessments":null},
+				                              "line_d":{"total_line_b_plus_line_c":null},
+				                              "line_e":{"line_a_minus_line_d":946300}},
+				               "criterion_4":{"line_a":{"number_of_no_bedroom_units":{"units":3,"per_family_unit_limit":167488.65,"total":502465.95},
+				                                        "number_of_one_bedroom_units":{"units":1,"per_family_unit_limit":187585.65,"total":187585.65},
+				                                        "number_of_two_bedroom_units":{"units":null,"per_family_unit_limit":230019.3,"total":null},
+				                                        "number_of_three_bedroom_units":{"units":1,"per_family_unit_limit":288369.9,"total":288369.9},
+				                                       "number_of_four_or_more_bedroom_units":{"units":null,"per_family_unit_limit":325741.5,"total":null}},
+				                              "line_b":{"cost_not_attributable_to_dwelling_use":null,"percent_multiplier":85.0,"result":null},
+				                              "line_c":{"warranted_price_of_land":null,"percent_multiplier":85.0,"result":null},
+				                              "line_d":{"total_lines_a_through_c":978421.50},
+				                              "line_e":{"total_number_of_spaces":null},
+				                              "line_f":{"sum_value_of_leased_fee_and_unpaid_balance_of_special_assessments":null},
+				                              "line_g":{"line_d_or_line_e_minus_line_f":978400}},
+				               "criterion_5":{"line_a":{"mortgage_interest_rate":4.5},
+				                              "line_b":{"mortgage_insurance_premium_rate":0.45},
+				                              "line_c":{"initial_curtail_rate":1.179080799522179},
+				                              "line_d":{"sum_of_above_rates":6.129080799522179},
+				                              "line_e":{"net_income":55666.0,"effective_income":47316.1,"percent_multiplier":85.0},
+				                              "line_f":{"annual_ground_rent":null,"annual_special_assessment":null,"sum":null},
+				                              "line_g":{"line_e_minus_line_f":47316.10},
+				                              "line_h":{"line_g_divided_by_line_d":771993.41},
+				                              "line_i":{"annual_tax_abatement":null},
+				                              "line_j":{"line_h_plus_line_i":771900}},
+				               "criterion_7":{"line_a":{"purchase_price_of_project":1113300},
+				                              "line_b":{"repairs_and_improvements":null},
+				                              "line_c":{"other_fees":null},
+				                              "line_d":{"loan_closing_charges":12438.4},
+				                              "line_e":{"sum_of_line_a_through_line_d":1125738.4},
+				                              "line_f":{"sum_of_any_replacement_reserves_on_deposit_and_major_movable_equipment":null},
+				                              "line_g":{"line_e_minus_line_f":1125738.4},
+				                              "line_h":{"percent_multiplier":85.0,"result":956800}},
+				               "maximum_insurable_mortgage": 750000},
+				       "total_estimated_cash_requirement": 373050.0
+				      }
+				    """
+		%h3="Criterion 3 (value)"
+		%pre
+			:preserve
+				@criterion_3 @maximum_parameters
+				Scenario: Loan limited by Criterion 3 (value)
+				  Given I have this json sec223f_acquisition data
+				    """
+				    {"affordability": "subsidized", "purchase_price_of_project": 5050000,
+				     "value_in_fee_simple": 5000000, "cost_containment_mortgage_deduction": 100000,
+				     "excess_unusual_land_improvement": 100000, "unpaid_balance_of_special_assessments": 20000,
+				     "loan_request": 5050000, "metropolitan_area_waiver": "standard waiver",
+				     "number_of_no_bedroom_units": 5, "number_of_one_bedroom_units": 5, 
+				     "number_of_two_bedroom_units": 5,"number_of_three_bedroom_units": 1,
+				     "number_of_four_or_more_bedroom_units": 5, "is_elevator_project": true,
+				     "warranted_price_of_land": 100000, "gross_apartment_square_feet": 20000,
+				     "outdoor_residential_parking_square_feet": 10000, 
+				     "indoor_residential_parking_square_feet": 20000,
+				     "outdoor_commercial_parking_square_feet": 15000,
+				     "indoor_commercial_parking_square_feet": 15000,
+				     "outdoor_parking_discount_percent": 50, "gross_other_square_feet": 4000,
+				     "gross_commercial_square_feet": 10000,
+				     "mortgage_interest_rate": 4.95, "gross_residential_income": 602000,
+				     "residential_occupancy_percent": 97, "gross_commercial_income": 125000,
+				     "commercial_occupancy_percent": 90, "annual_special_assessment": 20000,
+				     "operating_expenses": 300000, "annual_replacement_reserve_per_unit": 250,
+				     "operating_expenses_is_percent_of_effective_gross_income": false,
+				     "term_in_months": 420, "repairs_and_improvements": 100000,
+				     "legal_and_organizational": 10000, "initial_deposit_to_replacement_reserve": 50000,
+				     "third_party_reports": 15000, "survey": 7000, "other": 1000, 
+				     "major_movable_equipment": 25000, "replacement_reserves_on_deposit": 25000,
+				     "financing_fee_is_percent_of_loan": true, "financing_fee": 2,
+				     "title_and_recording_is_percent_of_loan": false, "title_and_recording": 10000
+					}
+					"""
+				  When I send a POST request with the json data to http://sizemyfhamultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key=[@api_key]
+				  Then the response should be JSON:
+				    """
+				      {"loan":{"criterion_1":{"loan_request":5050000},
+				               "criterion_3":{"line_a":{"value_in_fee_simple":5000000,"percent_multiplier":87.0,"net_value":4350000.0},
+				                              "line_b_1":{"value_of_leased_fee":null},
+				                              "line_b_3":{"excess_unusual_land_improvement":100000},
+				                              "line_b_4":{"cost_containment_mortgage_deduction":100000},
+				                              "line_b_5":{"total_lines_1_to_4":174000.0},
+				                              "line_c":{"unpaid_balance_of_special_assessments":20000},
+				                              "line_d":{"total_line_b_plus_line_c":194000.0},
+				                              "line_e":{"line_a_minus_line_d":4156000}},
+				               "criterion_4":{"line_a":{"number_of_no_bedroom_units":{"units":5,"per_family_unit_limit":143561.7,"total":717808.50},
+				                                        "number_of_one_bedroom_units":{"units":5,"per_family_unit_limit":160787.7,"total":803938.50},
+				                                        "number_of_two_bedroom_units":{"units":5,"per_family_unit_limit":197159.4,"total":985797.0},
+				                                        "number_of_three_bedroom_units":{"units":1,"per_family_unit_limit":247174.2,"total":247174.2},
+				                                        "number_of_four_or_more_bedroom_units":{"units":5,"per_family_unit_limit":279207.0,"total":1396035.0}},
+				                              "line_b":{"cost_not_attributable_to_dwelling_use":1500000.0,"percent_multiplier":87.0,"result":1305000.0},
+				                              "line_c":{"warranted_price_of_land":100000,"percent_multiplier":87.0,"result":87000.0},
+				                              "line_d":{"total_lines_a_through_c":5542753.2},
+				                              "line_e":{"total_number_of_spaces":null},
+				                              "line_f":{"sum_value_of_leased_fee_and_unpaid_balance_of_special_assessments":20000.0},
+				                              "line_g":{"line_d_or_line_e_minus_line_f":5522700}},
+				               "criterion_5":{"line_a":{"mortgage_interest_rate":4.95},
+				                              "line_b":{"mortgage_insurance_premium_rate":0.45},
+				                              "line_c":{"initial_curtail_rate":1.0680398921210728},
+				                              "line_d":{"sum_of_above_rates":6.468039892121073},
+				                              "line_e":{"net_income":366650.0,"effective_income":318985.5,"percent_multiplier":87.0},
+				                              "line_f":{"annual_ground_rent":null,"annual_special_assessment":20000,"sum":20000.0},
+				                              "line_g":{"line_e_minus_line_f":298985.5},
+				                              "line_h":{"line_g_divided_by_line_d":4622505.5},
+				                              "line_i":{"annual_tax_abatement":null},
+				                              "line_j":{"line_h_plus_line_i":4622500}},
+				               "criterion_7":{"line_a":{"purchase_price_of_project":5050000},
+				                              "line_b":{"repairs_and_improvements":100000},
+				                              "line_c":{"other_fees":24000.0},
+				                              "line_d":{"loan_closing_charges":223525.9},
+				                              "line_e":{"sum_of_line_a_through_line_d":5397525.9},
+				                              "line_f":{"sum_of_any_replacement_reserves_on_deposit_and_major_movable_equipment":50000.0},
+				                              "line_g":{"line_e_minus_line_f":5347525.9},
+				                              "line_h":{"percent_multiplier":87,"result":4652300}},
+				               "maximum_insurable_mortgage": 4156000},
+				      "total_estimated_cash_requirement": 1175148
+				      }
+					"""
+		%h3="Criterion 4 (statutory limits)"
+		%pre
+			:preserve
+				@maximum_parameters @criterion_4
+				Scenario: Loan limited by Criterion 4 (statutory limits)
+				  Given I have this json sec223f_acquisition data
+				    """
+				    {"affordability": "subsidized", "purchase_price_of_project": 5050000,
+				     "value_in_fee_simple": 8000000, "cost_containment_mortgage_deduction": 100000,
+				     "excess_unusual_land_improvement": 100000, "unpaid_balance_of_special_assessments": 20000,
+				     "loan_request": 5050000, "metropolitan_area_waiver": "San Antonio, TX",
+				     "number_of_no_bedroom_units": 5, "number_of_one_bedroom_units": 5, 
+				     "number_of_two_bedroom_units": 5,"number_of_three_bedroom_units": 1,
+				     "number_of_four_or_more_bedroom_units": 5, "is_elevator_project": false,
+				     "warranted_price_of_land": 100000, "gross_apartment_square_feet": 20000,
+				     "outdoor_residential_parking_square_feet": 10000, 
+				     "indoor_residential_parking_square_feet": 20000,
+				     "outdoor_commercial_parking_square_feet": 15000,
+				     "indoor_commercial_parking_square_feet": 15000,
+				     "outdoor_parking_discount_percent": 50, "gross_other_square_feet": 4000,
+				     "gross_commercial_square_feet": 10000,
+				     "mortgage_interest_rate": 4.95, "gross_residential_income": 902000,
+				     "residential_occupancy_percent": 97, "gross_commercial_income": 125000,
+				     "commercial_occupancy_percent": 90, "annual_special_assessment": 20000,
+				     "operating_expenses": 300000, "annual_replacement_reserve_per_unit": 250,
+				     "operating_expenses_is_percent_of_effective_gross_income": false,
+				     "term_in_months": 420, "repairs_and_improvements": 100000,
+				     "legal_and_organizational": 10000, "initial_deposit_to_replacement_reserve": 50000,
+				     "third_party_reports": 15000, "survey": 7000, "other": 1000, 
+				     "major_movable_equipment": 25000, "replacement_reserves_on_deposit": 25000,
+				     "financing_fee_is_percent_of_loan": true, "financing_fee": 2,
+				     "title_and_recording_is_percent_of_loan": false, "title_and_recording": 10000
+					}
+					"""
+				  When I send a POST request with the json data to http://sizemyfhamultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key=[@api_key]
+				  Then the response should be JSON:
+				    """
+				      {"loan":{"criterion_1":{"loan_request":5050000},
+				               "criterion_3":{"line_a":{"value_in_fee_simple":8000000,"percent_multiplier":87.0,"net_value":6960000.0},
+				                              "line_b_1":{"value_of_leased_fee":null},
+				                              "line_b_3":{"excess_unusual_land_improvement":100000},
+				                              "line_b_4":{"cost_containment_mortgage_deduction":100000},
+				                              "line_b_5":{"total_lines_1_to_4":174000.0},
+				                              "line_c":{"unpaid_balance_of_special_assessments":20000},
+				                              "line_d":{"total_line_b_plus_line_c":194000.0},
+				                              "line_e":{"line_a_minus_line_d":6766000}},
+				               "criterion_4":{"line_a":{"number_of_no_bedroom_units":{"units":5,"per_family_unit_limit":82020.62,"total":410103.1},
+				                                        "number_of_one_bedroom_units":{"units":5,"per_family_unit_limit":90856.54,"total":454282.7},
+				                                        "number_of_two_bedroom_units":{"units":5,"per_family_unit_limit":108524.82,"total":542624.1},
+				                                        "number_of_three_bedroom_units":{"units":1,"per_family_unit_limit":133765.22,"total":133765.22},
+				                                     "number_of_four_or_more_bedroom_units":{"units":5,"per_family_unit_limit":151437.06,"total":757185.3}},
+				                              "line_b":{"cost_not_attributable_to_dwelling_use":2400000.0,"percent_multiplier":87.0,"result":2088000.0},
+				                              "line_c":{"warranted_price_of_land":100000,"percent_multiplier":87.0,"result":87000.0},
+				                              "line_d":{"total_lines_a_through_c":4472960.42},
+				                              "line_e":{"total_number_of_spaces":null},
+				                              "line_f":{"sum_value_of_leased_fee_and_unpaid_balance_of_special_assessments":20000.0},
+				                              "line_g":{"line_d_or_line_e_minus_line_f":4452900}},
+				               "criterion_5":{"line_a":{"mortgage_interest_rate":4.95},
+				                              "line_b":{"mortgage_insurance_premium_rate":0.45},
+				                              "line_c":{"initial_curtail_rate":1.0680398921210728},
+				                              "line_d":{"sum_of_above_rates":6.468039892121073},
+				                              "line_e":{"net_income":651650.0,"effective_income":566935.5,"percent_multiplier":87.0},
+				                              "line_f":{"annual_ground_rent":null,"annual_special_assessment":20000,"sum":20000.0},
+				                              "line_g":{"line_e_minus_line_f":546935.5},
+				                              "line_h":{"line_g_divided_by_line_d":8455969.8},
+				                              "line_i":{"annual_tax_abatement":null},
+				                              "line_j":{"line_h_plus_line_i":8455900}},
+				               "criterion_7":{"line_a":{"purchase_price_of_project":5050000},
+				                              "line_b":{"repairs_and_improvements":100000},
+				                              "line_c":{"other_fees":24000.0},
+				                              "line_d":{"loan_closing_charges":223525.9},
+				                              "line_e":{"sum_of_line_a_through_line_d":5397525.9},
+				                              "line_f":{"sum_of_any_replacement_reserves_on_deposit_and_major_movable_equipment":50000.0},
+				                              "line_g":{"line_e_minus_line_f":5347525.9},
+				                              "line_h":{"percent_multiplier":87,"result":4652300}},
+				               "maximum_insurable_mortgage": 4452900},
+				       "total_estimated_cash_requirement": 888046}
+				    """
+		%h3="Criterion 5 (debt service)"
+		%pre
+			:preserve
+				@criterion_5 @maximum_parameters
+				Scenario: Loan limited by Criterion 5 (debt service)
+				  Given I have this json sec223f_acquisition data
+				    """
+				    {"affordability": "market", "purchase_price_of_project": 9750000,
+				     "value_in_fee_simple": 9850000, "cost_containment_mortgage_deduction": 100000,
+				     "excess_unusual_land_improvement": 100000, "unpaid_balance_of_special_assessments": 20000,
+				     "loan_request": 9850000, "metropolitan_area_waiver": "no waiver",
+				     "number_of_no_bedroom_units": 5, "number_of_one_bedroom_units": 5, 
+				     "number_of_two_bedroom_units": 5,"number_of_three_bedroom_units": 1,
+				     "number_of_four_or_more_bedroom_units": 5, "is_elevator_project": true,
+				     "warranted_price_of_land": 100000, "gross_apartment_square_feet": 20000,
+				     "outdoor_residential_parking_square_feet": 10000, 
+				     "indoor_residential_parking_square_feet": 20000,
+				     "outdoor_commercial_parking_square_feet": 15000,
+				     "indoor_commercial_parking_square_feet": 15000,
+				     "outdoor_parking_discount_percent": 50, "gross_other_square_feet": 4000,
+				     "gross_commercial_square_feet": 10000,
+				     "mortgage_interest_rate": 4.95, "gross_residential_income": 502000,
+				     "residential_occupancy_percent": 95, "gross_commercial_income": 125000,
+				     "commercial_occupancy_percent": 90, "annual_special_assessment": 20000,
+				     "operating_expenses": 40, "annual_replacement_reserve_per_unit": 250,
+				     "operating_expenses_is_percent_of_effective_gross_income": true,
+				     "term_in_months": 420, "repairs_and_improvements": 100000,
+				     "legal_and_organizational": 10000, "initial_deposit_to_replacement_reserve": 50000,
+				     "third_party_reports": 15000, "survey": 7000, "other": 1000, 
+				     "major_movable_equipment": 25000, "replacement_reserves_on_deposit": 25000,
+				     "financing_fee_is_percent_of_loan": true, "financing_fee": 2,
+				     "title_and_recording_is_percent_of_loan": false, "title_and_recording": 10000
+					}
+					"""
+				  When I send a POST request with the json data to http://sizemyfhamultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key=[@api_key]
+				  Then the response should be JSON:
+				  """
+				    {"loan":{"criterion_1":{"loan_request":9850000},
+				                            "criterion_3":{"line_a":{"value_in_fee_simple":9850000,"percent_multiplier":83.3,"net_value":8205050.0},
+				                                           "line_b_1":{"value_of_leased_fee":null},
+				                                           "line_b_3":{"excess_unusual_land_improvement":100000},
+				                                           "line_b_4":{"cost_containment_mortgage_deduction":100000},
+				                                           "line_b_5":{"total_lines_1_to_4":166600.0},
+				                                           "line_c":{"unpaid_balance_of_special_assessments":20000},
+				                                           "line_d":{"total_line_b_plus_line_c":186600.0},
+				                                           "line_e":{"line_a_minus_line_d":8018400}},
+				             "criterion_4":{"line_a":{"number_of_no_bedroom_units":{"units":5,"per_family_unit_limit":53171.0,"total":265855.0},
+				                                      "number_of_one_bedroom_units":{"units":5,"per_family_unit_limit":59551.0,"total":297755.0},
+				                                      "number_of_two_bedroom_units":{"units":5,"per_family_unit_limit":73022.0,"total":365110.0},
+				                                      "number_of_three_bedroom_units":{"units":1,"per_family_unit_limit":91546.0,"total":91546.0},
+				                                      "number_of_four_or_more_bedroom_units":{"units":5,"per_family_unit_limit":103410.0,"total":517050.0}},
+				                            "line_b":{"cost_not_attributable_to_dwelling_use":2955000.0,"percent_multiplier":83.3,"result":2461515.0},
+				                            "line_c":{"warranted_price_of_land":100000,"percent_multiplier":83.3,"result":83300.0},
+				                            "line_d":{"total_lines_a_through_c":4082131.0},
+				                            "line_e":{"total_number_of_spaces":null},
+				                            "line_f":{"sum_value_of_leased_fee_and_unpaid_balance_of_special_assessments":20000.0},
+				                            "line_g":{"line_d_or_line_e_minus_line_f":4062100}},
+				             "criterion_5":{"line_a":{"mortgage_interest_rate":4.95},
+				                            "line_b":{"mortgage_insurance_premium_rate":0.45},
+				                            "line_c":{"initial_curtail_rate":1.0680398921210728},
+				                            "line_d":{"sum_of_above_rates":6.4680398921210728},
+				                            "line_e":{"net_income":334866.0,"effective_income":278943.38,"percent_multiplier":83.3},
+				                            "line_f":{"annual_ground_rent":null,"annual_special_assessment":20000,"sum":20000.0},
+				                            "line_g":{"line_e_minus_line_f":258943.38},
+				                            "line_h":{"line_g_divided_by_line_d":4003428.93},
+				                            "line_i":{"annual_tax_abatement":null},
+				                            "line_j":{"line_h_plus_line_i":4003400}},
+				             "criterion_7":{"line_a":{"purchase_price_of_project":9750000},
+				                            "line_b":{"repairs_and_improvements":100000},
+				                            "line_c":{"other_fees":24000.0},
+				                            "line_d":{"loan_closing_charges":349661.8},
+				                            "line_e":{"sum_of_line_a_through_line_d":10223661.8},
+				                            "line_f":{"sum_of_any_replacement_reserves_on_deposit_and_major_movable_equipment":50000.0},
+				                            "line_g":{"line_e_minus_line_f":10173661.8},
+				                            "line_h":{"percent_multiplier":83.3,"result":8474600}},
+				               "maximum_insurable_mortgage": 4003400},
+				      "total_estimated_cash_requirement": 6022712
+				      }
+				    """
+		%h3="Criterion 7 (transaction cost)"
+		%pre
+			:preserve
+				@maximum_parameters @criterion_7
+				Scenario: Loan limited by Criterion 7 (transaction cost)
+				  Given I have this json sec223f_acquisition data
+				    """
+				    {"affordability": "subsidized", "purchase_price_of_project": 5050000,
+				     "value_in_fee_simple": 8000000, "cost_containment_mortgage_deduction": 100000,
+				     "excess_unusual_land_improvement": 100000, "unpaid_balance_of_special_assessments": 20000,
+				     "loan_request": 5050000, "metropolitan_area_waiver": "Anchorage, AK",
+				     "number_of_no_bedroom_units": 5, "number_of_one_bedroom_units": 5, 
+				     "number_of_two_bedroom_units": 5,"number_of_three_bedroom_units": 1,
+				     "number_of_four_or_more_bedroom_units": 5, "is_elevator_project": true,
+				     "warranted_price_of_land": 100000, "gross_apartment_square_feet": 20000,
+				     "outdoor_residential_parking_square_feet": 10000, 
+				     "indoor_residential_parking_square_feet": 20000,
+				     "outdoor_commercial_parking_square_feet": 15000,
+				     "indoor_commercial_parking_square_feet": 15000,
+				     "outdoor_parking_discount_percent": 50, "gross_other_square_feet": 4000,
+				     "gross_commercial_square_feet": 10000,
+				     "mortgage_interest_rate": 4.95, "gross_residential_income": 902000,
+				     "residential_occupancy_percent": 97, "gross_commercial_income": 125000,
+				     "commercial_occupancy_percent": 90, "annual_special_assessment": 20000,
+				     "operating_expenses": 300000, "annual_replacement_reserve_per_unit": 250,
+				     "operating_expenses_is_percent_of_effective_gross_income": false,
+				     "term_in_months": 420, "repairs_and_improvements": 100000,
+				     "legal_and_organizational": 10000, "initial_deposit_to_replacement_reserve": 50000,
+				     "third_party_reports": 15000, "survey": 7000, "other": 1000, 
+				     "major_movable_equipment": 25000, "replacement_reserves_on_deposit": 25000,
+				     "financing_fee_is_percent_of_loan": true, "financing_fee": 2,
+				     "title_and_recording_is_percent_of_loan": false, "title_and_recording": 10000
+					}
+					"""
+				  When I send a POST request with the json data to http://sizemyfhamultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key=[@api_key]
+				  Then the response should be JSON:
+				  """
+				    {"loan":{"criterion_1":{"loan_request":5050000},
+				             "criterion_3":{"line_a":{"value_in_fee_simple":8000000,"percent_multiplier":87.0,"net_value":6960000.0},
+				                            "line_b_1":{"value_of_leased_fee":null},
+				                            "line_b_3":{"excess_unusual_land_improvement":100000},
+				                            "line_b_4":{"cost_containment_mortgage_deduction":100000},
+				                            "line_b_5":{"total_lines_1_to_4":174000.0},
+				                            "line_c":{"unpaid_balance_of_special_assessments":20000},
+				                            "line_d":{"total_line_b_plus_line_c":194000.0},
+				                            "line_e":{"line_a_minus_line_d":6766000}},
+				             "criterion_4":{"line_a":{"number_of_no_bedroom_units":{"units":5,"per_family_unit_limit":215342.55,"total":1076712.75},
+				                                      "number_of_one_bedroom_units":{"units":5,"per_family_unit_limit":241181.55,"total":1205907.75},
+				                                      "number_of_two_bedroom_units":{"units":5,"per_family_unit_limit":295739.10,"total":1478695.5},
+				                                      "number_of_three_bedroom_units":{"units":1,"per_family_unit_limit":370761.3,"total":370761.3},
+				                                      "number_of_four_or_more_bedroom_units":{"units":5,"per_family_unit_limit":418810.5,"total":2094052.5}},
+				                            "line_b":{"cost_not_attributable_to_dwelling_use":2400000.0,"percent_multiplier":87.0,"result":2088000.0},
+				                            "line_c":{"warranted_price_of_land":100000,"percent_multiplier":87.0,"result":87000.0},
+				                            "line_d":{"total_lines_a_through_c":8401129.8},
+				                            "line_e":{"total_number_of_spaces":null},
+				                            "line_f":{"sum_value_of_leased_fee_and_unpaid_balance_of_special_assessments":20000.0},
+				                            "line_g":{"line_d_or_line_e_minus_line_f":8381100}},
+				             "criterion_5":{"line_a":{"mortgage_interest_rate":4.95},
+				                            "line_b":{"mortgage_insurance_premium_rate":0.45},
+				                            "line_c":{"initial_curtail_rate":1.0680398921210728},
+				                            "line_d":{"sum_of_above_rates":6.468039892121073},
+				                            "line_e":{"net_income":651650.0,"effective_income":566935.5,"percent_multiplier":87.0},
+				                            "line_f":{"annual_ground_rent":null,"annual_special_assessment":20000,"sum":20000.0},
+				                            "line_g":{"line_e_minus_line_f":546935.5},
+				                            "line_h":{"line_g_divided_by_line_d":8455969.8},
+				                            "line_i":{"annual_tax_abatement":null},
+				                            "line_j":{"line_h_plus_line_i":8455900}},
+				             "criterion_7":{"line_a":{"purchase_price_of_project":5050000},
+				                            "line_b":{"repairs_and_improvements":100000},
+				                            "line_c":{"other_fees":24000.0},
+				                            "line_d":{"loan_closing_charges":223525.9},
+				                            "line_e":{"sum_of_line_a_through_line_d":5397525.9},
+				                            "line_f":{"sum_of_any_replacement_reserves_on_deposit_and_major_movable_equipment":50000.0},
+				                            "line_g":{"line_e_minus_line_f":5347525.9},
+				                            "line_h":{"percent_multiplier":87.0,"result":4652300}},
+				             "maximum_insurable_mortgage": 4652300},
+				      "total_estimated_cash_requirement": 695226
+				      }
+				    """

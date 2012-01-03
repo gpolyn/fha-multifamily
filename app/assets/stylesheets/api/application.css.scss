@@ -11,7 +11,7 @@ html {
 body {
 	margin:0;
 	font-family:Georgia, "Times New Roman", Times, serif;
-	background:#222;
+	background:gray;
 	min-width:980px;
 }
 form, fieldset {
@@ -20,7 +20,7 @@ form, fieldset {
 	border:0;
 }
 a {
-	color: #6b9029;
+	color: #56A5EC;
 	outline: none;
 	text-decoration: none;
 	border-bottom: 1px dotted #91b145;
@@ -177,9 +177,22 @@ a:hover {
 #docupage ol ol ol li                 {list-style:lower-roman;}
 
 #docupage pre, #docupage code         {background-color: #333; font-family: 'Bitstream Vera Sans Mono', "Monaco", Courier, monospace; color: #fff; font-size: 12px;}
+
+#docupage code.parameter {
+	background-color: #A9A9A9;
+}
+
 #docupage .gist pre,
 #docupage .gist code                  {color: #333;}
 #docupage pre                         {padding: 20px; margin: 1.5em 0; overflow:auto;}
 #docupage code                        {padding: 0 2px;}
 
 #docupage #breadcrumbs p              { margin: 0 0 35px 0; font-size: 16px; line-height: 28px;}
+
+#docupage table#other-metropolitan-areas td, tr{
+	border-style: none;
+}
+
+#docupage table#other-metropolitan-areas li {
+	list-style-type: none;
+}

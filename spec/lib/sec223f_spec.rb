@@ -349,12 +349,36 @@ describe "Sec 223f purchase" do
     end
     
     it "should be true when underlying sec 223f is valid" do
-      @loan.stub_chain(:sec223f_acquisition, :valid? =>true)
+      loan = double('loan', :valid? =>true)
+      loan.should_receive(:tax_abatement)
+      loan.should_receive(:lease)
+      @loan.should_receive(:sec223f_acquisition).any_number_of_times.and_return loan
       (@loan.valid?).should be true
     end
     
     it "should be false when underlying sec 223f attribute is not valid" do
-      @loan.stub_chain(:sec223f_acquisition, :valid? =>false)
+      loan = double('loan', :valid? =>false)
+      loan.should_receive(:tax_abatement)
+      loan.should_receive(:lease)
+      @loan.should_receive(:sec223f_acquisition).any_number_of_times.and_return loan
+      (@loan.valid?).should be false
+    end
+    
+    it "should be false when lease is not valid" do
+      loan = double('loan', :valid? =>true)
+      lease = double('lease', :valid? =>false)
+      loan.should_receive(:tax_abatement)
+      loan.should_receive(:lease).any_number_of_times.and_return lease
+      @loan.should_receive(:sec223f_acquisition).any_number_of_times.and_return loan
+      (@loan.valid?).should be false
+    end
+    
+    it "should be false when tax_abatement is not valid" do
+      loan = double('loan', :valid? =>true)
+      tax_abatement = double('tax_abatement', :valid? =>false)
+      loan.should_receive(:tax_abatement).any_number_of_times.and_return tax_abatement
+      loan.should_receive(:lease)
+      @loan.should_receive(:sec223f_acquisition).any_number_of_times.and_return loan
       (@loan.valid?).should be false
     end
     
@@ -409,6 +433,54 @@ describe "Sec 223f purchase" do
         crit_7['line_h']['percent_multiplier'].should == @fha_lr[maximum_params['affordability']]
       end
     end
+    
+    context "when lease supplied" do
+      
+      let(:maximum_params) {maximum_acquisition_params_including_criterion_11_and_fixed_lease}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_params)).to_json)['loan']}
+      
+      it "should appear in criteria 3, 4, 5 and 11" do
+        max_loan_in_json['criterion_11']['line_b3']['value_of_leased_fee'].should be > 0
+        max_loan_in_json['criterion_3']['line_b_1']['value_of_leased_fee'].should be > 0
+        crit_4_attr = max_loan_in_json['criterion_4']['line_f']['sum_value_of_leased_fee_and_unpaid_balance_of_special_assessments']
+        (crit_4_attr - maximum_params[:unpaid_balance_of_special_assessments]).should be > 0
+        max_loan_in_json['criterion_5']['line_f']['annual_ground_rent'].should be > 0
+      end
+      
+    end
+    
+    context "when tax_abatement (fixed with length shorted than loan term) supplied" do
+      
+      let(:maximum_params) {maximum_acquisition_params_including_criterion_11_and_short_fixed_tax_abatement}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_params)).to_json)['loan']}
+      
+      it "should appear in criteria 5" do
+        max_loan_in_json['criterion_5']['line_i']['tax_abatement_present_value'].should be > 0
+      end
+      
+    end
+    
+    context "maximum parameters supplied, including those requiring criterion 11" do
+      let(:maximum_params) {maximum_acquisition_params_including_criterion_11_and_fixed_lease}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_params)).to_json)['loan']}
+      
+      it "should set criterion 11 with maximum expected params" do
+        crit_11 = max_loan_in_json['criterion_11']
+        grants_loans_gifts = maximum_params[:gifts].to_f + maximum_params[:grants].to_f + 
+                             maximum_params[:private_loans].to_f + maximum_params[:public_loans].to_f
+        crit_11['line_b1']['grants_loans_gifts'].should be_within(0.005).of grants_loans_gifts
+        crit_11['line_b2']['tax_credits'].should be_within(0.005).of maximum_params[:tax_credits]
+        expected = maximum_params[:excess_unusual_land_improvement]
+        crit_11['line_b3']['value_of_leased_fee'].should be > 0
+        crit_11['line_b4']['excess_unusual_land_improvement_cost'].should be_within(0.005).of(expected)
+        expected = maximum_params[:cost_containment_mortgage_deduction]
+        crit_11['line_b5']['cost_containment_mortgage_deductions'].should be_within(0.005).of(expected)
+        expected = maximum_params[:unpaid_balance_of_special_assessments]
+        crit_11['line_b6']['unpaid_balance_of_special_assessment'].should be_within(0.005).of(expected)
+        crit_11['line_a']['project_cost'].should be > 0
+        crit_11['line_c']['line_a_minus_line_b'].should be > 0
+      end
+    end
           
     context "minimum parameters supplied" do
       
@@ -425,6 +497,22 @@ describe "Sec 223f purchase" do
         crit_7['line_h']['percent_multiplier'].should == @fha_lr[minimum_params['affordability']]
       end
     end
+    
+    context "minimum parameters supplied, plus those requiring criterion 11" do
+      it "should set criterion 11 with minimum expected params" do
+        params = minimum_acquisition_params_including_for_criterion_11
+        min_in_json = ActiveSupport::JSON.decode((TestClass.new(params)).to_json)['loan']
+        params = minimum_acquisition_params_including_for_criterion_11
+        crit_11 = min_in_json['criterion_11']
+        grants_loans_gifts = params[:gifts].to_f + params[:grants].to_f + params[:private_loans].to_f +
+                             params[:public_loans].to_f
+        crit_11['line_b1']['grants_loans_gifts'].should be_within(0.005).of grants_loans_gifts
+        crit_11['line_b2']['tax_credits'].should be_within(0.005).of params[:tax_credits]
+        crit_11['line_a']['project_cost'].should be > 0
+        crit_11['line_c']['line_a_minus_line_b'].should be > 0
+      end
+    end
+    
   end
   
 end
@@ -457,12 +545,36 @@ describe "Sec 223f refinance" do
     end
     
     it "should be true when underlying sec 223f is valid" do
-      loan.stub_chain(:sec223f_refinance, :valid? =>true)
+      sec_223f = double('loan', :valid? =>true)
+      sec_223f.should_receive(:tax_abatement)
+      sec_223f.should_receive(:lease)
+      loan.should_receive(:sec223f_refinance).any_number_of_times.and_return sec_223f
       (loan.valid?).should be true
     end
     
     it "should be false when underlying sec 223f attribute is not valid" do
-      loan.stub_chain(:sec223f_refinance, :valid? =>false)
+      sec_223f = double('loan', :valid? =>false)
+      sec_223f.should_receive(:tax_abatement)
+      sec_223f.should_receive(:lease)
+      loan.should_receive(:sec223f_refinance).any_number_of_times.and_return sec_223f
+      (loan.valid?).should be false
+    end
+    
+    it "should be false when lease is not valid" do
+      sec_223f = double('loan', :valid? =>true)
+      lease = double('lease', :valid? =>false)
+      sec_223f.should_receive(:tax_abatement)
+      sec_223f.should_receive(:lease).any_number_of_times.and_return lease
+      loan.should_receive(:sec223f_refinance).any_number_of_times.and_return sec_223f
+      (loan.valid?).should be false
+    end
+    
+    it "should be false when tax_abatement is not valid" do
+      sec_223f = double('loan', :valid? =>true)
+      tax_abatement = double('tax_abatement', :valid? =>false)
+      sec_223f.should_receive(:tax_abatement).any_number_of_times.and_return tax_abatement
+      sec_223f.should_receive(:lease)
+      loan.should_receive(:sec223f_refinance).any_number_of_times.and_return sec_223f
       (loan.valid?).should be false
     end
     
@@ -476,6 +588,83 @@ describe "Sec 223f refinance" do
         min_loan_in_json['criterion_3']['line_a']['value_in_fee_simple'].should == expected
       end
     end
+    
+    context "maximum parameters supplied" do
+      let(:maximum_params) {maximum_refinance_params}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_params)).to_json)['loan']}
+      
+      it "should set criterion 10" do
+        crit_10 = max_loan_in_json['criterion_10']
+        crit_10['line_a']['total_existing_indebtedness'].should == maximum_params[:existing_indebtedness]
+        crit_10['line_b']['required_repairs'].should == maximum_params[:repairs]
+        crit_10['line_c']['other_fees'].should be > 0
+        crit_10['line_d']['loan_closing_charges'].should be > 0
+        crit_10['line_f']['sum_of_any_replacement_reserves_on_deposit_and_major_movable_equipment'].should be > 0
+        crit_10['line_h']['value'].should == maximum_params[:loanParameters][:value_in_fee_simple]
+      end
+    end
+    
+    context "when lease supplied" do
+      
+      let(:maximum_params) {maximum_refinance_params_including_criterion_11_and_fixed_lease}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_params)).to_json)['loan']}
+      
+      it "should appear in criteria 3, 4, 5 and 11" do
+        max_loan_in_json['criterion_11']['line_b3']['value_of_leased_fee'].should be > 0
+        max_loan_in_json['criterion_3']['line_b_1']['value_of_leased_fee'].should be > 0
+        crit_4_attr = max_loan_in_json['criterion_4']['line_f']['sum_value_of_leased_fee_and_unpaid_balance_of_special_assessments']
+        (crit_4_attr - maximum_params[:unpaid_balance_of_special_assessments]).should be > 0
+        max_loan_in_json['criterion_5']['line_f']['annual_ground_rent'].should be > 0
+      end
+    end
+    
+    context "when tax_abatement (fixed with length shorted than loan term) supplied" do
+      
+      let(:maximum_params) {maximum_refinance_params_including_criterion_11_and_short_fixed_tax_abatement}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_params)).to_json)['loan']}
+      
+      it "should appear in criteria 5" do
+        max_loan_in_json['criterion_5']['line_i']['tax_abatement_present_value'].should be > 0
+      end
+    end
+    
+    context "maximum parameters supplied, including those requiring criterion 11" do
+      let(:maximum_params) {maximum_refinance_params_including_criterion_11_and_fixed_lease}
+      let(:max_loan_in_json) {ActiveSupport::JSON.decode((TestClass.new(maximum_params)).to_json)['loan']}
+      
+      it "should set criterion 11 with maximum expected params" do
+        crit_11 = max_loan_in_json['criterion_11']
+        grants_loans_gifts = maximum_params[:gifts].to_f + maximum_params[:grants].to_f + 
+                             maximum_params[:private_loans].to_f + maximum_params[:public_loans].to_f
+        crit_11['line_b1']['grants_loans_gifts'].should be_within(0.005).of grants_loans_gifts
+        crit_11['line_b2']['tax_credits'].should be_within(0.005).of maximum_params[:tax_credits]
+        expected = maximum_params[:excess_unusual_land_improvement]
+        crit_11['line_b3']['value_of_leased_fee'].should be > 0
+        crit_11['line_b4']['excess_unusual_land_improvement_cost'].should be_within(0.005).of(expected)
+        expected = maximum_params[:cost_containment_mortgage_deduction]
+        crit_11['line_b5']['cost_containment_mortgage_deductions'].should be_within(0.005).of(expected)
+        expected = maximum_params[:unpaid_balance_of_special_assessments]
+        crit_11['line_b6']['unpaid_balance_of_special_assessment'].should be_within(0.005).of(expected)
+        crit_11['line_a']['project_cost'].should be > 0
+        crit_11['line_c']['line_a_minus_line_b'].should be > 0
+      end
+    end
+    
+    context "minimum parameters supplied, plus those requiring criterion 11" do
+      it "should set criterion 11 with minimum expected params" do
+        params = minimum_refinance_params_including_for_criterion_11
+        min_in_json = ActiveSupport::JSON.decode((TestClass.new(params)).to_json)['loan']
+        params = minimum_acquisition_params_including_for_criterion_11
+        crit_11 = min_in_json['criterion_11']
+        grants_loans_gifts = params[:gifts].to_f + params[:grants].to_f + params[:private_loans].to_f +
+                             params[:public_loans].to_f
+        crit_11['line_b1']['grants_loans_gifts'].should be_within(0.005).of grants_loans_gifts
+        crit_11['line_b2']['tax_credits'].should be_within(0.005).of params[:tax_credits]
+        crit_11['line_a']['project_cost'].should be > 0
+        crit_11['line_c']['line_a_minus_line_b'].should be > 0
+      end
+    end
+  
   end
   
   describe "errors_to_json" do

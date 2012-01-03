@@ -7,12 +7,12 @@ Fha2::Application.routes.draw do
     namespace :beta1 do
       match 'sec223f_acquisition' => 'sec223f_acquisition#loan', :via => :post
       match 'sec223f_refinance' => 'sec223f_refinance#loan', :via => :post
-      # match 'api_keys/new' => 'api_key#new', :via => :get
+
       resources :api_keys, :only=>[:new, :show, :create]
 
       match 'documentation/sec223f' => 'documentation#sec223f', :via => :get
-      match 'documentation/sec223f/acquisition' => 'documentation#sec223f_acquisition', :via => :get
-      match 'documentation/sec223f/refinance' => 'documentation#sec223f_refinance', :via => :get
+      match 'documentation/sec223f_acquisition' => 'documentation#sec223f_acquisition', :via => :get
+      match 'documentation/sec223f_refinance' => 'documentation#sec223f_refinance', :via => :get
     end
   end
     

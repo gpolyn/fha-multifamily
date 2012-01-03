@@ -1,0 +1,94 @@
+%li
+	%code loan_request
+	(&#8805; 0)
+%li
+	%code affordability
+	%ul
+		%li
+			%code.parameter "subsidized" 
+			90% or greater rental assistance
+		%li
+			%code.parameter "affordable" 
+			(from <a href="http://www.hud.gov/offices/adm/hudclips/letters/
+			mortgagee/files/10-21ml.pdf#page=2" target="_blank">HUD Mortgage Letter 2010-21</a>) 
+			"...projects that have a recorded regulatory agreement in effect for at least 15 years
+			after final endorsement, (b) projects that meet at least the minimum Low Income Housing Tax Credit
+			(LIHTC) restrictions of 20% of units at 50% of the Area Median Income (AMI), or
+			40% of units at 60% of AMI, with economic rents (i.e. the portion paid by the
+			tenants) on those units no greater than Low Income Housing Tax Credit rents, and (c)
+			mixed income projects if the minimum low income unit rent and occupancy
+			restrictions and regulatory agreement meet the above criteria."
+		%li
+			%code.parameter "market" 
+			neither affordable or subsidized
+%li
+	%code metropolitan_area_waiver
+	HUD loan proceeds on a per-unit
+	basis vary depending on a project's <a href="http://www.hud.gov/offices/adm/hudclips/letters/mortgagee/files/10-31ml.pdf" target="_blank">metropolitan area</a>. 
+	Where no metropolitan area applies or 
+	when higher proceeds are sought by special request to HUD, other waiver settings may be appropriate.
+	%ul
+		%li
+			%code.parameter "maximum waiver" 
+			obtains the maximum standard percentage available (greater than the percentage under 
+			<code class="parameter">"standard waiver"</code>, though not necessarily greater than the 
+			percentage available in the applicable metropolitan area)
+		%li
+			%code.parameter "standard waiver" 
+			may not be greater than the percentage amount available in the applicable
+			metropolitan area (greater than 100%)
+		%li
+			%code.parameter "no waiver" 
+			applicable when no metropolitan area applies (100%)
+		%li
+			The following metropolitan areas...
+			%table#other-metropolitan-areas
+				%tr#some-row
+					%td
+						- @hcps[0..25].each do |hcp|
+							<li><code class="parameter">"#{hcp}"</code></li>
+					%td
+						- @hcps[26..51].each do |hcp|
+							<li><code class="parameter">"#{hcp}"</code></li>
+					%td
+						- @hcps[52..76].each do |hcp|
+							<li><code class="parameter">"#{hcp}"</code></li>
+%li
+	A minimum total of 5 units from any combination of the following apartment types 
+	(integers &#8805; 0) &#151 yields an error otherwise.
+	%ul
+		%li
+			%code number_of_no_bedroom_units
+			(studio units)
+		- ["number_of_one_bedroom_units", "number_of_two_bedroom_units", "number_of_three_bedroom_units", "number_of_four_or_more_bedroom_units"].each do |br_type|
+			<li><code>#{br_type}</code></li>
+%li
+	%code mortgage_interest_rate
+	(&#8805; 0) 
+	expressed in percentage terms and <i><u>including</u></i> the current standard HUD GNMA annual servicing 
+	fee of 0.25
+%li
+	%code term_in_months
+	(&#8805; 0) expressed as a positive integer less or equal to 420 &#151 any
+	greater value will yield an error
+%li
+	%code annual_replacement_reserve_per_unit
+	(&#8805; 250) this minimum is 
+	<a href="http://www.hud.gov/offices/adm/hudclips/letters/mortgagee/files/10-21ml.pdf#page=7" target="_blank">
+	currently required by HUD</a>.
+%li
+	%code gross_residential_income
+	(&#8805; 0) annual income before vacancy from all non-commercial
+	sources: apartment, parking and other income 
+%li
+	%code residential_occupancy_percent
+	(&#8805; 85.00) The maximum percent allowed depends on project affordability: for
+	market projects it is 93.00, for subsidized and affordable projects, 95.00. In case
+	the given percent exceeds the applicable maximum, only the maximum will be applied to the given value for
+	<code>gross_residential_income</code> as part of the determination of effective gross income.
+%li
+	%code operating_expenses
+	(&#8805; 0)
+	can be expressed in absolute dollar terms <i>or</i> as 
+	a percent of effective gross income (see <code>operating_expenses_is_percent_of_effective_gross_income</code>,
+	below.) If properly expressed as a percent of effective gross income, the maximum is 100.00.

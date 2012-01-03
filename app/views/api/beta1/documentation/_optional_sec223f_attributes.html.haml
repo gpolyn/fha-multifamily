@@ -1,0 +1,121 @@
+%li#is-elevator-project
+	%code="is_elevator_project"
+	<code class="parameter">true</code> or <code class="parameter">false</code> 
+	(evaluated as <code class="parameter">false</code> when omitted)
+%li#operating-expenses-is-percent-of-effective-gross-income
+	%code="operating_expenses_is_percent_of_effective_gross_income"
+	when <code class="parameter">true</code>, the value given for <code>operating_expenses</code> is 
+	taken as a percentage of effective gross income. Otherwise, if <code class="parameter">false</code> 
+	or omitted, the value given for <code>operating_expenses</code> is taken in absolute dollar terms.
+%li
+	%code="gross_commercial_income"
+	(&#8805; 0)
+	annual income before vacancy from any commercial and non-residential parking sources
+%li
+	%code="residential_occupancy_percent"
+	(&#8805; 0)
+	the HUD maximum for the program is 80.00. In case the given percent exceeds the maximum, 
+	only the maximum will be applied to the value given for <code>gross_commercial_income</code> 
+	in determining effective gross income
+%li
+	%code="initial_deposit_to_replacement_reserve"
+	(&#8805; 0)
+	amount HUD will require as an initial deposit to replacement reserve fund
+%li
+	%code="replacement_reserves_on_deposit"
+	(&#8805; 0)
+	replacement reserves currently on deposit with the project
+%li
+	%code="major_movable_equipment"
+	(&#8805; 0) value estimated for such items at the project
+%li
+	%code="tax_credits"
+	(&#8805; 0)
+%li
+	%code="private_loans"
+	(&#8805; 0) when added to the HUD mortgage, must not exceed 92.5% of the project value or will yield an error
+%li
+	%code="public_loans"
+	(&#8805; 0)
+%li
+	%code="grants"
+	(&#8805; 0)
+%li
+	%code="gifts"
+	(&#8805; 0)
+%li
+	%code="cost_containment_mortgage_deduction"
+	(&#8805; 0)
+%li
+	%code="annual_special_assessment"
+	(&#8805; 0)
+%li
+	%code="excess_unusual_land_improvement"
+	(&#8805; 0)
+%li
+	%code="unpaid_balance_of_special_assessments"
+	(&#8805; 0)
+%li
+	%code="warranted_price_of_land"
+	(&#8805; 0) inclusion of this item is strongly recommended, as it can increase loan proceeds.
+%li
+	%code="gross_apartment_square_feet"
+	(&#8805; 0)
+%li
+	%code="gross_other_square_feet"
+	(&#8805; 0)
+%li
+	%code="gross_commercial_square_feet"
+	(&#8805; 0)
+%li
+	%code="indoor_residential_parking_square_feet"
+	(&#8805; 0)
+%li
+	%code="indoor_commercial_parking_square_feet"
+	(&#8805; 0)
+%li
+	%code="outdoor_parking_discount_percent"
+	(&#8805; 0.00 & 100.00 &#8805;) the percent by which the value of developed outdoor parking 
+	square footage may be of lesser value than all other developed project square footage
+%li
+	%code="outdoor_residential_parking_square_feet"
+	(&#8805; 0)
+%li
+	%code="outdoor_commercial_parking_square_feet"
+	(&#8805; 0)
+%li
+	%code="financing_fee"
+	(&#8805; 0) can be expressed in absolute dollar terms <i>or</i> as 
+	a percent of the loan (see <code>financing_fee_is_percent_of_loan</code>,
+	below.) If properly expressed as a percent of the loan, the maximum is 100.00.
+%li
+	%code="financing_fee_is_percent_of_loan"
+	when <code class="parameter">true</code>, the value given for <code>financing_fee</code> is 
+	taken as a percentage of the loan. Otherwise, if <code class="parameter">false</code> or omitted, 
+	the value given for <code>financing_fee</code> is taken in absolute dollar terms.
+%li
+	%code="title_and_recording"
+	(&#8805; 0) can be expressed in absolute dollar terms <i>or</i> as 
+	a percent of the loan (see <code>financing_fee_is_percent_of_loan</code>,
+	below.) If properly expressed as a percent of the loan, the maximum is 100.00.
+%li
+	%code="title_and_recording_is_percent_of_loan"
+	when <code class="parameter">true</code>, the value given for <code>title_and_recording</code> is 
+	taken as a percentage of the loan. Otherwise, if <code class="parameter">false</code> or omitted, 
+	the value given for <code>title_and_recording</code> is taken in absolute dollar terms.
+%li
+	%code="legal_and_organizational"
+	(&#8805; 0) part of loan transaction costs
+%li
+	%code="third_party_reports"
+	(&#8805; 0) part of loan transaction costs
+%li
+	%code="survey"
+	(&#8805; 0) part of loan transaction costs
+%li
+	%code="other"
+	(&#8805; 0) part of loan transaction costs
+%li
+	= render :partial => "lease"
+%li
+	= render :partial => "tax_abatement"

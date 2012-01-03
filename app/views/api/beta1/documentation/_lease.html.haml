@@ -1,0 +1,59 @@
+%code="lease"
+<br/>
+Required:
+%ul
+	%li
+		%code="term_in_years"
+		(&#8805; 0) if less than 50 
+		and <code>term_in_years_expresses_original_term_and_not_remaining_term</code> is
+		<code class="parameter">false</code>, the lease is invalid, resulting in an error.
+		If less than 99 and <code>term_in_years_expresses_original_term_and_not_remaining_term</code> 
+		is <code class="parameter">true</code>, the lease is invalid, resulting in an error.
+	%li
+		%code="term_in_years_expresses_original_term_and_not_remaining_term"
+		must be <code class="parameter">true</code> or <code class="parameter">false</code>.
+		When <code class="parameter">true</code>, 
+		<a href="#is-renewable"><code>is_renewable</code></a> is required.
+	%li
+		%code="has_option_to_buy"
+		must be <code class="parameter">true</code> or <code class="parameter">false</code>.
+		When <code class="parameter">true</code>, 
+		<a href="#payments-are-variable"><code>payments_are_variable</code></a> must be
+		<code class="parameter">false</code> or an error will result.
+	%li
+		%code="as_is_value_of_land_in_fee_simple"
+		(&#8805; 0) is the value of the leased fee when <code>has_option_to_buy</code> is
+		<code class="parameter">false</code> and <code>lease_capitalization_rate_percent</code>
+		is not given (see <a href="#criterion-5">Criterion 5 example</a> below.)
+	%li
+		%code="first_year_payment"
+		(&#8805; 0) is the annual lease payment or <i>ground rent</i>. When
+		<code>payments_are_variable</code> is <code class="parameter">false</code>, must less than
+		or equal to <code>as_is_value_of_land_in_fee_simple</code> multiplied by 
+		<code>mortgage_interest_rate</code>, or an error will result. When
+		<code>payments_are_variable</code> is <code class="parameter">true</code>, must be 
+		less than or equal to <code>as_is_value_of_land_in_fee_simple</code> multiplied by 
+		<code>mortgage_interest_rate</code> multiplied by 0.9, or an error will result.
+	%li#payments-are-variable
+		%code="payments_are_variable"
+		should be <code class="parameter">true</code> if lease payments vary after the first year,
+		otherwise, must be <code class="parameter">false</code>.
+	%li
+		%code="payment_is_lump_sum_in_first_year"
+		should be <code class="parameter">true</code> lease is entirely paid for in first year,
+		otherwise, must be <code class="parameter">false</code>.
+Optional:
+%ul
+	%li#is-renewable
+		%code="is_renewable"
+		must be <code class="parameter">true</code> or <code class="parameter">false</code>.
+		Must be <code class="parameter">true</code> if
+		<code>term_in_years_expresses_original_term_and_not_remaining_term</code> is
+		<code class="parameter">true</code> and <code>term_in_years</code> is greater than or equal
+		to 99 or an error will result.
+	%li
+		%code="lease_capitalization_rate_percent" 
+		(&#8805; 0.00 & &#8804; <code>mortgage_interest_rate</code>) 
+		is applied to <code>first_year_payment</code> to determine the
+		value of the leased fee when <code>has_option_to_buy</code> is <code class="parameter">true</code>
+		(see <a href="#criterion-3">Criterion 3 example</a> below).

@@ -1,0 +1,56 @@
+%code="tax_abatement"
+%ul
+	%li
+		<u>Fixed abatements</u> have a present value of 0 when the lease length is greater than or 
+		equal to the mortgage term in years. In this case, additional loan proceeds may be available
+		from the abatement's positive effect on project net operating income. (This case shown in the
+		<a href="#criterion-3">Criterion 3 example</a>, below.)
+		%p
+		When the lease length is less than the mortgage term in years, the abatement's present value is 
+		a function of the abatement amount, the lease length and the loan mortgage rate and mortgage 
+		insurance premium. The resulting amount becomes available as additional loan proceeds under the
+		debt service criterion. In this case, the abatement's effect on project net operating income is
+		ignored. (This case shown in the <a href="#criterion-5">Criterion 5 example</a>, below.)
+		%p
+		The following attributes are required for fixed abatements:
+		%ul
+			%li
+				%code="end_year"
+				(&#8805; 0) not a date year, but an integer expressing the end of the abatement in terms of the
+				loan. For example, <code class="parameter">5</code> would express 'abatement ends five 
+				years after start of loan.'
+			%li
+				%code="annual_amount"
+				(&#8805; 0)
+	%li
+		<u>Variable abatements</u> have only a present value, which is
+		a function of the the abatement amounts for each period and the loan mortgage rate and mortgage 
+		insurance premium. The resulting amount becomes available as additional loan proceeds under the
+		debt service criterion. In this case, the abatement's effect on project net operating income is
+		ignored. (This case shown in the <a href="#fixed-long-term-abatement">Criterion 3 example</a>, 
+		below.)
+		%p
+		The following attributes required for variable abatements:
+		%ul
+			%li
+				%code="variable_phase_<some integer>"
+				(<code>variable_phase_0</code>, <code>variable_phase_5</code>, etc.)
+				(This is shown in the <a href="#variable-abatement">Criterion 7 example</a>, 
+				below.)
+				Attributes required for any variable phase are as follows:
+				%ul
+					%li
+						%code="start_year"
+						(&#8805; 0) not a date year, but an integer expressing the start of the abatement phase 
+						in terms of the loan. For example, <code class="parameter">0</code> would 
+						express 'the abatement phase starts with the loan.' Cannot
+						be less than the <code>end_year</code> of any other phase.
+					%li
+						%code="end_year"
+						(&#8805; 0) not a date year, but an integer expressing the end of the abatement phase 
+						in terms of the loan. For example, <code class="parameter">5</code> would 
+						express 'the abatement phase ends five years after start of loan.' Cannot
+						be less than or equal to the <code>start_year</code> in its own phase.
+					%li
+						%code="annual_amount"
+						(&#8805; 0)

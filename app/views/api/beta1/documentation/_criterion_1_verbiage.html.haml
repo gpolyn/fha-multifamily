@@ -1,0 +1,17 @@
+The input set includes the minimum parameters logically required (however implausible in practice) 
+to yield an error-free result from the API, subject to the following considerations:
+%ul
+	%li
+		%code is_elevator_project
+		could have been omitted, in which case it would have been evaluated as 
+		<code class="parameter">false</code> 
+		(see in <a href="#is-elevator-project">Attributes:Optional</a>, above)
+	%li
+		%code operating_expenses_is_percent_of_effective_gross_income
+		could have been omitted, in which case it would have been evaluated as 
+		<code class="parameter">false</code> 
+		(see in <a href="#operating-expenses-is-percent-of-effective-gross-income">
+		Attributes:Optional</a>, above)
+	%li
+		the particular combination of apartments by bedroom unit type is arbitrary &#151 any combination
+		resulting in the minimum required total of 5 units would be valid

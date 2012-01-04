@@ -51,7 +51,7 @@ gem 'coffee-filter'
 
 # To use debugger
 # gem 'ruby-debug'
-gem 'ruby-debug19'
+# gem 'ruby-debug19' # needed for ruby 1.9
 
 gem 'recaptcha'
 

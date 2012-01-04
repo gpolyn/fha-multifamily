@@ -1,0 +1,4 @@
+source "http://rubygems.org"
+
+# Specify your gem's dependencies in sec_223f_common_behavior.gemspec
+gemspec

@@ -1,0 +1,5 @@
+require 'rubygems'
+require 'hud_92013'
+require 'rspec'
+require 'rspec/autorun'
+require 'hud_92013/spec_support'

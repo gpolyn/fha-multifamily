@@ -1,0 +1,5 @@
+require 'rubygems'
+require 'sec_223f_refinance'
+require 'rspec'
+require 'rspec/autorun'
+require 'sec223f_cash_requirement/spec_support'

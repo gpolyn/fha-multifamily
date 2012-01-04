@@ -1,0 +1,6 @@
+require 'rubygems'
+require 'sec223f_acquisition'
+require 'rspec'
+require 'rspec/autorun'
+require 'hud_92013'
+require 'sec223f_cash_requirement/spec_support'

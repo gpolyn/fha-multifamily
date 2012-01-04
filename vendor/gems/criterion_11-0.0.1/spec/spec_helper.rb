@@ -1,0 +1,5 @@
+require 'rubygems'
+require 'criterion_11'
+require 'rspec'
+require 'rspec/autorun'
+require 'criterion_11/shared_examples'

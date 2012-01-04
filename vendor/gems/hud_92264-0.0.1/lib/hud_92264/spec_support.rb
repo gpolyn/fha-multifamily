@@ -1,0 +1,1 @@
+require 'hud_92264/spec_support/shared_examples'

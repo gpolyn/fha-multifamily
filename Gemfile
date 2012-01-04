@@ -10,9 +10,25 @@ gem 'pg'
 
 # gem 'jruby-openssl'
 gem 'json'
+
+gem 'criteria_7_and_10', '0.0.1', :path=>"vendor/gems/criteria_7_and_10-0.0.1"
+gem 'criterion_10', '0.0.1', :path=>"vendor/gems/criterion_10-0.0.1"
+gem 'criterion_11', '0.0.1', :path=>"vendor/gems/criterion_11-0.0.1"
+gem 'criterion_3', '0.0.1', :path=>"vendor/gems/criterion_3-0.0.1"
+gem 'criterion_4', '0.0.1', :path=>"vendor/gems/criterion_4-0.0.1"
+gem 'criterion_5', '0.0.1', :path=>"vendor/gems/criterion_5-0.0.1"
+gem 'criterion_7', '0.0.1', :path=>"vendor/gems/criterion_7-0.0.1"
+gem 'fha_utilities', '0.0.1', :path=>"vendor/gems/fha_utilities-0.0.1"
+gem 'hud_92013', '0.0.1', :path=>"vendor/gems/hud_92013-0.0.1"
+gem 'hud_92264', '0.0.1', :path=>"vendor/gems/hud_92264-0.0.1"
+gem 'sec223f_acquisition', '0.0.1', :path=>"vendor/gems/sec223f_acquisition-0.0.1"
+gem 'sec223f_cash_requirement', '0.0.1', :path=>"vendor/gems/sec223f_cash_requirement-0.0.1"
+gem 'sec_223f_common_behavior', '0.0.1', :path=>"vendor/gems/sec_223f_common_behavior-0.0.1"
+gem 'sec_223f_refinance', '0.0.1', :path=>"vendor/gems/sec_223f_refinance-0.0.1"
+
 # gem 'criterion_11'
-gem 'sec223f_acquisition'
-gem 'sec_223f_refinance'
+# gem 'sec223f_acquisition'
+# gem 'sec_223f_refinance'
 
 # Gems used only for assets and not required
 # in production environments by default.

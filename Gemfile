@@ -69,7 +69,7 @@ group :development, :test do
   # gem 'awesome_print', :require => 'ap'
   gem 'rspec-rails', '~> 2.0'
   gem 'mocha'
-  # gem 'jasmine'
+  gem 'jasmine'
   # gem 'rb-fsevent'
   # gem 'growl_notify'
   # gem 'guard'

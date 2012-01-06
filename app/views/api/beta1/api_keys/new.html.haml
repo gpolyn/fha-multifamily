@@ -1,0 +1,7 @@
+Get a key!
+
+%form{:action=> "/api/beta1/api_keys", :method => "post"}
+
+	= recaptcha_tags
+	
+	%input{:type => "submit", :value => "Send", :class => "button"}

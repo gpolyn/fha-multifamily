@@ -1,5 +1,6 @@
 class Api::Beta1::ApiKeysController < ApplicationController
   
+  protect_from_forgery
   respond_to :html
   
   def new

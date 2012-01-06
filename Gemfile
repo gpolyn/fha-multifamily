@@ -53,7 +53,7 @@ gem 'coffee-filter'
 # gem 'ruby-debug'
 # gem 'ruby-debug19' # needed for ruby 1.9
 
-gem 'recaptcha'
+gem 'recaptcha', :require=> 'recaptcha/rails'
 
 group :test do
 	gem 'factory_girl_rails'

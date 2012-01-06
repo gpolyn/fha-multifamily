@@ -1,5 +1,5 @@
 Fha2::Application.routes.draw do
-  # root :to => "todos#index"
+  root :to => "todos#index"
   # resources :todos
   # match 'sec_223f_refinance' => 'sec223f_refinance#loan', :via => :get
   

@@ -69,14 +69,14 @@ group :development, :test do
   # gem 'awesome_print', :require => 'ap'
   gem 'rspec-rails', '~> 2.0'
   gem 'mocha'
-  gem 'jasmine'
+  # gem 'jasmine'
   # gem 'rb-fsevent'
   # gem 'growl_notify'
   # gem 'guard'
   # gem 'guard-coffeescript'
   # gem 'guard-livereload'
   # gem 'jasminerice'
-  # gem 'jasmine', '1.2.0.rc1' #, :git=>'https://github.com/pivotal/jasmine-gem.git', :ref=>'5a7524ae9eaea4fe106a7aaa90ccfb1bc137abe7'
+  gem 'jasmine', :path=>"vendor/gems/jasmine-gem"
   gem 'rails-backbone'
 end
 

@@ -1,84 +1,395 @@
-/*table#apartment-income th, 
-table#apartment-income td*/
+table#apartment-income,
+table#other-residential-income,
+table#commercial-income,
+table#residential-parking-income,
+table#commercial-parking-income,
+div.loan-criterion,
 table th, 
-table td
+table td,
+button, div#loan-service
 {
 	border: 1px solid black;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
-span.required
-{
+table#apartment-income col#apartment-square-feet,
+table#apartment-income col#apartment-monthly-rent {
+	width: 24%;
+}
+
+table#other-residential-income col#other-residential-square-feet,
+table#other-residential-income col#other-residential-monthly-rent {
+	width: 24%;
+}
+
+table col.square-footage,
+table col.monthly-income {
+	width: 24%;
+}
+
+div.loan-criterion {
+	margin: 2px;
+}
+
+table th:last-child {
+	border: none;
+}
+
+table#apartment-income tbody tr:first-child td:first-child {
+	text-align:center;
+}
+
+div.income {
+	width: 240px;
+	float: left;
+}
+
+div.left, div.right {
+	float:left;
+}
+
+div.left {
+	width: 55%;
+}
+
+div.right {
+	width: 45%;
+}
+
+div .right {
+	text-align: center;
+}
+
+div#operating-income {
+	margin-top: 6px;
+}
+
+div#operating-income > div div {
+	height: 24px;
+}
+
+div#operating-expense .left,
+div#effective-income-container .left,
+div#operating .left {
+	text-align: right;
+	width: 50%;
+}
+
+div#operating-expense .right {
+	text-align: left;
+	width: 48.5%;
+	padding-left: 1.5%;
+}
+
+div#effective-income-container .right,
+div#operating .right  {
+	text-align: left;
+	width: 50%;
+}
+
+div#effective-income-container .left,
+div#operating .left {
+	width: 48.85%;
+	padding-right: 1.15%;
+}
+
+div#acquisition-costs input {
+	width: 75px;
+}
+
+div.costs-left input {
+	margin-right: 5%;
+}
+
+div.costs-left {
+	float: left;
+	width: 50%;
+}
+
+div.costs-right {
+	float: right;
+	width: 50%;
+}
+
+div#income table tbody input {
+	width: auto;
+}
+
+div#income table col#destroy {
+	width: 5%;
+}
+
+div.costs div {
+	clear: both;
+}
+
+div.costs input {
+	float: right;
+}
+
+input {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+div.percent-of-loan-indicator {
+	float: left;
+}
+
+div#loan-service {
+	height: 23px;
+	padding: 2px 5px;
+}
+
+input.occupancy-percent {
+	width: 32px;
+	text-align: right;
+}
+
+div#occupancy-percentages div.left {
+	padding-left: 37px;
+}
+
+span.required {
 	color: red;
 }
 
-/*table#apartment-income .editing {*/
+div#transaction-amount-type-selector {
+	float:left;
+	margin-left: 4.5px;
+}
+
+.costs-right label {
+	margin-left: 1.15%;
+}
+div#transaction-amount-input {
+	float:left;
+}
+
+label[for=transaction-amount] {
+	padding-right: 18px;
+}
+
+div#transaction-amount-type-selector {
+	padding-left: 10px;
+}
+
+div#acquisition-costs .costs-right input[type=checkbox] {
+	float:left;
+	position: relative;
+	top: 2.5px;
+}
+
+div#transaction-amount-type-selector input {
+	width: 18px;
+}
+
+div#transaction-amount-container {
+	height: 23px;
+}
+
 table .editing {
 	padding: 0;
 	border-bottom: 0;
 }
 
-/*table#apartment-income tr input*/
-table tr input
-{
-	width: 90px;
-}
-
-/*table#apartment-income .editing .display,*/
-/*table#apartment-income .edit {*/
 table .editing .display,
 table .edit {
   display: none;
 }
 
-/*table#apartment-income .editing .edit {*/
 table .editing .edit {
   display: block;
 }
 
-/*table#apartment-income .editing input {*/
 table .editing input {
-/*  width: 444px;
-  font-size: 24px;
-  font-family: inherit;
-  margin: 0;
-  line-height: 1.6em;
-  border: 0;
-  outline: none;
-  padding: 10px 7px 0px 27px;
-  border: 1px solid #999999;*/
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
 
-table#apartment-income .apartment-income-destroy {
-  position: absolute;
-  right: 5px;
-  top: 14px;
-  display: none;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  background: url(/assets/destroy.png) no-repeat 0 0;
+table .destroy-item {
+	position: relative;
+	top: 2.5px;
+	display: none;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	background: url(/assets/action_delete.gif) no-repeat 0 0;
 }
 
-table#apartment-income tr:hover .apartment-income-destroy {
+table tbody tr + tr {
+	text-align: center;
+}
+
+table .add-item {
+	position: relative;
+	top: 4.25px;
+	left: 1px;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	background: url(/assets/action_add.gif) no-repeat 0 0;
+}
+
+div.delete-container,
+div.add {
+	width: 16px;
+	height: 16px;
+	margin: auto;
+}
+
+table tr:hover .destroy-item,
+table tr:hover .add-item {
   display: block;
 }
 
-table#apartment-income .apartment-income-destroy{
-  background-position: 0 -20px;
+div#fetching {
+	width: 125px;
+	height: 21px;
+	background: url(/assets/ajax-loader2.gif);	
 }
 
-#acquisition-costs input{
-	width: 100px;
-}
-
-input#mortgage-interest-rate {
-	width: 50px;
+div#gif {
+	display: none;
+	width: 25%;
+	margin: auto;
 }
 
 #acquisition-costs input[type=checkbox] {
 	width: 7.5px;
+}
+
+div#income table {
+	table-layout:fixed;
+	width: 100%;
+}
+
+table#apartment-income tbody input.apartment-unit-count {
+	width: 93.5%;
+	height: 99%;
+}
+
+table#apartment-income tbody input.apartment-square-feet,
+table#apartment-income tbody input.apartment-monthly-rent,
+table#apartment-income tbody .editing input  {
+	width: 96%;
+	height: 99%;
+}
+
+table#residential-parking-income tr input:first-child,
+table#commercial-parking-income tr input:first-child,
+table#commercial-income tbody tr input.commercial-square-feet,
+table#commercial-income tbody tr input.commercial-monthly-rent,
+table#commercial-income tbody .editing input {
+	width: 95.5%;
+	height: 99.5%;
+}
+
+table#other-residential-income input.usage,
+table#other-residential-income input,
+table#commercial-income input.usage,
+table#other-residential-income tbody .editing input {
+	width: 97.5%;
+	height: 99%;
+}
+
+table#other-residential-income tbody tr:first-child {
+	height: 24.5px;
+}
+
+table.parking th:nth-child(2) {
+	border: none;
+}
+
+table.parking tr td:nth-child(2) {
+	text-align: center;
+}
+
+div.loan-criterion {
+	padding:2px 5px;
+}
+
+div.loan-criterion div.loan-amount {
+	float:right;
+	text-align: right;
+	width: 70px;
+}
+
+div.loan-criterion span.loan-amount-label {
+	float:right;
+	text-align: right;
+}
+
+div#loan-result-summary {
+	height: 26px;
+	padding-top: 6px;
+}
+
+div#loan-result-summary div {
+	float:left;
+	width:50%;
+	text-align: center;
+	margin:auto;
+}
+
+div#loan-result-summary span.label {
+	font-weight: bold;
+}
+
+div.loan-submit {
+	float:left;
+}
+
+div#submit-response-message-container {
+	text-align:center;
+	width: 270px;
+	margin-top: 1.5px;
+}
+
+div#loan-submit-container {
+	float: right;
+}
+
+input.as-percent-possible-input {
+	margin-top:auto;
+}
+
+div#operating-expense {
+	clear:both;
+	height: 23px;
+}
+
+div#operating {
+	margin-top: 2px;
+	clear:both;
+	height: 23px;
+}
+
+div#metropolitan-area {
+	margin-top: 2px;
+	clear: both;
+}
+
+div#affordability {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+select#elevator-status {
+	margin-left: 15.85px;
+	width: 79px;
+}
+
+div#elevator-status {
+	height: 23px;
+}
+
+div#title-container {
+	clear:both;
+	height: 23px;
 }

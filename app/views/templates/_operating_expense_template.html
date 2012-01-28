@@ -1,8 +1,12 @@
 <script id="operating-expense-template" type="text/html">
-	<label for="total">
-		Total operating expenses
+	<div class='left'>
+		<label for="total">
+			total operating expenses<span class="required">*</span>
 		</label>
-	<input id="total">
-	<input id="totalOperatingExpenseIsPercent" name="totalOperatingExpenseIsPercent" type="checkbox" value="true">
-	<label for="totalOperatingExpenseIsPercent">%
+	</div>
+	<div class="right">
+		<input id="total"></input>
+		<input id="totalOperatingExpenseIsPercent" name="totalOperatingExpenseIsPercent" type="checkbox" value="true">
+		<label for="totalOperatingExpenseIsPercent">%
+	</div>
 </script>

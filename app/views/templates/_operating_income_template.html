@@ -1,17 +1,55 @@
 <script id="operating-income-template" type="text/x-handlebars-template">
-	<div id="gross-incomes">
-		gross commercial: <span id="gross-commercial-income">{{grossCommercialIncome}}</span>
-		gross residential: <span id="gross-residential-income">{{grossResidentialIncome}}</span>
+	<div id="residential-income" class="income">
+		<div>
+			<div class="left">gross residential</div>
+			<div class="right">
+				<span id="gross-residential-income" class="income">{{grossResidentialIncome}}</span>
+			</div>
+		</div>
+		<div>
+			<div class="left">
+				<label for="residential-occupancy-percent">occupancy rate<span class="required">*</span></label>
+			</div>
+			<div class="right">
+				<input id="residential-occupancy-percent" class="occupancy-percent" value="{{residentialOccupancyPercent}}">
+			</div>
+		</div>
+		<div>
+			<div class="left">residential income</div>
+			<div class="right">
+				<span id="effective-gross-residential-income">{{effectiveGrossResidentialIncome}}</span>
+			</div>
+		</div>
 	</div>
-	<div id="occupancy-percentages">
-		<label for="commercial-occupancy-percent">commercial occupancy</label>
-		<input id="commercial-occupancy-percent" value="{{commercialOccupancyPercent}}">
-		<br/>
-		<label for="residential-occupancy-percent">residential occupancy</label>
-		<input id="residential-occupancy-percent" value="{{residentialOccupancyPercent}}">
+
+	<div id="commercial-income" class="income">
+		<div>
+			<div class="left">gross commercial</div>
+			<div class="right">
+				<span id="gross-commercial-income" class="income">{{grossCommercialIncome}}</span>
+			</div>
+		</div>
+		<div id="commercial-occupancy-percent">
+			<div class="left">
+				<label for="commercial-occupancy-percent">occupancy rate</label>
+			</div>
+			<div class="right">
+				<input id="commercial-occupancy-percent" class="occupancy-percent" value="{{commercialOccupancyPercent}}">
+			</div>
+		</div>
+		<div id="effective-commercial-income">
+			<div class="left">commercial income</div>
+			<div class="right">
+				<span id="effective-gross-commercial-income">{{effectiveGrossCommercialIncome}}</span>
+			</div>
+		</div>
 	</div>
-	<div id="effective-gross-incomes">
-		effective commercial: <span id="effective-gross-commercial-income">{{effectiveGrossCommercialIncome}}</span>
-		effective residential: <span id="effective-gross-residential-income">{{effectiveGrossResidentialIncome}}</span>
+	<div id="effective-income-container">
+		<div class="left">
+			effective income
+		</div>
+		<div class="right">
+			<span id="effective-income">{{effectiveGrossIncome}}</span>
+		</div>
 	</div>
 </script>

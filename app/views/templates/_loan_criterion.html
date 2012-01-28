@@ -1,3 +1,7 @@
 <script id="loan-criterion" type="text/x-handlebars-template">
-	Criterion {{criterion}} loan amount {{loanAmount}}
+	<div class="criterion-label">
+		Criterion <span class="criterion-number">{{criterion}}</span>
+	</div>
+	<span class="description">{{criterionDescription}}</span> 
+	<span class="loan-amount-label">loan amount $<div class="loan-amount">{{loanAmount}}</div></span>
 </script>

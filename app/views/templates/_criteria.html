@@ -1,3 +1,13 @@
 <script id="criteria-template" type="text/x-handlebars-template">
-	Loan amount: {{loanAmount}} cash requirement: {{cashRequirement}}
+	<div id="gif"><div id="fetching"></div></div>
+	<div id="loan-result-summary">
+		<div>
+			<span id="final-loan-amount-label" class="label">loan amount</span>
+			<span id="final-loan-amount">{{loanAmount}}</span>
+		</div>
+		<div>
+			<span id="cash-requirement-label" class="label">cash requirement</span>
+			<span id="cash-requirement">{{cashRequirement}}</span>
+		</div>
+	</div>
 </script>

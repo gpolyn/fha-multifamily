@@ -4,6 +4,9 @@ class TodoApp.Affordability extends TodoApp.SingletonLikeModel
 	
 	localStorage: @localStorage()
 	
+	initialize: (attrs) ->
+		@set({level: "market"}, {silent: true}) unless attrs.level
+	
 	validate: (attrs) ->
 		errors = []
 		

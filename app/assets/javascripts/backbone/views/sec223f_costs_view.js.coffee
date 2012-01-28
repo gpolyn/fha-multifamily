@@ -1,39 +1,46 @@
 class TodoApp.Sec223fCostsView extends Backbone.View
 	
-	tagName: "div"
+	# tagName: "div"
 	
-	id: "acquisition-costs"
+	# id: "acquisition-costs"
 	
 	template: TodoApp.template '#sec223f-acquisition-costs-template'
 	
-	# events:
-	# 	"change input:not(.required)"  : "testing"
-	# 	"change input.required"        : "otherTesting"
-		
+	events:
+		"change input"                           : "save"
+		"change input[name*='purchase-or-debt']" : "updateValueRequirement"
+		# 'blur input'     : 'render'
+		# "keypress input" : "save"
 		# "change input#value"           : "valueFieldHasBeenExplicitlySet"
 		# "change #totalOperatingExpenseIsPercent"   : "updateOnChange"
 	
 	initialize: ->
-		@model.bind 'change', @render
-		$("#income").append(@render().el)
+		$("#acquisition-costs").append(@render().el)
+		@updateValueRequirement()
 		
-		events =
-			"change input:not(.required)"  : "testing"
-			"change input.required"        : "otherTesting"
-			
-		if @model.isNew()
-			@disableAllOptionalFields()
-			events["change input#purchase-price"] = "setValueFieldToPurchasePrice"
-		@delegateEvents events
+		# events =
+		# 	"change input:not(.required)"  : "testing"
+		# 	"change input.required"        : "otherTesting"
+		# 	
+		# if @model.isNew()
+		# 	@disableAllOptionalFields()
+		# @delegateEvents events
 	
 	render: =>
+		console.log "inside render"
 		$(@el).html @template @model.toJSON() # this won't matter in this case (?)
 		@setContent()
-		# console?.log "just got back to render from setContent"
 		@
 	
 	setContent: ->
-		# console?.log "OperatingExpenseView setContent..."
+		console?.log "loan costs view setContent..."
+		
+		@$("input#" + @model.get 'transactionAmountType').attr('checked', true)
+		@$('input#financing-fee-percent').attr('checked', @model.get 'financingFeeIsPercentOfLoan')
+		@$('input#title-and-recording-percent').attr('checked', @model.get 'titleAndRecordingIsPercentOfLoan')
+		@updateValueRequirement()
+		# @$("input#" + @model.get 'transactionAmountType').attr('checked', true)
+		
 		# @$('input#total').val @model.get 'total'
 		# @inputTotal = @$('input#total')
 		# @inputTotal.blur @close
@@ -48,48 +55,49 @@ class TodoApp.Sec223fCostsView extends Backbone.View
 	# 		# @valueFieldHasBeenExplicitlySet = true
 	# 		@.unbind("change input#value", valueFieldHasBeenExplicitlySet)
 	
-	setValueFieldToPurchasePrice: ->
-		console.log "setValueFieldToPurchasePrice"
-		# @$('input#') # NOTE: Should set this when model avail, not otherwise...
+	# disableAllOptionalFields: ->
+	# 	@$('input').not('.required').attr('disabled', true)
+	# 
+	# enableAllOptionalFields: ->
+	# 	@$('input').not('.required').attr('disabled', false)
+	# 
+	# toggleDisabledForOptionalFields: ->
+	# 	@optionalFieldsAreDisabled ?= true
+	# 	@$('input').not('.required').attr('disabled', @optionalFieldsAreDisabled)
 	
-	testing: ->
-		console.log "TESTING!"
-	
-	otherTesting: ->
-		console.log "OTHER TESTING!"
-		console.log "JSON.stringify(@readAttributes()) #{JSON.stringify(@readAttributes())}"
-		attrs = @readAttributes()
-		if attrs.purchasePrice? and attrs.mortgageInterestRate?
-			console.log "this would be valid"
-			@enableAllOptionalFields()
+	updateValueRequirement: ->
+		console.log "inside update value requirement"
+		if @$('input[name=purchase-or-debt]:checked', '#transaction-amount-type-selector').val() == "debt"
+			@$('input#value').removeClass "optional"
+			@$('input#value').addClass "required"
+			@$('<span class="required" id="value-span">*</span>').insertBefore('input#value')
 		else
-			@disableAllOptionalFields()
-			console.log "this would not be valid"
+			@$('input#value').removeClass "required"
+			@$('input#value').addClass "optional"
+			@$('span#value-span').remove()
 	
-	disableAllOptionalFields: ->
-		@$('input').not('.required').attr('disabled', true)
-	
-	enableAllOptionalFields: ->
-		@$('input').not('.required').attr('disabled', false)
-	
-	toggleDisabledForOptionalFields: ->
-		@optionalFieldsAreDisabled ?= true
-		@$('input').not('.required').attr('disabled', @optionalFieldsAreDisabled)
+	getNullOrVal: (cssSelectorStr) ->
+		if (val = jQuery.trim(@$(cssSelectorStr).val())) is "" then null else val
 	
 	readAttributes: ->
-		attrs = 
-			purchasePrice:         parseInt @$('input#purchase-price').val()
-			mortgageInterestRate:  parseFloat @$('input#mortgage-interest-rate').val()
-			repairsOrImprovements: parseInt @$('input#repairs-or-improvements').val()
-			financingFee: parseFloat @$('input#financing-fee').val()
-			financingFeePercent: @$('input#financing-fee-percent').is(':checked')
-			replacementReservesOnDeposit: parseInt @$('input#replacement-reserve-on-deposit').val()
-			annualReplacementReservesPerUnit: parseInt @$('input#annual-replacement-reserves-per-unit').val()
-			initialDepositToReplacementReserve: parseInt @$('input#initial-deposit-to-replacement-reserve').val()
-			majorMovableEquipment: parseInt @$('input#major-movable-equipment').val()
-		_.each(attrs, (val, key) -> delete attrs[key] if isNaN val)
-		attrs
+		transactionAmount:                @getNullOrVal 'input#transaction-amount'
+		landValue:                        @getNullOrVal 'input#land-value'
+		loanRequest:                      @getNullOrVal 'input#loan-request'
+		transactionAmountType:            @$('input[name=purchase-or-debt]:checked', '#transaction-amount-type-selector').val()
+		termInMonths:                     @getNullOrVal 'input#term-in-months'
+		mortgageInterestRate:             @getNullOrVal 'input#mortgage-interest-rate'
+		value:                            @getNullOrVal 'input#value'
+		repairsOrImprovements:            @getNullOrVal 'input#repairs-or-improvements'
+		annualReplacementReservesPerUnit: @getNullOrVal 'input#annual-replacement-reserves-per-unit'
+		financingFee:                     @getNullOrVal 'input#financing-fee'
+		financingFeeIsPercentOfLoan:      @$('input#financing-fee-percent').is(':checked')
+		titleAndRecording:                @getNullOrVal 'input#title-and-recording'
+		titleAndRecordingIsPercentOfLoan: @$('input#title-and-recording-percent').is(':checked')
+		thirdPartyReports:                @getNullOrVal 'input#third-party-reports'
+		survey:                           @getNullOrVal 'input#survey'
+		legalAndOrganizational:           @getNullOrVal 'input#legal-and-organizational'
+		other:                            @getNullOrVal 'input#other'
 	
-	saveToModel: ->
-		console.log "Sec223fCostsView saveToModel"
+	save: ->
+		@model.save @readAttributes(), {error: => @render()}
 	

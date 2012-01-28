@@ -9,8 +9,10 @@
 //= require handlebars
 // = require underscore
 //= require backbone
+//= require autoNumeric-1.7.4
+//= require jquery.mockjax.js
 //= require backbone_rails_sync
 //= require backbone_datalink
-//= require backbone.localStorage-min
+//= require backbone.localStorage
 //= require backbone/fha2
 //= require_tree .

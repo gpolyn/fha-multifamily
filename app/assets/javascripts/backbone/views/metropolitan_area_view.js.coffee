@@ -10,8 +10,6 @@ class TodoApp.MetropolitanAreaView extends Backbone.View
 		"change select"  : "save"
 	
 	initialize: ->
-		@model.set({value: "no waiver"}, {silent: true}) if @model.isNew()
-		@model.bind 'change', @render
 		$("#income").append(@render().el)
 	
 	render: =>

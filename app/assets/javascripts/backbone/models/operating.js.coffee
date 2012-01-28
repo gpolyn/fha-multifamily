@@ -15,7 +15,7 @@ class TodoApp.Operating extends Backbone.Model
 		return unless opexTotal = opex.get('total')
 		
 		if opex.get('totalIsPercentOfEffectiveGrossIncome') is true
-			parseFloat(opexTotal)/100 * egi
+			(100 - parseFloat(opexTotal))/100 * egi
 		else
 			egi - opexTotal
 	

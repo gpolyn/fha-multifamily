@@ -37,6 +37,9 @@ class TodoApp.ApartmentIncomes extends TodoApp.IncomeSources
 			threeBedroomUnits: @totalUnitsForBedroomType 3
 			fourBedroomUnits: @totalUnitsForBedroomType 4
 	
+	isValidForLoanSubmission: ->
+		@length > 0
+		
 	# totalZeroBedroomUnits: ->
 	# 	val = 0
 	# 	_(@each (inc) -> val += inc.get('units') if inc.get('bedrooms') is 0)
@@ -82,7 +85,7 @@ class TodoApp.ParkingIncomes extends TodoApp.IncomeSources
 
 	totalSquareFeetHelper: (which) ->
 		val = 0
-		_(@each (inc) -> val += inc.totalSquareFeet() if inc.get("outdoorOrIndoor") is which)
+		_(@each (inc) -> val += inc.get('squareFeet') if inc.get("outdoorOrIndoor") is which and typeof inc.get('squareFeet') is 'number')
 		val
 
 	totalOutdoorSquareFeet: ->
@@ -92,13 +95,13 @@ class TodoApp.ParkingIncomes extends TodoApp.IncomeSources
 		@totalSquareFeetHelper "indoor"
 	
 
-class TodoApp.CommercialParkingIncomes extends TodoApp.IncomeSources
+class TodoApp.CommercialParkingIncomes extends TodoApp.ParkingIncomes
 
 	model: TodoApp.CommercialParkingIncome
 
 	localStorage: new Store("commercialParkingIncomes")
 
-class TodoApp.ResidentialParkingIncomes extends TodoApp.IncomeSources
+class TodoApp.ResidentialParkingIncomes extends TodoApp.ParkingIncomes
 
 	model: TodoApp.ResidentialParkingIncome
 

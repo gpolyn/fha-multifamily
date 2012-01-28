@@ -2,9 +2,10 @@ class TodoApp.OperatingView extends Backbone.View
 	
 	tagName: "div"
 	
-	className: "operating"
+	# className: "operating"
+	id: "operating"
 
-	template: _.template "net operating income <span id='net-operating-income'><%= netOperatingIncome %></span>"
+	template: _.template "<div class='left'>net operating income</div><div class='right'><span id='net-operating-income'><%= netOperatingIncome %></span></div>"
 	
 	initialize: ->
 		@model.bind "resizeLoan", => @render()
@@ -13,5 +14,7 @@ class TodoApp.OperatingView extends Backbone.View
 	render: ->
 		# console?.log "OperatingView render where egi is #{@model.get('operatingIncome').effectiveGrossIncome()}"
 		# console?.log "OperatingView render where opex total is #{@model.get('operatingExpense').get('total')}"
-		$(@el).html @template {netOperatingIncome: @model.netOperatingIncome()}
+		noi = @model.netOperatingIncome()
+		noi = TodoApp.dollarFormatting(noi) unless isNaN(noi)
+		$(@el).html @template {netOperatingIncome: noi}
 		@	

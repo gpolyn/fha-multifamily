@@ -10,7 +10,7 @@ class TodoApp.ApartmentIncomesView extends Backbone.View
 
   # Delegated events for creating new items, and clearing completed ones.
 	events:
-		"click a.add-apartment-income"  : "createOnClick"
+		"click span.add-apartment-income"  : "createOnClick"
     # "keyup #new-todo"     : "showTooltip"
     # "click .todo-clear a" : "clearCompleted"
 
@@ -134,7 +134,7 @@ class TodoApp.ParkingIncomesView extends Backbone.View
 class TodoApp.CommercialParkingIncomesView extends TodoApp.ParkingIncomesView
 
 	events:
-		"click a.add-commercial-parking-income"  : "createOnClick"
+		"click .add-commercial-parking-income"  : "createOnClick"
     # "keyup #new-todo"     : "showTooltip"
 
 	initialize: ->
@@ -161,7 +161,7 @@ class TodoApp.CommercialParkingIncomesView extends TodoApp.ParkingIncomesView
 class TodoApp.ResidentialParkingIncomesView extends TodoApp.ParkingIncomesView
 
 	events:
-		"click a.add-residential-parking-income"  : "createOnClick"
+		"click .add-residential-parking-income"  : "createOnClick"
     # "keyup #new-todo"     : "showTooltip"
 
 	initialize: ->
@@ -225,7 +225,7 @@ class TodoApp.SimpleIncomesView extends Backbone.View
 class TodoApp.OtherResidentialIncomesView extends TodoApp.SimpleIncomesView
 
 	events:
-		"click a.add-other-income"  : "createOnClick"
+		"click .add-other-income"  : "createOnClick"
     # "keyup #new-todo"     : "showTooltip"
 
 	initialize: ->
@@ -249,7 +249,7 @@ class TodoApp.OtherResidentialIncomesView extends TodoApp.SimpleIncomesView
 class TodoApp.CommercialIncomesView extends TodoApp.SimpleIncomesView
 
 	events:
-		"click a.add-commercial-income"  : "createOnClick"
+		"click .add-commercial-income"  : "createOnClick"
 			
 	initialize: ->
 		@inputUsage = @$('tr#new-commercial-income input.commercial-use')

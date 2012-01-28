@@ -1,6 +1,6 @@
 #todoapp
 	.title
-		%h1 Todos
+		%h1 FHA Sec. 223(f) acquisition/refinance loan
 	.content
 		#income
 			%table#apartment-income
@@ -9,8 +9,8 @@
 				%colgroup
 					%col#apartment-bedroom-count
 					%col#apartment-unit-count
-					%col#apartment-square-feet
-					%col#apartment-monthly-rent
+					%col#apartment-square-feet.square-footage
+					%col#apartment-monthly-rent.monthly-income
 					%col#destroy
 				%thead
 					%tr
@@ -36,14 +36,15 @@
 						%td
 							%input.apartment-monthly-rent
 						%td
-							<a class="add-apartment-income">add</a>
+							.add
+								<span class="add-apartment-income add-item"></span>
 			%table#other-residential-income
 				%caption.income-table
 					other residential income
 				%colgroup
 					%col#other-residential-use
-					%col#other-residential-square-feet
-					%col#other-residential-monthly-rent
+					%col#other-residential-square-feet.square-footage
+					%col#other-residential-monthly-rent.monthly-income
 					%col#destroy
 				%thead
 					%tr
@@ -57,20 +58,21 @@
 				%tbody
 					%tr#new-other-income
 						%td
-							%input.other-residential-use
+							%input.other-residential-use.usage
 						%td
 							%input.other-residential-square-feet
 						%td
 							%input.other-residential-monthly-rent
 						%td
-							<a class="add-other-income">add</a>
+							.add
+								<span class="add-other-income add-item"></span>
 			%table#commercial-income
 				%caption.income-table
 					commercial income
 				%colgroup
 					%col#commercial-use
-					%col#commercial-square-feet
-					%col#commercial-monthly-rent
+					%col#commercial-square-feet.square-footage
+					%col#commercial-monthly-rent.monthly-income
 					%col#destroy
 				%thead
 					%tr
@@ -84,21 +86,22 @@
 				%tbody
 					%tr#new-commercial-income
 						%td
-							%input.commercial-use
+							%input.commercial-use.usage
 						%td
 							%input.commercial-square-feet
 						%td
 							%input.commercial-monthly-rent
 						%td
-							<a class="add-commercial-income">add</a>
-			%table#residential-parking-income
+							.add
+								<span class="add-commercial-income add-item"></span>
+			%table#residential-parking-income.parking
 				%caption.income-table
 					residential parking income
 				%colgroup
 					%col#residential-parking-spaces
 					%col#residential-parking-indoor-or-outdoor
-					%col#residential-parking-total-square-feet
-					%col#residential-parking-monthly-fee
+					%col#residential-parking-total-square-feet.square-footage
+					%col#residential-parking-monthly-fee.monthly-income
 					%col#destroy
 				%thead
 					%tr
@@ -124,15 +127,16 @@
 						%td
 							%input.residential-parking-monthly-fee
 						%td
-							<a class="add-residential-parking-income">add</a>
-			%table#commercial-parking-income
+							.add
+								<span class="add-residential-parking-income add-item"></a>
+			%table#commercial-parking-income.parking
 				%caption.income-table
 					commercial parking income
 				%colgroup
 					%col#commercial-parking-spaces
 					%col#commercial-parking-indoor-or-outdoor
-					%col#commercial-parking-total-square-feet
-					%col#commercial-parking-monthly-fee
+					%col#commercial-parking-total-square-feet.square-footage
+					%col#commercial-parking-monthly-fee.monthly-income
 					%col#destroy
 				%thead
 					%tr
@@ -158,19 +162,34 @@
 						%td
 							%input.commercial-parking-monthly-fee
 						%td
-							<a class="add-commercial-parking-income">add</a>
+							.add
+								<span class="add-commercial-parking-income add-item"></a>
+		#acquisition-costs
+		#gif
+			#fetching
 		#loan-results
-		#create-todo
-			%input#new-todo{:placeholder => "What needs to be done?", :type => "text"}/
-			%span.ui-tooltip-top{:style => "display:none;"} Press Enter to save this task
-		#todos
-			%ul#todo-list
-		#todo-stats
+
 %ul#instructions
-	%li Double-click to edit a todo.
+	%li Double-click income items to edit.
 
 :coffeescript
 	$ ->
+		# Feature detect + local reference
+		storage = (
+			() ->
+				try
+					uid = "sizemymultifamilyloan.com.localStorage_test"
+					localStorage.setItem uid, uid
+					successfullyPersisted = localStorage.getItem(uid) is uid
+					
+					if successfullyPersisted is true
+						localStorage.removeItem(uid)
+						true
+					else
+						false
+				catch e
+		)() and localStorage
+		
 		TodoApp.appView = new TodoApp.AppView collection: new TodoApp.TodoList
 		TodoApp.Collections.apartmentIncomes = new TodoApp.ApartmentIncomes
 		TodoApp.Views.aptIncomeView = new TodoApp.ApartmentIncomesView collection: TodoApp.Collections.apartmentIncomes
@@ -182,29 +201,53 @@
 		TodoApp.otherResidentialIncomes = new TodoApp.OtherResidentialIncomesView collection: TodoApp.Collections.otherResidentialIncomes
 		TodoApp.Collections.commercialIncomes = new TodoApp.CommercialIncomes
 		TodoApp.commercialIncomes = new TodoApp.CommercialIncomesView collection: TodoApp.Collections.commercialIncomes
-		opex = new Store("operatingExpense").findAll()[0]
-		opexAttrs =
-			id:									  opex.id
-			total:                                opex.total
-			totalIsPercentOfEffectiveGrossIncome: opex.totalIsPercentOfEffectiveGrossIncome
-		TodoApp.opex = new TodoApp.OperatingExpense opexAttrs
-		TodoApp.operatingExpense = new TodoApp.OperatingExpenseView model: TodoApp.opex
+		
+		if (opex = new Store("operatingExpense").findAll()[0])
+			opexAttrs =
+				id:									  opex.id
+				total:                                opex.total
+				totalIsPercentOfEffectiveGrossIncome: opex.totalIsPercentOfEffectiveGrossIncome
+			TodoApp.opex = new TodoApp.OperatingExpense opexAttrs
+		else
+			TodoApp.opex = new TodoApp.OperatingExpense # blank initialization!
+		
 		attrs = _.clone(TodoApp.Collections)
-		if (item = new Store("operatingIncome").findAll()[0])
+		
+		# stupid workaround...
+		operatingIncomeStore = new Store("operatingIncome")
+		item = operatingIncomeStore.findAll()[operatingIncomeStore.findAll().length - 1]
+		if item?
 			attrs.id = item.id
 			attrs.commercialOccupancyPercent = item.commercialOccupancyPercent
 			attrs.residentialOccupancyPercent = item.residentialOccupancyPercent
-		TodoApp.operatingIncome = new TodoApp.OperatingIncome attrs
+		
+		TodoApp.Models.affordability = TodoApp.Affordability.getInstance()
+		attrs.affordability = TodoApp.Models.affordability
+		
+		TodoApp.operatingIncome = new TodoApp.Sec223fMultifamilyOperatingIncome attrs
 		TodoApp.operatingIncomeView = new TodoApp.OperatingIncomeView model: TodoApp.operatingIncome
 		opAttrs = {operatingIncome: TodoApp.operatingIncome, operatingExpense: TodoApp.opex}
+		TodoApp.operatingExpense = new TodoApp.OperatingExpenseView model: TodoApp.opex
 		TodoApp.Models.operating = new TodoApp.Operating opAttrs
 		TodoApp.Views.operating = new TodoApp.OperatingView model: TodoApp.Models.operating
-		TodoApp.Models.affordability = TodoApp.Affordability.getInstance()
-		TodoApp.Views.affordability = new TodoApp.AffordabilityView model: TodoApp.Models.affordability
+		
+		window.deleteSingletonModels = (modelName) ->
+			items = localStorage[modelName].split(',')
+			for ele in items
+				localStorage.removeItem(modelName + "-" +ele)
+			localStorage.removeItem(modelName)
+		
 		TodoApp.Models.metropolitanArea = TodoApp.MetropolitanArea.getInstance()
 		TodoApp.Views.metropolitanArea = new TodoApp.MetropolitanAreaView model: TodoApp.Models.metropolitanArea
+		TodoApp.Views.affordability = new TodoApp.AffordabilityView model: TodoApp.Models.affordability
+		TodoApp.Models.elevatorStatus = TodoApp.ElevatorStatus.getInstance()
+		TodoApp.Views.elevatorStatus = new TodoApp.ElevatorStatusView model: TodoApp.Models.elevatorStatus
+		
 		TodoApp.Models.loanCosts = TodoApp.Sec223fAcquisitionCosts.getInstance()
 		TodoApp.Views.loanCostView = new TodoApp.Sec223fCostsView model: TodoApp.Models.loanCosts
+		
+		TodoApp.Models.loanSubmission = TodoApp.LoanSubmission.getInstance()
+		
 		TodoApp.Collections.criteria = new TodoApp.LoanCriteria
 		attrs =
 			operating:        TodoApp.Models.operating
@@ -212,15 +255,47 @@
 			metropolitanArea: TodoApp.Models.metropolitanArea
 			criteria:         TodoApp.Collections.criteria
 			loanCosts:        TodoApp.Models.loanCosts
+			elevatorStatus:   TodoApp.Models.elevatorStatus
+			loanSubmission:   TodoApp.Models.loanSubmission
 		TodoApp.Models.loanService = new TodoApp.LoanService attrs
-	
-/ TodoApp.Views.criteria = new TodoApp.CriteriaView collection: TodoApp.Collections.criteria
+		TodoApp.Views.loanServiceView = new TodoApp.LoanServiceView model: TodoApp.Models.loanService
 		
+		attrs = {collection: TodoApp.Collections.criteria, loanService : TodoApp.Models.loanService}
 		
-/ attrs = {model: new TodoApp.LoanCriterion({loanAmount: 200}), templateId: "#loan-criterion", id: "criterion-1"}
-/ TodoApp.Models.loanCosts.set {purchasePrice: 405, mortgageInterestRate: 5.56}, {silent: true}
-/ TodoApp.operatingIncomeView = new TodoApp.OperatingIncomeView model: TodoApp.operatingIncome		
-				
+		TodoApp.Views.criteria = new TodoApp.CriteriaView attrs
+		
+		$("change div#income input, div#acquisition-costs input").change () ->
+			TodoApp.Models.loanService.deleteLoanAmountAndCashRequirementFromLocalStorage()
+			TodoApp.Collections.criteria.destroyAll()
+		
+		window.someFuncForCreatingCriteria = (coll, resp) ->
+			coll.each (ele) -> coll.create(ele.attributes)
+			
+		window.someFuncForReportingCriteria = (coll, resp) ->
+			console.log "coll is array? " + (coll["line_a"]) #JSON.stringify(coll)
+			#_.each coll, (ele) ->
+			for ele in coll
+				console.log "ele " + JSON.stringify(ele)
+				#console.log("criterion "+ ele.criterion + ", loan amount " + ele.loanAmount)
+				#coll.create(ele)
+		
+		$.mockjax 
+			url: "sizemymultifamilyloan.com/api/beta1/sec223f_refinance.json?api_key=" + TodoApp.Models.loanSubmission.get('apiKey')
+			responseTime: 750
+			contentType: "application/json"
+			headers: {"Api-Key-Uses-Remaining": 43}
+			status: 200
+			responseText: TodoApp.Collections.criteria.validRefinance()
+		
+		$.mockjax 
+			url: "sizemymultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key="+ TodoApp.Models.loanSubmission.get('apiKey')
+			responseTime: 750
+			contentType: "application/json"
+			headers: {"Api-Key-Uses-Remaining": 43}
+			status: 200
+			responseText: TodoApp.Collections.criteria.validPurchase()
+
+
 = render :partial => "templates/item_template"
 = render :partial => "templates/stats_template"
 = render :partial => "templates/apartment_income_source_template"
@@ -233,3 +308,4 @@
 = render :partial => "templates/metropolitan_area"
 = render :partial => "templates/loan_criterion"
 = render :partial => "templates/criteria"
+= render :partial => "templates/loan_service"

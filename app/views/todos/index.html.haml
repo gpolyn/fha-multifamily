@@ -279,21 +279,21 @@
 				#console.log("criterion "+ ele.criterion + ", loan amount " + ele.loanAmount)
 				#coll.create(ele)
 		
-		$.mockjax 
-			url: "sizemymultifamilyloan.com/api/beta1/sec223f_refinance.json?api_key=" + TodoApp.Models.loanSubmission.get('apiKey')
-			responseTime: 750
-			contentType: "application/json"
-			headers: {"Api-Key-Uses-Remaining": 43}
-			status: 200
-			responseText: TodoApp.Collections.criteria.validRefinance()
+		#$.mockjax 
+		#	url: "sizemymultifamilyloan.com/api/beta1/sec223f_refinance.json?api_key=" + TodoApp.Models.loanSubmission.get('apiKey')
+		#	responseTime: 750
+		#	contentType: "application/json"
+		#	headers: {"Api-Key-Uses-Remaining": 43}
+		#	status: 200
+		#	responseText: TodoApp.Collections.criteria.validRefinance()
 		
-		$.mockjax 
-			url: "sizemymultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key="+ TodoApp.Models.loanSubmission.get('apiKey')
-			responseTime: 750
-			contentType: "application/json"
-			headers: {"Api-Key-Uses-Remaining": 43}
-			status: 200
-			responseText: TodoApp.Collections.criteria.validPurchase()
+		#$.mockjax 
+		#	url: "sizemymultifamilyloan.com/api/beta1/sec223f_acquisition.json?api_key="+ TodoApp.Models.loanSubmission.get('apiKey')
+		#	responseTime: 750
+		#	contentType: "application/json"
+		#	headers: {"Api-Key-Uses-Remaining": 43}
+		#	status: 200
+		#	responseText: TodoApp.Collections.criteria.validPurchase()
 
 
 = render :partial => "templates/item_template"

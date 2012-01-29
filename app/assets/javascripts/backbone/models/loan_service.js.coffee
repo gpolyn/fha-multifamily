@@ -19,7 +19,7 @@ class TodoApp.LoanService extends Backbone.Model
 			loanCosts:        @attributes.loanCosts.toJSON()
 	
 	updateCriteriaUrl: ->
-		@attributes.criteria.url = "sizemymultifamilyloan.com/api/beta1/sec223f_" + if @isPurchase()
+		@attributes.criteria.url = "api/beta1/sec223f_" + if @isPurchase()
 			"acquisition.json?api_key=#{@attributes.loanSubmission.get('apiKey')}"
 		else
 			"refinance.json?api_key=#{@attributes.loanSubmission.get('apiKey')}"
@@ -88,7 +88,7 @@ class TodoApp.LoanService extends Backbone.Model
 			dataType:    'json'
 			url:          @criteria.url
 			contentType: 'application/json'
-			data:         @toJSONforFetch()
+			data:         JSON.stringify(@toJSONforFetch())
 
 		if Backbone.emulateJSON
 			params.contentType = 'application/x-www-form-urlencoded'
@@ -97,6 +97,25 @@ class TodoApp.LoanService extends Backbone.Model
 		_.extend params, options
 		$.ajax(params)
 		@
+	
+	minimumPurchaseRequest: ->
+		req =
+			affordability: affordable
+			purchase_price_of_project: 1113300,
+			loan_request: 750000
+			metropolitan_area_waiver: "maximum waiver"
+			number_of_one_bedroom_units: 1
+			number_of_three_bedroom_units: 1
+			number_of_no_bedroom_units: 3
+			is_elevator_project: true
+			mortgage_interest_rate: 4.5
+			gross_residential_income: 102000
+			residential_occupancy_percent: 93
+			operating_expenses: 40
+			operating_expenses_is_percent_of_effective_gross_income: true
+			annual_replacement_reserve_per_unit: 250
+			term_in_months: 420
+		req
 	
 	# save: (attrs, options) ->
 	# 	throw new Error "Persistence-related actions not available in this class"
@@ -153,6 +172,8 @@ class TodoApp.LoanService extends Backbone.Model
 			operating_expenses_is_percent_of_effective_gross_income: oper.operatingExpense.totalIsPercentOfEffectiveGrossIncome
 			warranted_price_of_land: lc.landValue
 			value_in_fee_simple: lc.value
+			mortgage_interest_rate: lc.mortgageInterestRate
+			annual_replacement_reserve_per_unit: lc.annualReplacementReservesPerUnit
 			loan_request: lc.loanRequest
 			term_in_months: lc.termInMonths
 			legal_and_organizational: lc.legalAndOrganizational

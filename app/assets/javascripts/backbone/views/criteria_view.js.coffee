@@ -34,7 +34,7 @@ class TodoApp.CriteriaView extends Backbone.View
 	
 	events:
 		"change div#income input, div#acquisition-costs input" : "removeCurrent"
-	
+
 	initialize: ->
 		@collection.bind 'refresh', @removeCurrent
 		@collection.bind 'refresh', @renderConclusions

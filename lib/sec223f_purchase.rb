@@ -100,7 +100,7 @@ module Sec223fPurchase
         result
       end
     end
-
+    
     set_apartment_stat_limits flatter_hash[:is_elevator_project]
     
     attrs = {:criterion_3 => criterion_3, :criterion_4 => criterion_4, :criterion_5 => criterion_5,

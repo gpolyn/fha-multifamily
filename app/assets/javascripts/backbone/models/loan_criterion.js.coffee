@@ -166,6 +166,24 @@ class TodoApp.LoanCriteria extends Backbone.Collection
 			}
 		total_estimated_cash_requirement: 1110726
 	
+	minimumPurchaseRequest: ->
+		req =
+			affordability: affordable
+			purchase_price_of_project: 1113300,
+			loan_request: 750000
+			metropolitan_area_waiver: "maximum waiver"
+			number_of_one_bedroom_units: 1
+			number_of_three_bedroom_units: 1
+			number_of_no_bedroom_units: 3
+			is_elevator_project: true
+			mortgage_interest_rate: 4.5
+			gross_residential_income: 102000
+			residential_occupancy_percent: 93
+			operating_expenses: 40
+			operating_expenses_is_percent_of_effective_gross_income: true
+			annual_replacement_reserve_per_unit: 250
+			term_in_months: 420
+	
 	validPurchase: ->
 		validP = jQuery.extend(true, {}, @validRefinance())
 		delete validP.loan.criterion_10

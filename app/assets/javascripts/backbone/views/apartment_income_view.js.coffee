@@ -20,9 +20,9 @@ class TodoApp.ApartmentIncomeView extends Backbone.View
 
 	# The DOM events specific to an item.
 	events:
-		"keypress input"                      : "updateOnEnter"
-		"dblclick td:lt(4)"                   : "edit"
-		"click span.apartment-income-destroy" : "destroy"
+		"keypress input"                        : "updateOnEnter"
+		"click span.apartment-income-destroy"   : "destroy"
+		"dblclick tr.apartment-income td"       : "edit"
 
 	# The TodoView listens for changes to its model, re-rendering. Since there's
 	# a one-to-one correspondence between a **Todo** and a **TodoView** in this

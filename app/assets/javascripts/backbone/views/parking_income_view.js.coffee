@@ -13,8 +13,8 @@ class TodoApp.ParkingIncomeView extends Backbone.View
 	
 	events:
 		"keypress input"                      : "updateOnEnter"
-		"dblclick td:lt(4)"                   : "edit"
 		"click span.parking-income-destroy"   : "destroy"
+		"dblclick tr td"                      : "edit"
 	
 	initialize: ->
 		# _.bindAll this, 'render', 'close'

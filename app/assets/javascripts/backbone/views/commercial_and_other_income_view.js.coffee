@@ -38,7 +38,7 @@ class TodoApp.SimpleIncomeView extends Backbone.View
 	
 	events:
 		"keypress input"                                : "updateOnEnter"
-		"dblclick td:lt(3)"                             : "edit"
+		"dblclick tr td"                                : "edit"
 		"click span.simple-income-source-destroy"       : "destroy"
 	
 	render: =>

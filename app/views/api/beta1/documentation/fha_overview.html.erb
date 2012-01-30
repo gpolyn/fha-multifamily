@@ -1,0 +1,100 @@
+<%= javascript_include_tag "application" %>
+<%= stylesheet_link_tag "vendor" %>
+
+<%= javascript_tag do %>
+	jQuery(function($) {
+				$("#outer_tabs").tabs();
+				$("#permanent_tabs").tabs();
+			});
+<% end %>
+
+<div class="column">
+<h2>Capital Sources: FHA</h2>
+
+<div id="outer_tabs">
+	<ul>
+		<li><a href="#fha_generally">General</a></li>
+		<li><a href="#permanent_tabs">Permanent Loans</a></li>
+	</ul>
+	<div id="fha_generally">
+		<p>
+		The Federal Housing Administration ("FHA"), a part of the U.S. Department of Housing and Urban Development ("HUD"), offers mortgage insurance to approved private lenders in support of the multifamily and residential healthcare commercial real estate markets.  FHA <b>loans are fixed-rate, long-term</b> <b style="font-size:17.25px;">(typically 35-40 years)</b>, <b>high-leverage</b>, fully amortizing and <b>non-recourse</b>.
+		</p>
+		<p>
+		FHA multifamily loan programs are <b>geared to the middle and low-end of the rental market</b>. 
+		</p> 
+		<p><b>Rent-subsidized</b> multifamily project <b>leverage</b> maxima are <b style="font-size:17.25px;">87%</b> and <b style="font-size:17.25px;">90%</b>. For projects with a portion of rent and tenant incomes kept <b>affordable</b>, <b style="font-size:19.5px;">leverage</b> maxima are <b style="font-size:17.25px;">85%</b> and <b style="font-size:17.25px;">87%</b>. Finally, the FHA <b>market-rate</b> project <b style="font-size:19px;">leverage</b> maximum is <b style="font-size:17.25px;">83.3%.</b>  
+		</p>
+		<p>
+		Notwithstanding the compelling terms offered for this financing, FHA borrowing has historically been associated with some <b>drawbacks</b>.  In particular, <b>wait-times and the discovery of unanticipated disqualifying factors during the FHA loan application process</b> have been a source of frustration for borrowers.  
+		</p>
+		<p>
+		Fortunately, <b>recent HUD guidelines "MAP" and "LEAN" have improved loan application processing</b>.
+		</p>
+	</div>
+	<div id="permanent_tabs">
+		<ul>
+			<li><a href="#tabs-3">Sec. 223(f) acquisition</a></li>
+			<li><a href="#tabs-2">Sec. 223(f) refinance</a></li>
+		</ul>
+		<div id="tabs-3">
+			<p>Acquisition of multifamily property, limited by least of following:
+				<ul>
+					<li>83.3%, 85% or 87% of appraised value;</li>
+					<li>83.3%, 85% or 87% of acquisition costs;</li>
+					<li>statutory per unit limits (by bedrooms), adjusted by local HUD Field Office high cost percentage for the locality;</li>
+					<li>a mortgage amount supported by 83.3%, 85% or 87% of the net income.</li>
+					<li>if applicable, acquisition costs less the sum of Low Income Housing Tax Credits (<i>LIHTCs</i>), public grants and public and private loans.</li>
+				</ul>
+			</p>
+			<p>
+				Which of the above variable percentage rates apply is determined by project tenant affordability:
+				<ul>
+					<li>87% is applicable where 90% or more tenants receive rental assistance;</li>
+					<li>85%, where at least 20% or 40% of the units are offered at rents consistent, respectively, with 50% or 60% of the Area Median Income;</li>
+					<li>83.3% for all other projects.</li>
+				</ul>
+			</p>
+			<p>Term of the new mortgage must not exceed 35 years.</p>
+			<p>The program allows the cost of new non-critical repairs up to the greater of i) 15% of the <i>as-completed</i> project value or ii) $6,500 per unit multiplied by the HUD Field Office high cost percentage. Repairs must be completed within 12 months of loan closing.</p>
+			<p>
+				When secondary private financing is included, the amount when added to the FHA mortgage must not exceed 92.5% of the project Fair Market Value.
+			</p>
+			<p>Property must have been completed or substantially rehabilitated for at least 3 years prior to the date of the mortgage insurance application.<span class='required_2'>*</span></p>
+			<p>
+				<i><u>Note</u>: Special treatment for HUD Sec. 202 project acquisitions is not currently supported by the API.</i>
+			</p>
+			<span class='required_2'>*</span> <span class='marginal_text'> condition subject to waiver through Feb. 2012</span>
+		</div>
+		<div id="tabs-2">
+			<p>Refinance of multifamily property, limited by least of following:
+				<ul>
+					<li>83.3%, 85% or 87% of appraised value;</li>
+					<li>the greater of refinance costs or 80% of HUD appraised value.</li>
+					<li>statutory per unit limits (by bedrooms), adjusted by local HUD Field Office high cost percentage for the locality;</li>
+					<li>a mortgage amount supported by 83.3%, 85% or 87% of the net income.</li>
+					<li>if applicable, refinance costs less the sum of Low Income Housing Tax Credits (<i>LIHTCs</i>), public grants and public and private loans.</li>
+				</ul>
+			</p>
+			<p>
+				Which of the above variable percentage rates apply is determined by project tenant affordability:
+				<ul>
+					<li>87% is applicable where 90% or more tenants receive rental assistance;</li>
+					<li>85%, where at least 20% or 40% of the units are offered at rents consistent, respectively, with 50% or 60% of the Area Median Income;</li>
+					<li>83.3% for all other projects.</li>
+				</ul>
+			</p>
+			<p>Term of the new mortgage must not exceed 35 years.</p>
+			<p>The program allows the cost of new non-critical repairs up to the greater of i) 15% of the <i>as-completed</i> project value or ii) $6,500 per unit multiplied by the HUD Field Office high cost percentage. Repairs must be completed within 12 months of loan closing.</p>
+			<p>
+				When secondary private financing is included, the amount when added to the FHA mortgage must not exceed 92.5% of the project Fair Market Value.
+			</p>
+			<p>Property must have been completed or substantially rehabilitated for at least 3 years prior to the date of the mortgage insurance application.<span class='required_2'>*</span></p>
+			<p>
+				<i><u>Note</u>: Special treatment for HUD Sec. 202 project refinancing is not currently supported by the API.</i>
+			</p>
+			<span class='required_2'>*</span> <span class='marginal_text'> condition subject to waiver through Feb. 2012</span>
+		</div>
+	</div>
+</div>
+</div>

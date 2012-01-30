@@ -1,9 +1,9 @@
 Fha2::Application.routes.draw do
-  root :to => "todos#index"
-  # resources :todos
-  # match 'sec_223f_refinance' => 'sec223f_refinance#loan', :via => :get
+  # root :to => "todos#index"
   
   namespace :api do
+    match 'fha_sec223f_demo' => 'todos#index', :via => :get
+    match 'fha_overview' => 'beta1/documentation#fha_overview', :via => :get
     namespace :beta1 do
       match 'sec223f_acquisition' => 'sec223f_acquisition#loan', :via => :post
       match 'sec223f_refinance' => 'sec223f_refinance#loan', :via => :post
@@ -15,6 +15,10 @@ Fha2::Application.routes.draw do
       match 'documentation/sec223f_refinance' => 'documentation#sec223f_refinance', :via => :get
     end
   end
+  
+  match "*path" => "api/beta1/documentation#catch_all"
+  
+  root :to => "api/beta1/documentation#home"
     
   # The priority is based upon order of creation:
   # first created -> highest priority.

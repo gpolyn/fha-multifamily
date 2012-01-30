@@ -11,27 +11,29 @@
 			<input type="radio" name="purchase-or-debt" value="debt" id="debt">
 		</div>
 	</div>
-	<div class="costs-left costs">
-		<div>
-			<label for="term-in-months">term in months<span class="required">*</span></label>
-			<input id="term-in-months" class="required" value={{termInMonths}}>
+	<div id="bullshit">
+		<div class="costs-left costs">
+			<div>
+				<label for="term-in-months">term in months<span class="required">*</span></label>
+				<input id="term-in-months" class="required" value={{termInMonths}}>
+			</div>
+			<div>
+				<label for="loan-request">loan request<span class="required">*</span></label>
+				<input id="loan-request" class="required" value={{loanRequest}}>
+			</div>
 		</div>
-		<div>
-			<label for="loan-request">loan request<span class="required">*</span></label>
-			<input id="loan-request" class="required" value={{loanRequest}}>
+		<div class="costs-right costs">
+			<div>
+				<label for="mortgage-interest-rate">mortgage interest rate<span class="required">*</span></label>
+				<input id="mortgage-interest-rate" class="required" value={{mortgageInterestRate}}>
+			</div>
+			<div>
+				<label for="value">project value</label>
+				<input id="value" class="optional" value={{value}}>
+			</div>
 		</div>
 	</div>
-	<div class="costs-right costs">
-		<div>
-			<label for="mortgage-interest-rate">mortgage interest rate<span class="required">*</span></label>
-			<input id="mortgage-interest-rate" class="required" value={{mortgageInterestRate}}>
-		</div>
-		<div>
-			<label for="value">project value</label>
-			<input id="value" class="optional" value={{value}}>
-		</div>
-	</div>
-	<div>
+	<div id="annual-replacement-reserves-per-unit-container">
 		<label for="annual-replacement-reserves-per-unit">
 			annual replacement reserves per unit<span class="required">*</span>
 		</label>

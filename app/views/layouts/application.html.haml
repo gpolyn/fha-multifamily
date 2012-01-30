@@ -1,0 +1,18 @@
+!!!
+%html
+	%head
+		%title sizemymultifamilyloan
+		= stylesheet_link_tag "api/application"
+		= stylesheet_link_tag "general"
+		= csrf_meta_tags
+	%body
+	#wrapper
+		#header
+			= render :partial => "layouts/header_content"
+		#content
+			.container
+				.inner
+					.sidebar
+						= render :partial => "layouts/sidebar_content"
+					= yield
+		#footer

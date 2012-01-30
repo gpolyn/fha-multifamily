@@ -1,0 +1,23 @@
+.flash {
+	font-size:12px;
+    padding: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    font-weight: bold;
+}
+
+.flash_error {
+	background-color: #FCC;
+	border: solid 1px #C66;
+}
+
+#api_key {
+	float: left;
+	margin: auto;
+	font-size:150%;
+    padding: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    font-weight: bold;
+	border: solid 1px #C66;
+}

@@ -101,6 +101,7 @@ div#acquisition-costs input {
 
 div.costs-left input {
 	margin-right: 5%;
+/*	border-right:5%;*/
 }
 
 div.costs-left {
@@ -347,7 +348,7 @@ div.loan-submit {
 
 div#submit-response-message-container {
 	text-align:center;
-	width: 270px;
+	width: 200px;
 	margin-top: 1.5px;
 }
 
@@ -392,4 +393,17 @@ div#elevator-status {
 div#title-container {
 	clear:both;
 	height: 23px;
+}
+
+div#bullshit {
+	height: 50px;
+	clear: both;
+}
+
+div#api-key-container {
+	width:210px
+}
+
+div#api-key-container input {
+	width: 140px;
 }

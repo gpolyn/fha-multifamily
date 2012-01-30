@@ -4,6 +4,7 @@ class TodoApp.LoanService extends Backbone.Model
 		@criteria = @attributes.criteria
 		@loanSubmission = @attributes.loanSubmission
 		@attributes.loanCosts.bind "change", => @updateCriteriaUrl()
+		@loanSubmission.bind "change", => @updateCriteriaUrl()
 		@updateCriteriaUrl()
 	
 	initializeForConstantUpdating: ->
@@ -61,9 +62,6 @@ class TodoApp.LoanService extends Backbone.Model
 	
 	isPurchase: ->
 		@attributes.loanCosts.get('transactionAmountType') == "purchase"
-	
-	fart: ->
-		console.log "inside fart"
 	
 	fetch: (options) ->
 		options || (options = {})

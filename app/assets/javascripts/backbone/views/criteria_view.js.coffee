@@ -33,7 +33,9 @@ class TodoApp.CriteriaView extends Backbone.View
 	template: TodoApp.template '#criteria-template'
 	
 	events:
-		"change div#income input, div#acquisition-costs input" : "removeCurrent"
+		"change div#income input, div#acquisition-costs:not(#loan-service) input, div#elevator-status select" : "removeCurrent"
+		"change div#metropolitan-area select" : "removeCurrent"
+		"change div#affordability input" : "changeOMeter"
 
 	initialize: ->
 		@collection.bind 'refresh', @removeCurrent
@@ -78,4 +80,7 @@ class TodoApp.CriteriaView extends Backbone.View
 		@$('#loan-results').html @template
 			loanAmount:      TodoApp.dollarFormattingZeroPlaces @options.loanService.getLoanAmountFromLocalStorage() 
 			cashRequirement: TodoApp.dollarFormattingZeroPlaces @options.loanService.getCashRequirementFromLocalStorage()
+	
+	changeOMeter: =>
+		console.log "change detected from within criteria view"
 	

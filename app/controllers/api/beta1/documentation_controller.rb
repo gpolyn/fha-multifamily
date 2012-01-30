@@ -2,6 +2,19 @@ class Api::Beta1::DocumentationController < ApplicationController
   
   respond_to :html
   
+  def catch_all
+    flash[:notice] = "You selected a non-existent path."
+    redirect_to :action => :home
+  end
+  
+  def home
+    # no-op!
+  end
+  
+  def fha_overview
+    # no-op
+  end
+  
   def sec223f_refinance
     @hcps = metropolitan_areas
   end

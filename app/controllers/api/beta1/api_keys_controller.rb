@@ -4,6 +4,7 @@ class Api::Beta1::ApiKeysController < ApplicationController
   respond_to :html
   
   def new
+    @current_uses = current_uses
   end
   
   def create
@@ -26,7 +27,14 @@ class Api::Beta1::ApiKeysController < ApplicationController
   end
   
   def show
-    # TODO
+    @key = params[:id]
+    @current_uses = current_uses
+  end
+  
+  private
+  
+  def current_uses
+    50
   end
   
 end

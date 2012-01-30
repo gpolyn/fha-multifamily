@@ -1,7 +1,17 @@
-Get a key!
-
-%form{:action=> "/api/beta1/api_keys", :method => "post"}
-
-	= recaptcha_tags
+.column
+	%h1
+		API Access: Get a key
 	
-	%input{:type => "submit", :value => "Send", :class => "button"}
+	-if flash[:error]
+		.flash.flash_error#captcha
+			#{flash[:error]} 
+	%p
+		A key is worth #{@current_uses} successful API requests.
+	%p
+		Please note that during the current API beta phase, keys may be invalidated without warning.
+
+	%form{:action=> "/api/beta1/api_keys", :method => "post"}
+
+		= recaptcha_tags
+	
+		%input{:type => "submit", :value => "Send", :class => "button"}

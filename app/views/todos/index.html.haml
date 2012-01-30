@@ -1,176 +1,178 @@
-#todoapp
-	.title
-		%h1 FHA Sec. 223(f) acquisition/refinance loan
-	.content
-		#income
-			%table#apartment-income
-				%caption.income-table
-					apartment income
-				%colgroup
-					%col#apartment-bedroom-count
-					%col#apartment-unit-count
-					%col#apartment-square-feet.square-footage
-					%col#apartment-monthly-rent.monthly-income
-					%col#destroy
-				%thead
-					%tr
-						%th
-							bedrooms<span class="required">*</span>
-						%th
-							units<span class="required">*</span>
-						%th
-							square feet
-						%th
-							monthly rent<span class="required">*</span>
-						%th
-				%tbody
-					%tr#new-apartment-income
-						%td
-							%select.apartment-bedroom-count
-								- (0..4).each do |i|
-									%option{:value=>"#{i}"}=i
-						%td
-							%input.apartment-unit-count
-						%td
-							%input.apartment-square-feet
-						%td
-							%input.apartment-monthly-rent
-						%td
-							.add
-								<span class="add-apartment-income add-item"></span>
-			%table#other-residential-income
-				%caption.income-table
-					other residential income
-				%colgroup
-					%col#other-residential-use
-					%col#other-residential-square-feet.square-footage
-					%col#other-residential-monthly-rent.monthly-income
-					%col#destroy
-				%thead
-					%tr
-						%th
-							usage
-						%th
-							square feet
-						%th
-							monthly rent<span class="required">*</span>
-						%th
-				%tbody
-					%tr#new-other-income
-						%td
-							%input.other-residential-use.usage
-						%td
-							%input.other-residential-square-feet
-						%td
-							%input.other-residential-monthly-rent
-						%td
-							.add
-								<span class="add-other-income add-item"></span>
-			%table#commercial-income
-				%caption.income-table
-					commercial income
-				%colgroup
-					%col#commercial-use
-					%col#commercial-square-feet.square-footage
-					%col#commercial-monthly-rent.monthly-income
-					%col#destroy
-				%thead
-					%tr
-						%th
-							usage
-						%th
-							square feet
-						%th
-							monthly rent<span class="required">*</span>
-						%th
-				%tbody
-					%tr#new-commercial-income
-						%td
-							%input.commercial-use.usage
-						%td
-							%input.commercial-square-feet
-						%td
-							%input.commercial-monthly-rent
-						%td
-							.add
-								<span class="add-commercial-income add-item"></span>
-			%table#residential-parking-income.parking
-				%caption.income-table
-					residential parking income
-				%colgroup
-					%col#residential-parking-spaces
-					%col#residential-parking-indoor-or-outdoor
-					%col#residential-parking-total-square-feet.square-footage
-					%col#residential-parking-monthly-fee.monthly-income
-					%col#destroy
-				%thead
-					%tr
-						%th
-							spaces<span class="required">*</span>
-						%th
-						
-						%th
-							total square feet
-						%th
-							monthly fee<span class="required">*</span>
-						%th
-				%tbody
-					%tr#new-residential-parking-income
-						%td
-							%input.residential-parking-spaces
-						%td
-							%select.residential-parking-type
-								- ['indoor', 'outdoor'].each do |i|
-									%option{:value=>"#{i}"}=i
-						%td
-							%input.residential-parking-square-feet
-						%td
-							%input.residential-parking-monthly-fee
-						%td
-							.add
-								<span class="add-residential-parking-income add-item"></a>
-			%table#commercial-parking-income.parking
-				%caption.income-table
-					commercial parking income
-				%colgroup
-					%col#commercial-parking-spaces
-					%col#commercial-parking-indoor-or-outdoor
-					%col#commercial-parking-total-square-feet.square-footage
-					%col#commercial-parking-monthly-fee.monthly-income
-					%col#destroy
-				%thead
-					%tr
-						%th
-							spaces<span class="required">*</span>
-						%th
-						
-						%th
-							total square feet
-						%th
-							monthly fee<span class="required">*</span>
-						%th
-				%tbody
-					%tr#new-commercial-parking-income
-						%td
-							%input.commercial-parking-spaces
-						%td
-							%select.commercial-parking-type
-								- ['indoor', 'outdoor'].each do |i|
-									%option{:value=>"#{i}"}=i
-						%td
-							%input.commercial-parking-square-feet
-						%td
-							%input.commercial-parking-monthly-fee
-						%td
-							.add
-								<span class="add-commercial-parking-income add-item"></a>
-		#acquisition-costs
-		#gif
-			#fetching
-		#loan-results
+= stylesheet_link_tag "todos"
+= stylesheet_link_tag "income_tables"
+= javascript_include_tag "application"
 
-%ul#instructions
-	%li Double-click income items to edit.
+.column
+	#todoapp
+		.title
+			%h1 FHA: Sec. 223(f) refinance/purchase
+		.content
+			#income
+				%table#apartment-income
+					%caption.income-table
+						apartment income
+					%colgroup
+						%col#apartment-bedroom-count
+						%col#apartment-unit-count
+						%col#apartment-square-feet.square-footage
+						%col#apartment-monthly-rent.monthly-income
+						%col#destroy
+					%thead
+						%tr
+							%th
+								bedrooms<span class="required">*</span>
+							%th
+								units<span class="required">*</span>
+							%th
+								square feet
+							%th
+								monthly rent<span class="required">*</span>
+							%th
+					%tbody
+						%tr#new-apartment-income
+							%td
+								%select.apartment-bedroom-count
+									- (0..4).each do |i|
+										%option{:value=>"#{i}"}=i
+							%td
+								%input.apartment-unit-count
+							%td
+								%input.apartment-square-feet
+							%td
+								%input.apartment-monthly-rent
+							%td
+								.add
+									<span class="add-apartment-income add-item"></span>
+				%table#other-residential-income
+					%caption.income-table
+						other residential income
+					%colgroup
+						%col#other-residential-use
+						%col#other-residential-square-feet.square-footage
+						%col#other-residential-monthly-rent.monthly-income
+						%col#destroy
+					%thead
+						%tr
+							%th
+								usage
+							%th
+								square feet
+							%th
+								monthly rent<span class="required">*</span>
+							%th
+					%tbody
+						%tr#new-other-income
+							%td
+								%input.other-residential-use.usage
+							%td
+								%input.other-residential-square-feet
+							%td
+								%input.other-residential-monthly-rent
+							%td
+								.add
+									<span class="add-other-income add-item"></span>
+				%table#commercial-income
+					%caption.income-table
+						commercial income
+					%colgroup
+						%col#commercial-use
+						%col#commercial-square-feet.square-footage
+						%col#commercial-monthly-rent.monthly-income
+						%col#destroy
+					%thead
+						%tr
+							%th
+								usage
+							%th
+								square feet
+							%th
+								monthly rent<span class="required">*</span>
+							%th
+					%tbody
+						%tr#new-commercial-income
+							%td
+								%input.commercial-use.usage
+							%td
+								%input.commercial-square-feet
+							%td
+								%input.commercial-monthly-rent
+							%td
+								.add
+									<span class="add-commercial-income add-item"></span>
+				%table#residential-parking-income.parking
+					%caption.income-table
+						residential parking income
+					%colgroup
+						%col#residential-parking-spaces
+						%col#residential-parking-indoor-or-outdoor
+						%col#residential-parking-total-square-feet.square-footage
+						%col#residential-parking-monthly-fee.monthly-income
+						%col#destroy
+					%thead
+						%tr
+							%th
+								spaces<span class="required">*</span>
+							%th
+					
+							%th
+								total square feet
+							%th
+								monthly fee<span class="required">*</span>
+							%th
+					%tbody
+						%tr#new-residential-parking-income
+							%td
+								%input.residential-parking-spaces
+							%td
+								%select.residential-parking-type
+									- ['indoor', 'outdoor'].each do |i|
+										%option{:value=>"#{i}"}=i
+							%td
+								%input.residential-parking-square-feet
+							%td
+								%input.residential-parking-monthly-fee
+							%td
+								.add
+									<span class="add-residential-parking-income add-item"></a>
+				%table#commercial-parking-income.parking
+					%caption.income-table
+						commercial parking income
+					%colgroup
+						%col#commercial-parking-spaces
+						%col#commercial-parking-indoor-or-outdoor
+						%col#commercial-parking-total-square-feet.square-footage
+						%col#commercial-parking-monthly-fee.monthly-income
+						%col#destroy
+					%thead
+						%tr
+							%th
+								spaces<span class="required">*</span>
+							%th
+					
+							%th
+								total square feet
+							%th
+								monthly fee<span class="required">*</span>
+							%th
+					%tbody
+						%tr#new-commercial-parking-income
+							%td
+								%input.commercial-parking-spaces
+							%td
+								%select.commercial-parking-type
+									- ['indoor', 'outdoor'].each do |i|
+										%option{:value=>"#{i}"}=i
+							%td
+								%input.commercial-parking-square-feet
+							%td
+								%input.commercial-parking-monthly-fee
+							%td
+								.add
+									<span class="add-commercial-parking-income add-item"></a>
+			#acquisition-costs
+			#gif
+				#fetching
+			#loan-results
 
 :coffeescript
 	$ ->
@@ -264,20 +266,19 @@
 		
 		TodoApp.Views.criteria = new TodoApp.CriteriaView attrs
 		
-		$("change div#income input, div#acquisition-costs input").change () ->
+		removeLoanDetails = () ->
 			TodoApp.Models.loanService.deleteLoanAmountAndCashRequirementFromLocalStorage()
 			TodoApp.Collections.criteria.destroyAll()
 		
-		window.someFuncForCreatingCriteria = (coll, resp) ->
-			coll.each (ele) -> coll.create(ele.attributes)
-			
-		window.someFuncForReportingCriteria = (coll, resp) ->
-			console.log "coll is array? " + (coll["line_a"]) #JSON.stringify(coll)
-			#_.each coll, (ele) ->
-			for ele in coll
-				console.log "ele " + JSON.stringify(ele)
-				#console.log("criterion "+ ele.criterion + ", loan amount " + ele.loanAmount)
-				#coll.create(ele)
+		$("div#income input, div#acquisition-costs input, div#elevator-status select, div#metropolitan-area select").change () ->
+			removeLoanDetails()
+			#TodoApp.Models.loanService.deleteLoanAmountAndCashRequirementFromLocalStorage()
+			#TodoApp.Collections.criteria.destroyAll()
+		
+		# stupid hack!
+		TodoApp.Models.affordability.bind "change", () ->
+			TodoApp.Views.criteria.removeCurrent()
+			removeLoanDetails()
 
 
 = render :partial => "templates/item_template"

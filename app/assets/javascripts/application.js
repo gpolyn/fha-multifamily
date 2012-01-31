@@ -11,7 +11,6 @@
 //= require underscore
 //= require backbone
 //= require autoNumeric-1.7.4
-//= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone.localStorage
 //= require backbone/fha2

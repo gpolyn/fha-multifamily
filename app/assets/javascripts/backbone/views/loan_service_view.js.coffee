@@ -41,7 +41,7 @@ class TodoApp.LoanServiceView extends Backbone.View
 					$('span#failure-msg').css("color", '#f11').delay(2500).fadeOut(1000).queue () -> 
 						$(this).remove()
 				500: (jqXHR, textStatus, errorThrown) ->
-					msgSpan = "<span id='failure-msg'>Service not responding, try later</span>"
+					msgSpan = "<span id='failure-msg'>Sorry, service not responding</span>"
 					$('div#submit-response-message-container').html msgSpan
 					$('span#failure-msg').css("color", '#f11').delay(2500).fadeOut(1000).queue () -> 
 						$(this).remove()

@@ -8,7 +8,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require handlebars
-// = require underscore
+//= require underscore
 //= require backbone
 //= require autoNumeric-1.7.4
 //= require backbone_rails_sync

@@ -1,6 +1,5 @@
 .column
-	%h1
-		API Access
+	= render :partial => "shared/inner_page_title", :locals=>{:title=>"API Access"}	
 	
 	%p
 		%b Your key, valid for #{@current_uses} successful requests:

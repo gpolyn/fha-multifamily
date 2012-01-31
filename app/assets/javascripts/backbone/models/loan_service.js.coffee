@@ -20,7 +20,7 @@ class TodoApp.LoanService extends Backbone.Model
 			loanCosts:        @attributes.loanCosts.toJSON()
 	
 	updateCriteriaUrl: ->
-		@attributes.criteria.url = "api/beta1/sec223f_" + if @isPurchase()
+		@attributes.criteria.url = "beta1/sec223f_" + if @isPurchase()
 			"acquisition.json?api_key=#{@attributes.loanSubmission.get('apiKey')}"
 		else
 			"refinance.json?api_key=#{@attributes.loanSubmission.get('apiKey')}"
@@ -147,6 +147,8 @@ class TodoApp.LoanService extends Backbone.Model
 		localStorage.getItem('loanAmount')
 	
 	toJSONforFetch: ->
+		console.log "toJSONforFetch elevator status: #{@attributes.elevatorStatus.toJSON().hasElevator}"
+		console.log "toJSONforFetch MSA: #{@attributes.metropolitanArea.toJSON().value}"
 		oper = @attributes.operating.toJSON()
 		lc = @attributes.loanCosts.toJSON()
 		ret =
@@ -163,8 +165,8 @@ class TodoApp.LoanService extends Backbone.Model
 			outdoor_residential_parking_square_feet: oper.spaceUtilization.residentialParkingIncomes.totalOutdoorSquareFeet if oper.spaceUtilization.residentialParkingIncomes?
 			indoor_residential_parking_square_feet: oper.spaceUtilization.residentialParkingIncomes.totalIndoorSquareFeet if oper.spaceUtilization.residentialParkingIncomes?
 			gross_residential_income: oper.operatingIncome.grossResidentialIncome
-			gross_commercial_income: oper.operatingIncome.grossCommercialIncome
-			commercial_occupancy_percent: oper.operatingIncome.commercialOccupancyPercent
+			# gross_commercial_income: oper.operatingIncome.grossCommercialIncome
+			# commercial_occupancy_percent: oper.operatingIncome.commercialOccupancyPercent
 			residential_occupancy_percent: oper.operatingIncome.residentialOccupancyPercent
 			operating_expenses: oper.operatingExpense.total
 			operating_expenses_is_percent_of_effective_gross_income: oper.operatingExpense.totalIsPercentOfEffectiveGrossIncome
@@ -185,6 +187,10 @@ class TodoApp.LoanService extends Backbone.Model
 			affordability: @attributes.affordability.toJSON().level
 			metropolitan_area_waiver: @attributes.metropolitanArea.toJSON().value
 			is_elevator_project: @attributes.elevatorStatus.toJSON().hasElevator
+		
+		if oper.operatingIncome.grossCommercialIncome > 0
+			ret.gross_commercial_income = oper.operatingIncome.grossCommercialIncome
+			ret.commercial_occupancy_percent = oper.operatingIncome.commercialOccupancyPercent
 			
 		if @isPurchase()
 			ret.purchase_price_of_project = lc.transactionAmount

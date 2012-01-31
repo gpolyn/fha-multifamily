@@ -1,8 +1,8 @@
 Fha2::Application.routes.draw do
   # root :to => "todos#index"
+  match 'api/fha_sec223f_demo' => 'todos#index'
   
   namespace :api do
-    match 'fha_sec223f_demo' => 'todos#index', :via => :get
     match 'fha_overview' => 'beta1/documentation#fha_overview', :via => :get
     namespace :beta1 do
       match 'sec223f_acquisition' => 'sec223f_acquisition#loan', :via => :post

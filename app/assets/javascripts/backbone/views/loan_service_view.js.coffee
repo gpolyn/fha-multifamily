@@ -11,7 +11,7 @@ class TodoApp.LoanServiceView extends Backbone.View
 		"click button#loan-submit" : "submitLoan"
 	
 	initialize: ->
-		@model.loanSubmission.bind 'change', @render
+		# @model.loanSubmission.bind 'change', @render
 		$("#acquisition-costs").append(@render().el)
 	
 	render: =>

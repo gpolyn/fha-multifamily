@@ -4,6 +4,10 @@ class TodoApp.ElevatorStatus extends TodoApp.SingletonLikeModel
 	
 	localStorage: @localStorage()
 	
+	defaults:
+	    "hasElevator":  false
+		
+	
 	validate: (attrs) ->
 		errors = []
 		

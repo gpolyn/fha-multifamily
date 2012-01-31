@@ -141,7 +141,8 @@ div.percent-of-loan-indicator {
 }
 
 div#loan-service {
-	height: 23px;
+	margin-top: 4px;
+	height: 26px;
 	padding: 2px 5px;
 }
 
@@ -171,7 +172,7 @@ div#transaction-amount-input {
 }
 
 label[for=transaction-amount] {
-	padding-right: 18px;
+	padding-right: 32px;
 }
 
 div#transaction-amount-type-selector {
@@ -382,7 +383,7 @@ div#affordability {
 }
 
 select#elevator-status {
-	margin-left: 15.85px;
+	margin-left: 29.5px;
 	width: 79px;
 }
 
@@ -406,4 +407,12 @@ div#api-key-container {
 
 div#api-key-container input {
 	width: 140px;
+}
+
+input#annual-replacement-reserves-per-unit {
+	float:left;
+}
+
+div.costs div {
+	height: 26px;
 }

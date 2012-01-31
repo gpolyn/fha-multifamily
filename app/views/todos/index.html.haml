@@ -3,9 +3,10 @@
 = javascript_include_tag "application"
 
 .column
+	= render :partial => "shared/inner_page_title", :locals=>{:title=>"FHA Sec. 223(f) refinance/purchase demo"}
 	#todoapp
-		.title
-			%h1 FHA: Sec. 223(f) refinance/purchase
+		/ .title
+		/ 	%h1 FHA: Sec. 223(f) refinance/purchase
 		.content
 			#income
 				%table#apartment-income
@@ -270,10 +271,10 @@
 			TodoApp.Models.loanService.deleteLoanAmountAndCashRequirementFromLocalStorage()
 			TodoApp.Collections.criteria.destroyAll()
 		
-		$("div#income input, div#acquisition-costs input, div#elevator-status select, div#metropolitan-area select").change () ->
+		eles = "div#income input, div#acquisition-costs input:not(#api-key), div#elevator-status select, div#metropolitan-area select"
+		
+		$(eles).change () ->
 			removeLoanDetails()
-			#TodoApp.Models.loanService.deleteLoanAmountAndCashRequirementFromLocalStorage()
-			#TodoApp.Collections.criteria.destroyAll()
 		
 		# stupid hack!
 		TodoApp.Models.affordability.bind "change", () ->

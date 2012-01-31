@@ -11,6 +11,18 @@
 	border: solid 1px #C66;
 }
 
+div#site_title {
+	margin: auto;
+	font: small-caps 46px "Times New Roman", serif;
+	text-align: center;
+}
+
+span#site_title {
+	font-size: 150%;
+	position:relative;
+	bottom: 5.5px;
+}
+
 #api_key {
 	float: left;
 	margin: auto;
@@ -20,4 +32,12 @@
     -webkit-border-radius: 10px;
     font-weight: bold;
 	border: solid 1px #C66;
+}
+
+#inner_page_title h1 {
+  font-size: 28px;
+  line-height: 42px;
+  text-align: left;
+  margin: 0 0 21px 0;
+  text-shadow: #ccc 1px 1px 0;
 }

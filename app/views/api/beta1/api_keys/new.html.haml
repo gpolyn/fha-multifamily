@@ -1,14 +1,13 @@
 .column
-	%h1
-		API Access: Get a key
-	
+
+	= render :partial => "shared/inner_page_title", :locals=>{:title=>"API Access: Get a key"}	
 	-if flash[:error]
 		.flash.flash_error#captcha
 			#{flash[:error]} 
 	%p
-		A key is worth #{@current_uses} successful API requests.
+		A key is valid for #{@current_uses} successful API requests.
 	%p
-		Please note that during the current API beta phase, keys may be invalidated without warning.
+		Note that during the current API beta phase, keys may be invalidated without warning.
 
 	%form{:action=> "/api/beta1/api_keys", :method => "post"}
 

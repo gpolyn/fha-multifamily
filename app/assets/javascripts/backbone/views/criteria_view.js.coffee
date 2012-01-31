@@ -33,7 +33,7 @@ class TodoApp.CriteriaView extends Backbone.View
 	template: TodoApp.template '#criteria-template'
 	
 	events:
-		"change div#income input, div#acquisition-costs:not(#loan-service) input, div#elevator-status select" : "removeCurrent"
+		"change div#income input, div#acquisition-costs input:not(#api-key), div#elevator-status select" : "removeCurrent"
 		"change div#metropolitan-area select" : "removeCurrent"
 		"change div#affordability input" : "changeOMeter"
 
@@ -69,6 +69,7 @@ class TodoApp.CriteriaView extends Backbone.View
 		@collection.each @addOne
 		
 	removeCurrent: =>
+		console.log "inside removeCurrent"
 		$('div.loan-criterion').remove()
 		$('div#loan-result-summary').remove()
 	

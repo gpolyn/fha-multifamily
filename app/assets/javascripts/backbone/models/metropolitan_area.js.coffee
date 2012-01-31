@@ -1,5 +1,8 @@
 class TodoApp.MetropolitanArea extends TodoApp.SingletonLikeModel
 	
+	defaults:
+	    "value":  "no waiver"
+	
 	@list: ->
 		ret = new Array()
 		ret.push "no waiver"

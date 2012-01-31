@@ -13,7 +13,7 @@ class Api::ApplicationController < ApplicationController
     handle_missing_api_key and return unless params[:api_key]
   
     self.api_key = ApiKey.find_by_value params[:api_key]
-    handle_invalid_api_key and return unless api_key && api_key.valid?
+    handle_invalid_api_key and return unless api_key && api_key.valid? #&& api_key.would_exceed_maximum_uses
     
     rescue Exception
       # log
@@ -28,10 +28,12 @@ class Api::ApplicationController < ApplicationController
       
     set_api_key_uses_remaining_header api_key.get_uses_remaining_and_increment_times_used_by_1
     
-    if api_key.save
+    if api_key.uses_remaining == 0
+      api_key.destroy
+    elsif api_key.save
       set_api_key_uses_remaining_header api_key.uses_remaining
     else
-      # log...
+      # log, shithead
     end
   end
   

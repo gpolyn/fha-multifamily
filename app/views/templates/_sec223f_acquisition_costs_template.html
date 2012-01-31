@@ -21,6 +21,11 @@
 				<label for="loan-request">loan request<span class="required">*</span></label>
 				<input id="loan-request" class="required" value={{loanRequest}}>
 			</div>
+			<div id="annual-replacement-reserves-per-unit">
+				<label for="annual-replacement-reserves-per-unit">
+					annual replacement reserves per unit<span class="required">*</span>
+				</label>
+			</div>
 		</div>
 		<div class="costs-right costs">
 			<div>
@@ -31,15 +36,11 @@
 				<label for="value">project value</label>
 				<input id="value" class="optional" value={{value}}>
 			</div>
+			<div>
+				<input id="annual-replacement-reserves-per-unit" class="optional" value={{annualReplacementReservesPerUnit}}>
+			</div>
 		</div>
 	</div>
-	<div id="annual-replacement-reserves-per-unit-container">
-		<label for="annual-replacement-reserves-per-unit">
-			annual replacement reserves per unit<span class="required">*</span>
-		</label>
-		<input id="annual-replacement-reserves-per-unit" class="optional" value={{annualReplacementReservesPerUnit}}>
-	</div>
-	
 	<div class="costs-left costs">
 		<div>
 			<label for="land-value">land value</label>

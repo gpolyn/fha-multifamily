@@ -1,13 +1,12 @@
 .column
-	%h1
-		Welcome...
+	= render :partial => "shared/inner_page_title", :locals=>{:title=>"Welcome!"}
 	
 	-if flash[:notice]
-		.flash.flash_notice
+		.flash.flash_error
 			#{flash[:notice]}
 	%p
-		<b><i>sizemymultifamilyloan.com</i></b> will provide next generation of online tools for the financing and economic analysis of multifamily and senior healthcare commercial real estate.
+		<b><i>sizemymultifamilyloan.com</i></b> will provide next-generation online tools for the financing and economic analysis of multifamily and senior healthcare commercial real estate.
 	%p
-		The site is currently in beta mode and effectively has no terms of service: use at your own risk!
+		The site is currently in beta mode and has no terms of service &#151; use at your own risk!
 	%p
-		The first capital source family offered is FHA. How about <a href="/api/fha_overview">getting started there</a>?
+		The first capital source family offered is FHA, so how about <a href="/api/fha_overview">getting started there</a>?

@@ -76,7 +76,7 @@ group :development, :test do
   # gem 'guard-coffeescript'
   # gem 'guard-livereload'
   # gem 'jasminerice'
-  gem 'jasmine', '1.1.2' #:path=>"vendor/gems/jasmine-gem"
+  # gem 'jasmine', '1.1.2' #:path=>"vendor/gems/jasmine-gem"
   gem 'rails-backbone'
 end
 

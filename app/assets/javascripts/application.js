@@ -10,7 +10,6 @@
 //= require handlebars
 //= require underscore
 //= require backbone
-//= require autoNumeric-1.7.4
 //= require backbone.localStorage
 //= require backbone/fha2
 //= require_tree .

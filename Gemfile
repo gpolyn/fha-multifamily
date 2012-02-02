@@ -11,6 +11,8 @@ gem 'pg'
 # gem 'jruby-openssl'
 gem 'json'
 
+gem 'thin'
+
 gem 'criteria_7_and_10', '0.0.1', :path=>"vendor/gems/criteria_7_and_10-0.0.1"
 gem 'criterion_10', '0.0.1', :path=>"vendor/gems/criterion_10-0.0.1"
 gem 'criterion_11', '0.0.1', :path=>"vendor/gems/criterion_11-0.0.1"

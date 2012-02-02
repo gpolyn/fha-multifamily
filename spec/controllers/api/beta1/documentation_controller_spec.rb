@@ -27,17 +27,3 @@ describe Api::Beta1::DocumentationController, "#sec223f_acquisition" do
     end
   end
 end
-
-describe Api::Beta1::DocumentationController, "#sec223f" do
-  it "should have expected route", :type=>:routing do
-    assert_routing({:path=>"api/beta1/documentation/sec223f", :method =>:get}, 
-                   {:controller=>"api/beta1/documentation", :action =>"sec223f"})
-  end
-  
-  describe "success" do
-    it "should be a success" do
-      get :sec223f
-      response.should be_success
-    end
-  end
-end

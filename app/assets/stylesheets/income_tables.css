@@ -301,7 +301,11 @@ table#other-residential-income tbody .editing input {
 }
 
 table#other-residential-income tbody tr:first-child {
-	height: 24.5px;
+	height: 20px;
+}
+
+table#other-residential-income tbody tr#new-other-income input {
+	width: 96.5%;
 }
 
 table.parking th:nth-child(2) {

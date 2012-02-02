@@ -76,9 +76,9 @@ class TodoApp.ApartmentIncomeView extends Backbone.View
 	# Switch this view into `"editing"` mode, displaying the input field.
 	edit: (e) ->
 		console?.log "ApartmentIncomeView edit"
-		# console.log("ApartmentIncomeView: edit in #{e.target.parentNode.className}")
-		# console.log("ApartmentIncomeView: edit in #{e.target.parentNode.className}")
-		# console.log("ApartmentIncomeView: and edit in #{e.target.className}")
+		# console?.log("ApartmentIncomeView: edit in #{e.target.parentNode.className}")
+		# console?.log("ApartmentIncomeView: edit in #{e.target.parentNode.className}")
+		# console?.log("ApartmentIncomeView: and edit in #{e.target.className}")
 		$(@el).addClass "editing"
 		
 		switch e.target.parentNode.className
@@ -91,14 +91,14 @@ class TodoApp.ApartmentIncomeView extends Backbone.View
 	# abortive attempt at metaprogramming
 	# for k, v of ['get', 'set']
 	# 	do (k, v) ->
-	# 		console.log('creating method: ' + v)
+	# 		console?.log('creating method: ' + v)
 	# 		TodoApp.ApartmentIncomeView::[v] = ->
 	# 			method = 
-	# 			console.log('executing method: ' + method)
+	# 			console?.log('executing method: ' + method)
 	
   # Close the `"editing"` mode, saving changes to the todo.
 	close: () =>
-		console.log("ApartmentIncomeView close")
+		console?.log("ApartmentIncomeView close")
 		@model.save @readAttributes(), {error: => @render()}
 		$(@el).removeClass "editing"
 	
@@ -108,7 +108,7 @@ class TodoApp.ApartmentIncomeView extends Backbone.View
 	
   # Destroy the model.
 	destroy: ->
-		console.log "ApartmentIncomeView: destroy"
+		console?.log "ApartmentIncomeView: destroy"
 		@model.destroy()
 	
 	readAttributes: ->

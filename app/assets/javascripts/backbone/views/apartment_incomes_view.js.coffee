@@ -61,8 +61,8 @@ class TodoApp.ApartmentIncomesView extends Backbone.View
 	# 	@input.val '' # need to get
 
 	createOnClick: ->
-		console.log "createOnClick"
-		# console.log "newAttributes is #{@newAttributes()}"
+		console?.log "createOnClick"
+		# console?.log "newAttributes is #{@newAttributes()}"
 		@collection.create @newAttributes()
 		@selectBedrooms.val '0'
 		@inputUnits.val ''
@@ -123,8 +123,8 @@ class TodoApp.ParkingIncomesView extends Backbone.View
 	# 	@input.val '' # need to get
 
 	createOnClick: ->
-		# console.log "CommercialParkingIncomeView createOnClick"
-		# console.log "newAttributes square feet is #{@newAttributes().squareFeet}"
+		# console?.log "CommercialParkingIncomeView createOnClick"
+		# console?.log "newAttributes square feet is #{@newAttributes().squareFeet}"
 		@collection.create @newAttributes()
 		@outdoorOrIndoorSelector().val 'indoor'
 		@spacesInput().val ''
@@ -214,8 +214,8 @@ class TodoApp.SimpleIncomesView extends Backbone.View
 		squareFeet:       sf unless isNaN(sf)
 	
 	createOnClick: ->
-		# console.log "CommercialParkingIncomeView createOnClick"
-		# console.log "newAttributes square feet is #{@newAttributes().squareFeet}"
+		# console?.log "CommercialParkingIncomeView createOnClick"
+		# console?.log "newAttributes square feet is #{@newAttributes().squareFeet}"
 		@collection.create @newAttributes()
 		@usageInput().val ''
 		@squareFeetInput().val ''

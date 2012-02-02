@@ -24,7 +24,7 @@ class TodoApp.SimpleIncomeView extends Backbone.View
 			else @inputSquareFeet.focus() if e.target.className is 'square-feet' # ...
 
 	close: () =>
-		console.log("SimpleIncomeView close, where usage is #{@readAttributes().usage}")
+		console?.log("SimpleIncomeView close, where usage is #{@readAttributes().usage}")
 		@model.save @readAttributes(), {error: => @render()}
 		$(@el).removeClass "editing"
 	
@@ -32,7 +32,7 @@ class TodoApp.SimpleIncomeView extends Backbone.View
 		@close() if e.keyCode == 13
 
 	destroy: ->
-		# console.log "ApartmentIncomeView: destroy"
+		# console?.log "ApartmentIncomeView: destroy"
 		@model.destroy()
 	
 	

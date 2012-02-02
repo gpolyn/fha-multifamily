@@ -69,7 +69,7 @@ class TodoApp.CriteriaView extends Backbone.View
 		@collection.each @addOne
 		
 	removeCurrent: =>
-		console.log "inside removeCurrent"
+		console?.log "inside removeCurrent"
 		$('div.loan-criterion').remove()
 		$('div#loan-result-summary').remove()
 	
@@ -77,11 +77,11 @@ class TodoApp.CriteriaView extends Backbone.View
 		@loanService = loanSvc
 		
 	renderConclusions: =>
-		console.log "renderConclusions"
+		console?.log "renderConclusions"
 		@$('#loan-results').html @template
 			loanAmount:      TodoApp.dollarFormattingZeroPlaces @options.loanService.getLoanAmountFromLocalStorage() 
 			cashRequirement: TodoApp.dollarFormattingZeroPlaces @options.loanService.getCashRequirementFromLocalStorage()
 	
 	changeOMeter: =>
-		console.log "change detected from within criteria view"
+		console?.log "change detected from within criteria view"
 	

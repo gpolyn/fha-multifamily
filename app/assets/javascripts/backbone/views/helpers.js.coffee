@@ -7,7 +7,7 @@ TodoApp.template = (selector) ->
 
 Handlebars.registerHelper 'debug', (ctx) ->
   context = typeof ctx == "function" ? ctx.call this : ctx
-  console.log context
+  console?.log context
 
 
 Handlebars.registerHelper 'pluralize', (count, word, fn) ->

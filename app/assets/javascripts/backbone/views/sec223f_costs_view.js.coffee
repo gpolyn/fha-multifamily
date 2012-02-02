@@ -27,7 +27,7 @@ class TodoApp.Sec223fCostsView extends Backbone.View
 		# @delegateEvents events
 	
 	render: =>
-		console.log "inside render"
+		console?.log "inside render"
 		$(@el).html @template @model.toJSON() # this won't matter in this case (?)
 		@setContent()
 		@
@@ -66,7 +66,7 @@ class TodoApp.Sec223fCostsView extends Backbone.View
 	# 	@$('input').not('.required').attr('disabled', @optionalFieldsAreDisabled)
 	
 	updateValueRequirement: ->
-		console.log "inside update value requirement"
+		console?.log "inside update value requirement"
 		if @$('input[name=purchase-or-debt]:checked', '#transaction-amount-type-selector').val() == "debt"
 			@$('input#value').removeClass "optional"
 			@$('input#value').addClass "required"

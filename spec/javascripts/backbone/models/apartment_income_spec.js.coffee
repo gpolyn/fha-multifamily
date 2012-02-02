@@ -123,11 +123,11 @@ describe "ApartmentIncome", ->
 				errorMsg = "Monthly apartment rent must be greater than $0"
 
 			it "must be a number greater than 0", ->
-				console.log("testing: must be a number greater than 0")
+				console?.log("testing: must be a number greater than 0")
 				validAttrs.monthlyRent = 0
 
 			it "cannot be blank", ->
-				console.log("testing: cannot be blank")
+				console?.log("testing: cannot be blank")
 				validAttrs.monthlyRent = null
 
 		describe "bedrooms", ->

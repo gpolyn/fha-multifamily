@@ -26,7 +26,7 @@ describe "TodoView", ->
 		# expect(model.get("content")).toEqual(todoValue)
 	
 	it "should remove item from dom", ->
-		console.log("test: should remove item from dom")
+		console?.log("test: should remove item from dom")
 		$("ul#todo-list").append(view.render().el)
 		li = $('ul#todo-list li:first')
 		# spy = sinon.spy(model, 'get')

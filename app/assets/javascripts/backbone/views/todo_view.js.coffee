@@ -26,7 +26,7 @@ class TodoApp.TodoView extends Backbone.View
 
   # Re-render the contents of the todo item.
   render: ->
-    console.log("TodoView: render")
+    console?.log("TodoView: render")
     $(@el).html @template @model.toJSON()
     @setContent()
     this
@@ -46,13 +46,13 @@ class TodoApp.TodoView extends Backbone.View
 
   # Switch this view into `"editing"` mode, displaying the input field.
   edit: ->
-    console.log("TodoView: edit")
+    console?.log("TodoView: edit")
     $(@el).addClass "editing"
     @input.focus()
 
   # Close the `"editing"` mode, saving changes to the todo.
   close: ->
-    console.log("TodoView: close")
+    console?.log("TodoView: close")
     @model.save content: @input.val()
     $(@el).removeClass "editing"
 
@@ -62,7 +62,7 @@ class TodoApp.TodoView extends Backbone.View
 
   # Destroy the model.
   destroy: ->
-    console.log("TodoView: destroy")
+    console?.log("TodoView: destroy")
     @model.destroy()
 
 

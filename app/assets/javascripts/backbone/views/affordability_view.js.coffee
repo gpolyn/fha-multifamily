@@ -23,7 +23,7 @@ class TodoApp.AffordabilityView extends Backbone.View
 		@
 	
 	save: ->
-		console.log "AffordabilityView testing"
+		console?.log "AffordabilityView testing"
 		@model.save @readAttributes()
 	
 	setContent: ->

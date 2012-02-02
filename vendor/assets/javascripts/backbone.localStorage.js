@@ -29,14 +29,12 @@ _.extend(Store.prototype, {
 
   // Save the current state of the **Store** to *localStorage*.
   save: function() {
-	console.log("localStorage save...")
     localStorage.setItem(this.name, this.records.join(","));
   },
 
   // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
   // have an id of it's own.
   create: function(model) {
-	console.log("localStorage create...")
     if (!model.id) model.id = model.attributes.id = guid();
     localStorage.setItem(this.name+"-"+model.id, JSON.stringify(model));
     this.records.push(model.id.toString());
@@ -46,7 +44,6 @@ _.extend(Store.prototype, {
 
   // Update a model by replacing its copy in `this.data`.
   update: function(model) {
-	console.log("localStorage update...")
     localStorage.setItem(this.name+"-"+model.id, JSON.stringify(model));
     if (!_.include(this.records, model.id.toString())) this.records.push(model.id.toString()); this.save();
     return model;
@@ -86,8 +83,7 @@ Backbone.localSync = function(method, model, options, error) {
 
   var resp;
   var store = model.localStorage || model.collection.localStorage;
-  console.log("localStorage localSync method is "+method)
-  // if model {console.log("model id is"+model.id)}
+
   switch (method) {
     case "read":    resp = model.id != undefined ? store.find(model) : store.findAll(); break;
     case "create":  resp = store.create(model);                            break;

@@ -70,7 +70,7 @@ class TodoApp.LoanService extends Backbone.Model
 		model = @
 		
 		options.success = (resp) ->
-			console.log "success is #{JSON.stringify(resp)}"
+			console?.log "success is #{JSON.stringify(resp)}"
 			
 			model.saveCashRequirementToLocalStorage resp.total_estimated_cash_requirement
 			model.saveLoanAmountToLocalStorage resp.loan.maximum_insurable_mortgage
@@ -147,8 +147,8 @@ class TodoApp.LoanService extends Backbone.Model
 		localStorage.getItem('loanAmount')
 	
 	toJSONforFetch: ->
-		console.log "toJSONforFetch elevator status: #{@attributes.elevatorStatus.toJSON().hasElevator}"
-		console.log "toJSONforFetch MSA: #{@attributes.metropolitanArea.toJSON().value}"
+		console?.log "toJSONforFetch elevator status: #{@attributes.elevatorStatus.toJSON().hasElevator}"
+		console?.log "toJSONforFetch MSA: #{@attributes.metropolitanArea.toJSON().value}"
 		oper = @attributes.operating.toJSON()
 		lc = @attributes.loanCosts.toJSON()
 		ret =

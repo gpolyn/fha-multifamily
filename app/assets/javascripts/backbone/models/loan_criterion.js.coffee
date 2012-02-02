@@ -6,7 +6,7 @@ class TodoApp.LoanCriterion extends Backbone.Model
 			errors.push "Loan amount must be greater than or equal to 0"
 		if [1, 3, 4, 5, 7, 10, 11].indexOf(parseInt(attrs.criterion)) is -1
 			errors.push "Criterion must be one of 1, 3, 4, 5, 7, 10 or 11"
-		# console.log "validating criterion and errors are #{errors.length}...#{errors[0]}"
+		# console?.log "validating criterion and errors are #{errors.length}...#{errors[0]}"
 		errors if errors.length > 0
 	
 class TodoApp.LoanCriteria extends Backbone.Collection
@@ -30,16 +30,16 @@ class TodoApp.LoanCriteria extends Backbone.Collection
 	
 	parse: (res) ->
 		ret_arr = []
-		console.log "res is #{JSON.stringify(res)}"
+		console?.log "res is #{JSON.stringify(res)}"
 		_.each res, (ele) ->
 			ret_arr.push {loanAmount: ele.loanAmount, criterion: ele.criterion, id: ele.id} if ele.criterion?
 		ret_arr
 	
 	plarse: (res) ->
 		ret_arr = []
-		console.log "res is #{JSON.stringify(res)}"
+		console?.log "res is #{JSON.stringify(res)}"
 		_.each [1,3,4,5,7,10,11], (critNo) ->
-			console.log "criterion is #{critNo}"
+			console?.log "criterion is #{critNo}"
 			loanAmount = null
 			
 			if res.loan["criterion_#{critNo}"]?
@@ -71,7 +71,7 @@ class TodoApp.LoanCriteria extends Backbone.Collection
 		success = options.success
 		options.success = (resp) ->
 			collection[if options.add then 'add' else 'refresh'](collection.parse(resp), options)
-			console.log "collection from succes is #{JSON.stringify(collection[0])}"
+			console?.log "collection from succes is #{JSON.stringify(collection[0])}"
 			success(collection, resp) if (success)
 
 		error = options.error

@@ -61,7 +61,7 @@ class TodoApp.OperatingExpenseView extends Backbone.View
 		@close()
 	
 	close: () =>
-		console.log("OperatingExpenseView close")
+		console?.log("OperatingExpenseView close")
 		@model.save @readAttributes(), {error: => @render()}
 	
 	updateOnEnter: (e) ->

@@ -95,7 +95,7 @@ class TodoApp.Sec223fAcquisitionCosts extends TodoApp.Sec223fCosts
 				@ifGivenThenIsANonNegativeNumber errors, attrs.titleAndRecording, "Title and recording"
 		
 		for err in errors
-			console.log "loan cost error #{err}, "
+			console?.log "loan cost error #{err}, "
 		errors if errors.length > 0
 	
 	toJSON: ->

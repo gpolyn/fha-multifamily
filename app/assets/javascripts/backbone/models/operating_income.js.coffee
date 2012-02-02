@@ -57,7 +57,7 @@ class TodoApp.OperatingIncome extends Backbone.Model
 	maybeTriggerResizeLoan: ->
 		unless @apartmentIncomes.isEmpty()
 			if @validate(@attributes) is undefined
-				# console.log "OperatingIncome about to trigger resizeLoan"
+				# console?.log "OperatingIncome about to trigger resizeLoan"
 				@trigger "resizeLoan"
 	
 	maybeTriggerResizeLoanButThenTriggerChange: ->
@@ -100,7 +100,7 @@ class TodoApp.OperatingIncome extends Backbone.Model
 			errArr.push "#{attrLabel} must be greater than or equal to 0" if attr < 0
 			errArr.push "#{attrLabel} must be less than 100" unless attr < 100
 		else
-			console.log "problem with occupancy percent not being number: #{attr}"
+			console?.log "problem with occupancy percent not being number: #{attr}"
 			errArr.push "#{attrLabel} must be greater than or equal to 0"
 		attr
 	

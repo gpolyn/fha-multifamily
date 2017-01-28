@@ -3,8 +3,8 @@ production:
   encoding: unicode
   database: fha2_production
   pool: 5
-  username: gallagher
-  password:
+  username: vagrant
+  password: vagrant
         
 development:
   adapter: postgresql

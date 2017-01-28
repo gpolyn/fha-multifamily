@@ -11,16 +11,16 @@ development:
   encoding: unicode
   database: fha2_development
   pool: 5
-  username: gallagher
-  password:
+  username: vagrant
+  password: vagrant
       
 test: &test
   adapter: postgresql
   encoding: unicode
   database: fha2_test
   pool: 5
-  username: gallagher
-  password:
+  username: vagrant
+  password: vagrant
 
 cucumber:
   <<: *test

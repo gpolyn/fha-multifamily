@@ -3,24 +3,24 @@ production:
   encoding: unicode
   database: fha2_production
   pool: 5
-  username: vagrant
-  password: vagrant
+  username: postgres
+  password:
         
 development:
   adapter: postgresql
   encoding: unicode
   database: fha2_development
   pool: 5
-  username: vagrant
-  password: vagrant
+  username: postgres
+  password:
       
 test: &test
   adapter: postgresql
   encoding: unicode
   database: fha2_test
   pool: 5
-  username: vagrant
-  password: vagrant
+  username: postgres
+  password:
 
 cucumber:
   <<: *test
